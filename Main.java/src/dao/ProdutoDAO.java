@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import model.Produto;
 
 public class ProdutoDAO {
@@ -101,5 +102,58 @@ public class ProdutoDAO {
         statement.executeUpdate();
         statement.close();
     }
+    
+    public ArrayList<Produto> buscarProdutoPorCategoria(String nomeProduto) throws SQLException {
+        String sql = "select * from produtos where lower(fk_nome_categoria) like ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, "%" + nomeProduto.toLowerCase() + "%");
+        ResultSet resultSet = statement.executeQuery();
+        // Cria uma lisa com varios produtos
+        ArrayList<Produto> produtos = new ArrayList<>();
+
+        // Itera sobre os resultados da consulta e adiciona os produtos a lista
+        while (resultSet.next()) {
+            String nome = resultSet.getString("nome");
+            String descricao = resultSet.getString("descricao");
+            float preco = resultSet.getFloat("preco");
+            String unidade = resultSet.getString("unidade");
+            int quantidade = resultSet.getInt("quantidade");
+            String categoria = resultSet.getString("fk_nome_categoria");
+
+            // Cria o produto com base nas váriaveis 
+            Produto produto = new Produto(nome, categoria, descricao, quantidade, unidade, preco);
+            // Adiciona o produto criado na lista produto
+            produtos.add(produto);
+        }
+
+        // Fecha as conexões com o banco de dados
+        resultSet.close();
+        statement.close();
+
+        return produtos;
+    }
+    
+    public List<String> readCategorias() throws SQLException{
+        String sql = "SELECT nome_categoria FROM categoria";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        ResultSet resultSet = statement.executeQuery();
+        
+        List<String> categorias = new ArrayList<>();
+
+        while (resultSet.next()) {
+            String categoria = resultSet.getString("nome_categoria");
+
+            categorias.add(categoria);
+        }
+        resultSet.close();
+        statement.close();
+
+        return categorias;
+    }
+    
 
 }

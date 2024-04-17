@@ -9,19 +9,26 @@ import dao.UsuarioDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Produto;
+import view.ProdutoPane;
 import view.VendaPane;
 
 public class ProdutoController {
 
     private VendaPane view;
+    private ProdutoPane viewProdutoPane;
 
     public ProdutoController(VendaPane view) {
         this.view = view;
+    }
+
+    public ProdutoController(ProdutoPane viewProdutoPane) {
+        this.viewProdutoPane = viewProdutoPane;
     }
 
     public void readTabelaProduto() throws SQLException {
@@ -313,6 +320,83 @@ public class ProdutoController {
         JTextField campoValorTotal = new JTextField();
         campoValorTotal.setText("");
         view.setCampoValorTotal(campoValorTotal);
+    }
+
+    public void readTabelaProdutoPane() throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) viewProdutoPane.getTabelaProduto().getModel();
+        modelo.setNumRows(0);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        viewProdutoPane.getTabelaProduto().setRowSorter(sorter);
+
+        // Adiciona os produtos à lista
+        for (Produto produto : new ProdutoDAO().readProduto()) {
+            // Verifica se a quantidade do produto é maior que 0
+            if (produto.getQuantidade() > 0) {
+                modelo.addRow(new Object[]{
+                    produto.getNome(),
+                    produto.getCategoria(),
+                    produto.getDescricao(),
+                    produto.getQuantidade(),
+                    produto.getUnidade(),
+                    produto.getPreco()
+                });
+            }
+        }
+    }
+
+    public void buscarProdutoPane(String nomeProduto) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) viewProdutoPane.getTabelaProduto().getModel();
+        modelo.setNumRows(0);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        viewProdutoPane.getTabelaProduto().setRowSorter(sorter);
+
+        // Chama o método buscarProduto em ProdutoDAO
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        for (Produto produto : produtoDAO.buscarProduto(nomeProduto)) {
+            if (produto.getQuantidade() > 0) {
+                Object[] data = {
+                    produto.getNome(),
+                    produto.getCategoria(),
+                    produto.getDescricao(),
+                    produto.getQuantidade(),
+                    produto.getUnidade(),
+                    produto.getPreco()
+                };
+                modelo.addRow(data);
+            }
+        }
+    }
+
+    public void buscarPorCategoria(String nomeProduto) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) viewProdutoPane.getTabelaProduto().getModel();
+        modelo.setNumRows(0);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        viewProdutoPane.getTabelaProduto().setRowSorter(sorter);
+
+        // Chama o método buscarProduto em ProdutoDAO
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        for (Produto produto : produtoDAO.buscarProdutoPorCategoria(nomeProduto)) {
+            if (produto.getQuantidade() > 0) {
+                Object[] data = {
+                    produto.getNome(),
+                    produto.getCategoria(),
+                    produto.getDescricao(),
+                    produto.getQuantidade(),
+                    produto.getUnidade(),
+                    produto.getPreco()
+                };
+                modelo.addRow(data);
+            }
+        }
+    }
+
+    public void readCategorias() throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        List<String> categorias = produtoDAO.readCategorias();;
+        viewProdutoPane.getComboBoxCategoria().removeAllItems();
+        for (String categoria : categorias) {
+            viewProdutoPane.getComboBoxCategoria().addItem(categoria);
+        }
     }
 
 }

@@ -14,7 +14,6 @@ public class VendaPane extends javax.swing.JPanel {
 
     private final ProdutoController controller;
     private String cpf;
-    TextoController textoController = new TextoController();
 
     public VendaPane() {
         initComponents();
