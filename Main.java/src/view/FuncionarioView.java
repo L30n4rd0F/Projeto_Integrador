@@ -26,7 +26,7 @@ public class FuncionarioView extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setExtendedState(AdmView.MAXIMIZED_BOTH);//resolução do monitor
+        //this.setExtendedState(AdmView.MAXIMIZED_BOTH);//resolução do monitor
         
         MainPane.add(usuarioPane);
         MainPane.add(menuPrincipal);

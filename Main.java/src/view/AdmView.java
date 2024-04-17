@@ -27,7 +27,7 @@ public class AdmView extends javax.swing.JFrame {
       
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setExtendedState(AdmView.MAXIMIZED_BOTH);//resolução do monitor
+        //this.setExtendedState(AdmView.MAXIMIZED_BOTH);//resolução do monitor
         
         MainPane.add(usuarioPane);
         MainPane.add(menuPrincipal);
@@ -63,6 +63,7 @@ public class AdmView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(null);
@@ -135,7 +136,6 @@ public class AdmView extends javax.swing.JFrame {
 
         MainPane.setMaximumSize(new java.awt.Dimension(1570, 930));
         MainPane.setMinimumSize(new java.awt.Dimension(1570, 930));
-        MainPane.setPreferredSize(new java.awt.Dimension(1570, 930));
         MainPane.setLayout(new java.awt.CardLayout());
         getContentPane().add(MainPane);
         MainPane.setBounds(295, 40, 1570, 930);
