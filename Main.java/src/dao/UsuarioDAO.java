@@ -58,6 +58,41 @@ public class UsuarioDAO {
         statement.execute();
         
     }
+    
+    //Verifica se o usuário possui um endereço
+    public boolean possuiEndereco(int id) throws SQLException{
+        int id_endereco = 0;
+        String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+            id_endereco = resultSet.getInt("fk_id_endereco"); 
+            
+        }
+        return id_endereco>0;
+    }
+    
+    //Retorna o id do endereco com base no id do usuário
+    public int selectIdEndereco(int id_usuario) throws SQLException{
+        int id_endereco = 0;
+        String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_usuario);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+            id_endereco = resultSet.getInt("fk_id_endereco");
+        }
+        return id_endereco;
+    }
 
     public void update(Usuario usuario) throws SQLException {
         String sql = "update usuario set nome = ?, cpf = ?, senha = ?, telefone = ?, admin = ? where cpf = ?";

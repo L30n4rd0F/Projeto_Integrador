@@ -34,18 +34,28 @@ public class UsuarioController extends EnderecoController {
     //Remove o usuário selecionado na tabela
     public void removerUsuario() throws SQLException {
 
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o usuario " + view.getCampoPesquisaNome().getText(), "Alerta", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o usuario " + view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 1), "Alerta", JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
-            int id = Integer.parseInt(view.getCampoPesquisaId().getText());
-
+            int id = Integer.parseInt(view.getCampoPesquisaId().getText());//Pega o id do usuario que esta no campo de pesquisa bloqueado
+            
             Usuario usuarioParaRemover = new Usuario(id);
 
             //Realiza a conexao
             Connection conexao = new Conexao().getConnection();
             UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
+           
+            //Se o usuário possui endereço ele entra e realiza o delete do usuario e do endereço
+            if(usuarioDao.possuiEndereco(id)){
+                int id_endereco = usuarioDao.selectIdEndereco(id);//Pega o id do endereço
+                usuarioDao.delete(usuarioParaRemover); // Chama função para deletar usuário
+                removerEnderecoComId(id_endereco);//Remove o endereço com o id do endereço
+            }
+            //Caso contrário apenas deleta o usuário
+            else{
+                usuarioDao.delete(usuarioParaRemover); // Chama função para deletar usuário
+            }
 
-            usuarioDao.delete(usuarioParaRemover); // Chama função para deletar usuário
             readTabelaUsuario(); // Releitura da tabela
             apagarCampos(); // Apaga os campos de pesquisa
             JOptionPane.showMessageDialog(null, "Usuario foi removido com sucesso!", "sucesso", JOptionPane.INFORMATION_MESSAGE);

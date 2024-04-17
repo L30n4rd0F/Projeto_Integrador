@@ -267,5 +267,16 @@ public class EnderecoController {
             id_endereco = enderecoDao.insertEndereco(endereco.getComplemento(), numero, id_logradouro);
         }
         return id_endereco;
-    }   
+    }
+    
+    //Função para remover o endereço com seu id
+    public void removerEnderecoComId(int id) throws SQLException{
+        
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
+        
+        enderecoDao.deleteEndereco(id);
+    }
+    
 }

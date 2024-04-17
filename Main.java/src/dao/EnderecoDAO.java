@@ -44,6 +44,15 @@ public class EnderecoDAO {
         
         return id_endereco;
     }
+    
+    public void deleteEndereco(int id) throws SQLException{
+        String sql = "DELETE FROM endereco WHERE id_endereco = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+    }
       
     
     //Le a tabela de estados no BD
