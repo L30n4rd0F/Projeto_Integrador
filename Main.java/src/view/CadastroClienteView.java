@@ -465,6 +465,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void BotaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroActionPerformed
         try {
             controller.realizarCadastro(BotaoRadioEndereco.isSelected());
+            controller.readTabelaCliente();
         } catch (SQLException ex) {
             Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }    

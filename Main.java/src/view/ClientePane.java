@@ -5,6 +5,11 @@
 package view;
 
 import controller.ClienteController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,6 +23,12 @@ public class ClientePane extends javax.swing.JPanel {
     public ClientePane() {
         initComponents();
         controller = new ClienteController(viewCadastro, this);
+        
+        try {
+            controller.readTabelaCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientePane.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -66,15 +77,20 @@ public class ClientePane extends javax.swing.JPanel {
 
         TabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "CPF", "Telefone", "Endereço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TabelaCliente);
 
         BotaoCadastrarCliente.setText("Cadastrar");
@@ -152,6 +168,39 @@ public class ClientePane extends javax.swing.JPanel {
         viewCadastro.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarClienteActionPerformed
 
+    public JTextField getCampoPesquisaCPF() {
+        return CampoPesquisaCPF;
+    }
+
+    public void setCampoPesquisaCPF(JTextField CampoPesquisaCPF) {
+        this.CampoPesquisaCPF = CampoPesquisaCPF;
+    }
+
+    public JTextField getCampoPesquisaId() {
+        return CampoPesquisaId;
+    }
+
+    public void setCampoPesquisaId(JTextField CampoPesquisaId) {
+        this.CampoPesquisaId = CampoPesquisaId;
+    }
+
+    public JTextField getCampoPesquisaNome() {
+        return CampoPesquisaNome;
+    }
+
+    public void setCampoPesquisaNome(JTextField CampoPesquisaNome) {
+        this.CampoPesquisaNome = CampoPesquisaNome;
+    }
+
+    public JTable getTabelaCliente() {
+        return TabelaCliente;
+    }
+
+    public void setTabelaCliente(JTable TabelaCliente) {
+        this.TabelaCliente = TabelaCliente;
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoAtualizarCliente;

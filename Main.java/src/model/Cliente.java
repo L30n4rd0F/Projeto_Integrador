@@ -2,7 +2,7 @@
 package model;
 
 
-public class Cliente {
+public class Cliente extends Endereco{
     private int id;
     private String nome;
     private String cpf;
@@ -15,6 +15,18 @@ public class Cliente {
         this.telefone = telefone;
         this.observacao = observacao;
     }
+
+    public Cliente(int id, String nome, String cpf, String telefone, String observacao) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.observacao = observacao;
+    }
+    
+    public Cliente() {
+    }
+    
     
     public int getId() {
         return id;

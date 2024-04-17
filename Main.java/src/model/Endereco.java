@@ -9,6 +9,7 @@ package model;
  * @author Th3Br
  */
 public class Endereco {
+    private int id_endereco;
     private String logradouro;
     private String bairro;
     private String cidade;
@@ -27,6 +28,11 @@ public class Endereco {
         this.numero = numero;
     }
 
+    public Endereco(String logradouro, String cep) {
+        this.logradouro = logradouro;
+        this.cep = cep;
+    }
+    
     public Endereco(String logradouro, String bairro, String cidade, String cep, String numero, String uf, String complemento) {
         this.logradouro = logradouro;
         this.bairro = bairro;
@@ -51,6 +57,14 @@ public class Endereco {
         this.logradouro = logradouro;
         this.cidade = cidade;
         this.uf = sigla;
+    }
+
+    public int getId_endereco() {
+        return id_endereco;
+    }
+
+    public void setId_endereco(int id_endereco) {
+        this.id_endereco = id_endereco;
     }
 
     public String getSigla() {

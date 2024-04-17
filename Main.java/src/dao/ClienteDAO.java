@@ -1,28 +1,10 @@
 package dao;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.NClob;
 import java.sql.PreparedStatement;
-import java.sql.Ref;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.RowId;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Statement;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Map;
+import java.util.ArrayList;
 import model.Cliente;
 
 public class ClienteDAO {
@@ -44,8 +26,39 @@ public class ClienteDAO {
         statement.setInt(4, id_endereco);
         statement.setString(5, cliente.getObservacao());
         statement.execute();
-
+        
     }
+    
+    //Realiza a leitura de todos os clientes da tabela e retorna um array
+    public ArrayList<Cliente> readCliente() throws SQLException{
+        String sql = "SELECT * FROM cliente";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.execute();
+        ResultSet resultSet = statement.getResultSet();
+        
+        ArrayList<Cliente> clientes = new ArrayList<>();//Array de clientes
+        
+        while(resultSet.next()){
+            int id_cliente = resultSet.getInt("id_cliente");
+            String nome = resultSet.getString("nome");
+            String cpf = resultSet.getString("cpf");
+            String telefone = resultSet.getString("telefone");
+            String observacao = resultSet.getString("observacao");
+            int id_endereco = resultSet.getInt("fk_id_endereco");
+            boolean enderecoNulo = resultSet.wasNull();
+            
+            Cliente clienteComDados = new Cliente(id_cliente, nome, cpf, telefone, observacao);
+            
+            if(!enderecoNulo){
+                clienteComDados.setId_endereco(id_endereco);
+            }
+            
+           clientes.add(clienteComDados);
+        }
+        return clientes;
+    }
+    
 
     //Novo cliente sem endereço
     public void insert(Cliente cliente) throws SQLException {

@@ -2,12 +2,15 @@ package controller;
 
 import dao.ClienteDAO;
 import dao.Conexao;
+import dao.EnderecoDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Cliente;
 import model.Endereco;
 import view.CadastroClienteView;
@@ -82,6 +85,35 @@ public class ClienteController extends EnderecoController {
             apagarCamposCadastroEndereco();
         } else {
             desabilitarEndereco();
+        }
+    }
+    
+    @SuppressWarnings("unchecked")//Função para ler os dados do bd e colocar na tabela do cliente
+    public void readTabelaCliente() throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaCliente().getModel(); //Pega o modelo da tabela 
+        modelo.setNumRows(0); //Seta o numero de linhas como 0, isso evita a tabela repetir informções quando atualizada
+        view.getTabelaCliente().setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+        
+        //Realiza a conexao
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+        
+        //loop para preencher as linhas com os dados encontrados na função readCliente
+        for(Cliente cliente : clienteDao.readCliente()){
+            //Se o cliente tem um id_endereço maior que 0 significa que ele possui um endereço cadastrado
+            if(cliente.getId_endereco()>0){
+                //Realiza a conexao e a busca pelo cep do logradouro com o id do endereco.
+                EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
+                cliente.setCep(enderecoDao.selectCEPPorIdEndereco(cliente.getId_endereco()));
+            }
+            //Adiciona os dados em cada linha e coluna na tabela
+            modelo.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                cliente.getTelefone(),
+                cliente.getCep()           
+            });
         }
     }
 
@@ -314,9 +346,8 @@ public class ClienteController extends EnderecoController {
         String estado = (String) cadastroView.getComboBoxEstado().getSelectedItem();
         String bairro = (String) cadastroView.getComboBoxBairro().getSelectedItem();
         String logradouro = (String) cadastroView.getComboBoxLogradouro().getSelectedItem();
-        String complemento = cadastroView.getCampoComplemento().getText();
 
-        return (cep.isEmpty() || numero.isEmpty() || estado.isEmpty() || bairro.isEmpty() || logradouro.isEmpty() || complemento.isEmpty());
+        return cep.isEmpty() || numero.isEmpty() || estado.isEmpty() || bairro.isEmpty() || logradouro.isEmpty();
 
     }
 

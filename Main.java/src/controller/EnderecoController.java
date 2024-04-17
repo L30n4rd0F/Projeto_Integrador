@@ -91,7 +91,7 @@ public class EnderecoController {
 
             endereco = new Endereco(logradouro, bairro, cidade, uf, cep, numero);
         } catch (NumberFormatException e) {
-            // Trate a exce��o adequadamente
+            // Trate a exceção adequadamente
 
         }
         return endereco;

@@ -44,8 +44,7 @@ public class EnderecoDAO {
         
         return id_endereco;
     }
-    
-    
+      
     
     //Le a tabela de estados no BD
     public ArrayList<Endereco> readEstado() throws SQLException{
@@ -78,6 +77,50 @@ public class EnderecoDAO {
         
     }
     
+    //Pega as informações do logradouro pelo seu id
+    public Endereco selectLogradouroPorId(int id_logradouro) throws SQLException{
+        String sql = "SELECT * FROM logradouros WHERE id_logradouro = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_logradouro);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        Endereco enderecoComDados = new Endereco();
+        
+        while(resultSet.next()){
+            String cep = resultSet.getString("cep");
+            String nome = resultSet.getString("nome");
+            String uf = resultSet.getString("uf");
+            
+            enderecoComDados.setLogradouro(nome);
+            enderecoComDados.setCep(cep);
+            enderecoComDados.setSigla(uf);
+            
+        }
+        return enderecoComDados;
+    }
+    
+    //Retorna o cep do endereço pelo seu id
+    public String selectCEPPorIdEndereco(int id) throws SQLException{
+        int id_logradouro = 0;
+        
+        String sql = "SELECT * FROM endereco WHERE id_endereco = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+           id_logradouro = resultSet.getInt("fk_id_logradouro");//Pega o id_logradouro do endereço cadastrado
+        }
+        
+        Endereco enderecoLogradouro = selectLogradouroPorId(id_logradouro);//Chama a função para pegar os dados do logradouro
+        
+        return enderecoLogradouro.getCep();//retorna o cep
+    }
     
     //Leitura das cidades -- Não está sendo utilizada!
     public ArrayList<Endereco> readCidade() throws SQLException{

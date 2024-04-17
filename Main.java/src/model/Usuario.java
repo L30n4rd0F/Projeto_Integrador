@@ -8,7 +8,7 @@ package model;
  *
  * @author Th3Br
  */
-public class Usuario {
+public class Usuario extends Endereco{
     private int id;
     private String nome;
     private String senha;
