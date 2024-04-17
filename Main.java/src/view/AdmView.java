@@ -37,7 +37,8 @@ public class AdmView extends javax.swing.JFrame {
         MainPane.add(vendaPane);
         
         controller = new MenuAdmController(this);
-        controller.menuPrincipal();    
+        controller.menuPrincipal(); 
+        
         Utilitarios u = new Utilitarios();
         u.InserirIcone(this);
     }
@@ -51,21 +52,42 @@ public class AdmView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BotaoAbrirPaneHome = new javax.swing.JButton();
+        BotaoAbrirPaneVenda = new javax.swing.JButton();
         BotaoAbrirPaneUsuario = new javax.swing.JButton();
         CampoAbrirPaneProduto = new javax.swing.JButton();
         BotaoAbrirPaneClientes = new javax.swing.JButton();
         BotaoAbrirPaneHistorico = new javax.swing.JButton();
-        BotaoAbrirPaneVenda = new javax.swing.JButton();
         MainPane = new javax.swing.JLayeredPane();
-        BotaoAbrirPaneHome = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(null);
+
+        BotaoAbrirPaneHome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        BotaoAbrirPaneHome.setText("Home");
+        BotaoAbrirPaneHome.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        BotaoAbrirPaneHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoAbrirPaneHomeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BotaoAbrirPaneHome);
+        BotaoAbrirPaneHome.setBounds(45, 40, 150, 37);
+
+        BotaoAbrirPaneVenda.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        BotaoAbrirPaneVenda.setText("Iniciar uma venda");
+        BotaoAbrirPaneVenda.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        BotaoAbrirPaneVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoAbrirPaneVendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BotaoAbrirPaneVenda);
+        BotaoAbrirPaneVenda.setBounds(45, 95, 150, 37);
 
         BotaoAbrirPaneUsuario.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         BotaoAbrirPaneUsuario.setText("Usuarios");
@@ -111,31 +133,12 @@ public class AdmView extends javax.swing.JFrame {
         getContentPane().add(BotaoAbrirPaneHistorico);
         BotaoAbrirPaneHistorico.setBounds(45, 315, 150, 37);
 
-        BotaoAbrirPaneVenda.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        BotaoAbrirPaneVenda.setText("Iniciar uma venda");
-        BotaoAbrirPaneVenda.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        BotaoAbrirPaneVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoAbrirPaneVendaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BotaoAbrirPaneVenda);
-        BotaoAbrirPaneVenda.setBounds(45, 95, 150, 37);
-
+        MainPane.setMaximumSize(new java.awt.Dimension(1570, 930));
+        MainPane.setMinimumSize(new java.awt.Dimension(1570, 930));
+        MainPane.setPreferredSize(new java.awt.Dimension(1570, 930));
         MainPane.setLayout(new java.awt.CardLayout());
         getContentPane().add(MainPane);
         MainPane.setBounds(295, 40, 1570, 930);
-
-        BotaoAbrirPaneHome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        BotaoAbrirPaneHome.setText("Home");
-        BotaoAbrirPaneHome.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        BotaoAbrirPaneHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoAbrirPaneHomeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BotaoAbrirPaneHome);
-        BotaoAbrirPaneHome.setBounds(45, 40, 150, 37);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/img2.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
