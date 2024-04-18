@@ -52,40 +52,20 @@ public class ClienteController extends EnderecoController {
         cadastroView.getCampoObservacaoCliente().setText("");
     }
 
-    public void habilitarEndereco() {
-        cadastroView.getCampoCep().setEnabled(true);
-        cadastroView.getCampoNumero().setEnabled(true);
-        cadastroView.getCampoComplemento().setEnabled(true);
-        cadastroView.getBotaoAtualizarCEP().setEnabled(true);
-        cadastroView.getComboBoxEstado().setEnabled(true);
-        cadastroView.getComboBoxUF().setEnabled(true);
-        cadastroView.getComboBoxCidade().setEnabled(true);
-        cadastroView.getComboBoxBairro().setEnabled(true);
-        cadastroView.getComboBoxLogradouro().setEnabled(true);
-        cadastroView.getBotaoApagarCamposEndereco().setEnabled(true);
-    }
-
-    public void desabilitarEndereco() {
-        cadastroView.getCampoCep().setEnabled(false);
-        cadastroView.getCampoNumero().setEnabled(false);
-        cadastroView.getCampoComplemento().setEnabled(false);
-        cadastroView.getBotaoAtualizarCEP().setEnabled(false);
-        cadastroView.getComboBoxEstado().setEnabled(false);
-        cadastroView.getComboBoxUF().setEnabled(false);
-        cadastroView.getComboBoxCidade().setEnabled(false);
-        cadastroView.getComboBoxBairro().setEnabled(false);
-        cadastroView.getComboBoxLogradouro().setEnabled(false);
-        cadastroView.getBotaoApagarCamposEndereco().setEnabled(false);
-    }
-
     //Função para habilitar e desabilitar os campos de endereco
-    public void enderecoHabilitado() {
-        if (cadastroView.getBotaoRadioEndereco().isSelected()) {
-            habilitarEndereco();
-            apagarCamposCadastroEndereco();
-        } else {
-            desabilitarEndereco();
-        }
+    public void enderecoHabilitado(boolean ativado) {
+        cadastroView.getCampoCep().setEnabled(ativado);
+        cadastroView.getCampoNumero().setEnabled(ativado);
+        cadastroView.getCampoComplemento().setEnabled(ativado);
+        cadastroView.getBotaoAtualizarCEP().setEnabled(ativado);
+        cadastroView.getComboBoxEstado().setEnabled(ativado);
+        cadastroView.getComboBoxUF().setEnabled(ativado);
+        cadastroView.getComboBoxCidade().setEnabled(ativado);
+        cadastroView.getComboBoxBairro().setEnabled(ativado);
+        cadastroView.getComboBoxLogradouro().setEnabled(ativado);
+        cadastroView.getBotaoApagarCamposEndereco().setEnabled(ativado);
+        
+        apagarCamposCadastroEndereco();
     }
     
     @SuppressWarnings("unchecked")//Função para ler os dados do bd e colocar na tabela do cliente

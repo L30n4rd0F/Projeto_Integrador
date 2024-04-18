@@ -5,6 +5,13 @@
 package view;
 
 import controller.UsuarioController;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -14,17 +21,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
 
     private UsuarioController controller;
     
+    
+    
     public AtualizarUsuarioView() { 
         initComponents();
-    }
-
-    public UsuarioController getController() {
-        return controller;
-    }
-
-    public void setController(UsuarioController controller) {
-        this.controller = controller;
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,33 +36,295 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RadioButtonEditar = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        CampoTextoNome = new javax.swing.JTextField();
+        CampoTextoCPF = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        CampoTextoTelefone = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        CampoTextoObservacao = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        RadioButtonSenha = new javax.swing.JRadioButton();
+        CampoTextoSenha = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        CampoTextoConfirmarSenha = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        CampoTextoCEP = new javax.swing.JTextField();
+        BotaoAtulizarCEP = new javax.swing.JButton();
+        ComboBoxEstado = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        ComboBoxUF = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        ComboBoxCidade = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        ComboBoxLogradouro = new javax.swing.JComboBox();
+        CampoTextoNumero = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        CampoTextoComplemento = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        BotaoSalvarAlteracao = new javax.swing.JButton();
+        BotaoDesfazerAlteracao = new javax.swing.JButton();
+        ComboBoxBairro = new javax.swing.JComboBox();
+        CheckBoxAdm = new javax.swing.JCheckBox();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Atualização de usuario:");
+        RadioButtonEditar.setSelected(true);
+        RadioButtonEditar.setText("Editar");
+        RadioButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel4.setText("Atualizar Usuário");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Dados de identificação:");
+
+        jLabel2.setText("Nome completo:");
+
+        jLabel3.setText("CPF:");
+
+        jLabel5.setText("Telefone:");
+
+        CampoTextoObservacao.setColumns(20);
+        CampoTextoObservacao.setRows(5);
+        jScrollPane1.setViewportView(CampoTextoObservacao);
+
+        jLabel6.setText("Observação(ões):");
+
+        RadioButtonSenha.setText("Senha:");
+        RadioButtonSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonSenhaActionPerformed(evt);
+            }
+        });
+
+        CampoTextoSenha.setEnabled(false);
+
+        jLabel7.setText("Senha:");
+
+        CampoTextoConfirmarSenha.setEnabled(false);
+
+        jLabel8.setText("Confirmar Senha:");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Endereço:");
+
+        jLabel10.setText("CEP:");
+
+        BotaoAtulizarCEP.setText("jButton1");
+
+        ComboBoxEstado.setEditable(true);
+
+        jLabel11.setText("Estado:");
+
+        ComboBoxUF.setEditable(true);
+
+        jLabel12.setText("UF:");
+
+        ComboBoxCidade.setEditable(true);
+
+        jLabel13.setText("Cidade:");
+
+        jLabel15.setText("Logradouro:");
+
+        ComboBoxLogradouro.setEditable(true);
+
+        jLabel16.setText("Número:");
+
+        jLabel17.setText("Complemento:");
+
+        BotaoSalvarAlteracao.setText("Salvar");
+
+        BotaoDesfazerAlteracao.setText("Desfazer Alterações");
+
+        ComboBoxBairro.setEditable(true);
+
+        CheckBoxAdm.setText("Admin");
+
+        jLabel14.setText("Bairro:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jLabel1)
-                .addContainerGap(483, Short.MAX_VALUE))
+                .addGap(90, 90, 90)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CampoTextoCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BotaoAtulizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel10))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(ComboBoxUF, 0, 105, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CampoTextoNome)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(CampoTextoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(RadioButtonSenha)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4)
+                                    .addComponent(RadioButtonEditar)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ComboBoxLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel16)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(CampoTextoNumero))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(CampoTextoComplemento)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(BotaoDesfazerAlteracao, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoSalvarAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(ComboBoxCidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
+                                        .addComponent(CampoTextoConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CampoTextoSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CampoTextoTelefone, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel13))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ComboBoxBairro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CheckBoxAdm)
+                                            .addComponent(jLabel14))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(RadioButtonEditar)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CampoTextoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoTextoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoTextoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CheckBoxAdm))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(RadioButtonSenha))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(CampoTextoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CampoTextoConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(51, 51, 51)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CampoTextoCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoAtulizarCEP)
+                    .addComponent(ComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ComboBoxLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoTextoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoTextoComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoSalvarAlteracao)
+                    .addComponent(BotaoDesfazerAlteracao))
+                .addGap(49, 49, 49))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RadioButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonEditarActionPerformed
+        controller.habilitarEditarAtulizar(getRadioButtonEditar().isSelected());
+    }//GEN-LAST:event_RadioButtonEditarActionPerformed
+
+    private void RadioButtonSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSenhaActionPerformed
+        controller.habilitarCamposAtualizarSenha(getRadioButtonSenha().isSelected());
+    }//GEN-LAST:event_RadioButtonSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,8 +360,215 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
     }
+    
+    public UsuarioController getController() {
+        return controller;
+    }
+
+    public void setController(UsuarioController controller) {
+        this.controller = controller;
+    }
+
+    public JButton getBotaoAtulizarCEP() {
+        return BotaoAtulizarCEP;
+    }
+
+    public void setBotaoAtulizarCEP(JButton BotaoAtulizarCEP) {
+        this.BotaoAtulizarCEP = BotaoAtulizarCEP;
+    }
+
+    public JButton getBotaoDesfazerAlteracao() {
+        return BotaoDesfazerAlteracao;
+    }
+
+    public void setBotaoDesfazerAlteracao(JButton BotaoDesfazerAlteracao) {
+        this.BotaoDesfazerAlteracao = BotaoDesfazerAlteracao;
+    }
+
+    public JTextField getCampoTextoCEP() {
+        return CampoTextoCEP;
+    }
+
+    public void setCampoTextoCEP(JTextField CampoTextoCEP) {
+        this.CampoTextoCEP = CampoTextoCEP;
+    }
+
+    public JTextField getCampoTextoCPF() {
+        return CampoTextoCPF;
+    }
+
+    public void setCampoTextoCPF(JTextField CampoTextoCPF) {
+        this.CampoTextoCPF = CampoTextoCPF;
+    }
+
+    public JTextField getCampoTextoComplemento() {
+        return CampoTextoComplemento;
+    }
+
+    public void setCampoTextoComplemento(JTextField CampoTextoComplemento) {
+        this.CampoTextoComplemento = CampoTextoComplemento;
+    }
+
+    public JTextField getCampoTextoConfirmarSenha() {
+        return CampoTextoConfirmarSenha;
+    }
+
+    public void setCampoTextoConfirmarSenha(JTextField CampoTextoConfirmarSenha) {
+        this.CampoTextoConfirmarSenha = CampoTextoConfirmarSenha;
+    }
+
+    public JTextField getCampoTextoNome() {
+        return CampoTextoNome;
+    }
+    
+    
+    public void setCampoTextoNome(JTextField CampoTextoNome) {
+        this.CampoTextoNome = CampoTextoNome;
+    }
+
+    public JTextField getCampoTextoNumero() {
+        return CampoTextoNumero;
+    }
+
+    public void setCampoTextoNumero(JTextField CampoTextoNumero) {
+        this.CampoTextoNumero = CampoTextoNumero;
+    }
+
+    public JTextArea getCampoTextoObservacao() {
+        return CampoTextoObservacao;
+    }
+
+    public void setCampoTextoObservacao(JTextArea CampoTextoObservacao) {
+        this.CampoTextoObservacao = CampoTextoObservacao;
+    }
+
+    public JTextField getCampoTextoSenha() {
+        return CampoTextoSenha;
+    }
+
+    public void setCampoTextoSenha(JTextField CampoTextoSenha) {
+        this.CampoTextoSenha = CampoTextoSenha;
+    }
+
+    public JTextField getCampoTextoTelefone() {
+        return CampoTextoTelefone;
+    }
+
+    public void setCampoTextoTelefone(JTextField CampoTextoTelefone) {
+        this.CampoTextoTelefone = CampoTextoTelefone;
+    }
+
+    public JCheckBox getCheckBoxAdm() {
+        return CheckBoxAdm;
+    }
+
+    public void setCheckBoxAdm(JCheckBox CheckBoxAdm) {
+        this.CheckBoxAdm = CheckBoxAdm;
+    }
+
+    public JComboBox getComboBoxEstado() {
+        return ComboBoxEstado;
+    }
+
+    public void setComboBoxEstado(JComboBox ComboBoxEstado) {
+        this.ComboBoxEstado = ComboBoxEstado;
+    }
+
+    public JComboBox getComboBoxLogradouro() {
+        return ComboBoxLogradouro;
+    }
+
+    public void setComboBoxLogradouro(JComboBox ComboBoxLogradouro) {
+        this.ComboBoxLogradouro = ComboBoxLogradouro;
+    }
+
+    public JComboBox getComboBoxUF() {
+        return ComboBoxUF;
+    }
+
+    public void setComboBoxUF(JComboBox ComboBoxUF) {
+        this.ComboBoxUF = ComboBoxUF;
+    }
+
+    public JRadioButton getRadioButtonEditar() {
+        return RadioButtonEditar;
+    }
+
+    public void setRadioButtonEditar(JRadioButton RadioButtonEditar) {
+        this.RadioButtonEditar = RadioButtonEditar;
+    }
+
+    public JRadioButton getRadioButtonSenha() {
+        return RadioButtonSenha;
+    }
+
+    public void setRadioButtonSenha(JRadioButton RadioButtonSenha) {
+        this.RadioButtonSenha = RadioButtonSenha;
+    }
+
+    public JButton getBotaoSalvarAlteracao() {
+        return BotaoSalvarAlteracao;
+    }
+
+    public void setBotaoSalvarAlteracao(JButton BotaoSalvarAlteracao) {
+        this.BotaoSalvarAlteracao = BotaoSalvarAlteracao;
+    }
+
+    public JComboBox getComboBoxCidade() {
+        return ComboBoxCidade;
+    }
+
+    public void setComboBoxCidade(JComboBox ComboBoxCidade) {
+        this.ComboBoxCidade = ComboBoxCidade;
+    }
+
+    public JComboBox getComboBoxBairro() {
+        return ComboBoxBairro;
+    }
+
+    public void setComboBoxBairro(JComboBox ComboBoxBairro) {
+        this.ComboBoxBairro = ComboBoxBairro;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoAtulizarCEP;
+    private javax.swing.JButton BotaoDesfazerAlteracao;
+    private javax.swing.JButton BotaoSalvarAlteracao;
+    private javax.swing.JTextField CampoTextoCEP;
+    private javax.swing.JTextField CampoTextoCPF;
+    private javax.swing.JTextField CampoTextoComplemento;
+    private javax.swing.JTextField CampoTextoConfirmarSenha;
+    private javax.swing.JTextField CampoTextoNome;
+    private javax.swing.JTextField CampoTextoNumero;
+    private javax.swing.JTextArea CampoTextoObservacao;
+    private javax.swing.JTextField CampoTextoSenha;
+    private javax.swing.JTextField CampoTextoTelefone;
+    private javax.swing.JCheckBox CheckBoxAdm;
+    private javax.swing.JComboBox ComboBoxBairro;
+    private javax.swing.JComboBox ComboBoxCidade;
+    private javax.swing.JComboBox ComboBoxEstado;
+    private javax.swing.JComboBox ComboBoxLogradouro;
+    private javax.swing.JComboBox ComboBoxUF;
+    private javax.swing.JRadioButton RadioButtonEditar;
+    private javax.swing.JRadioButton RadioButtonSenha;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -609,7 +609,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoApagarCamposIndentificacaoClienteActionPerformed
 
     private void BotaoRadioEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRadioEnderecoActionPerformed
-        controller.enderecoHabilitado();
+        controller.enderecoHabilitado(getBotaoRadioEndereco().isSelected());
     }//GEN-LAST:event_BotaoRadioEnderecoActionPerformed
 
     private void CampoCpfClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoCpfClienteKeyTyped

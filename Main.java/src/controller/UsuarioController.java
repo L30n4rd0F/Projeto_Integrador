@@ -63,40 +63,21 @@ public class UsuarioController extends EnderecoController {
     }
 
     //Função para habilitar e desabilitar os campos de endereco
-    public void enderecoHabilitado() {
-        if (viewCadastro.getBotaoRadioEndereco().isSelected()) {
-            habilitarEndereco();
-            apagarCamposCadastroEndereco();
-        } else {
-            desabilitarEndereco();
-        }
+    public void enderecoHabilitado(boolean ativado) {
+        viewCadastro.getCampoCadastroCEP().setEnabled(ativado);
+        viewCadastro.getCampoCadastroNumero().setEnabled(ativado);
+        viewCadastro.getCampoCadastroComplemento().setEnabled(ativado);
+        viewCadastro.getBotaoAtualizarCEP().setEnabled(ativado);
+        viewCadastro.getComboBoxEstado().setEnabled(ativado);
+        viewCadastro.getComboBoxUF().setEnabled(ativado);
+        viewCadastro.getComboBoxCidade().setEnabled(ativado);
+        viewCadastro.getComboBoxBairro().setEnabled(ativado);
+        viewCadastro.getComboBoxLogradouro().setEnabled(ativado);
+        viewCadastro.getBotaoApagarCamposCadastroEndereco().setEnabled(ativado);
+        
+        apagarCamposCadastroEndereco(); 
     }
 
-    public void habilitarEndereco() {
-        viewCadastro.getCampoCadastroCEP().setEnabled(true);
-        viewCadastro.getCampoCadastroNumero().setEnabled(true);
-        viewCadastro.getCampoCadastroComplemento().setEnabled(true);
-        viewCadastro.getBotaoAtualizarCEP().setEnabled(true);
-        viewCadastro.getComboBoxEstado().setEnabled(true);
-        viewCadastro.getComboBoxUF().setEnabled(true);
-        viewCadastro.getComboBoxCidade().setEnabled(true);
-        viewCadastro.getComboBoxBairro().setEnabled(true);
-        viewCadastro.getComboBoxLogradouro().setEnabled(true);
-        viewCadastro.getBotaoApagarCamposCadastroEndereco().setEnabled(true);
-    }
-
-    public void desabilitarEndereco() {
-        viewCadastro.getCampoCadastroCEP().setEnabled(false);
-        viewCadastro.getCampoCadastroNumero().setEnabled(false);
-        viewCadastro.getCampoCadastroComplemento().setEnabled(false);
-        viewCadastro.getBotaoAtualizarCEP().setEnabled(false);
-        viewCadastro.getComboBoxEstado().setEnabled(false);
-        viewCadastro.getComboBoxUF().setEnabled(false);
-        viewCadastro.getComboBoxCidade().setEnabled(false);
-        viewCadastro.getComboBoxBairro().setEnabled(false);
-        viewCadastro.getComboBoxLogradouro().setEnabled(false);
-        viewCadastro.getBotaoApagarCamposCadastroEndereco().setEnabled(false);
-    }
 
     //Apagar campos de informacoes do endereço
     public void apagarCamposCadastroEndereco() {
@@ -109,6 +90,7 @@ public class UsuarioController extends EnderecoController {
         viewCadastro.getCampoCadastroComplemento().setText("");
         viewCadastro.getCampoCadastroNumero().setText("");
     }
+    
 
     //Apaga os campos de pesquisa
     public void apagarCampos() {
@@ -378,7 +360,7 @@ public class UsuarioController extends EnderecoController {
         char[] senhaCharConfirma = viewCadastro.getCampoTextoConfirmaSenhaUsuario().getPassword();//Pega o que foi escrito de senha confirma
         String senhaConfirma = new String(senhaCharConfirma);//Transforma a senha character em string
         int id_endereco = -1;//id do endereço é setado como -1
-        boolean campoEmBranco, existe, senhaCorreta, cpfValido, telefoneValido;
+        boolean campoEmBranco, existe, senhaCorreta, cpfValido, telefoneValido; //Variáveis para armazenar as verificações
 
         //Realiza a conexão
         Connection conexao = new Conexao().getConnection();
@@ -409,6 +391,7 @@ public class UsuarioController extends EnderecoController {
         }
     }
 
+    //Função para realizar o cadastro do usuário com endereço
     public void realizarCadastroUsuarioComEndereco(int id_endereco, Usuario usuarioCadastrar) throws SQLException {
 
         //Realiza a conexão
@@ -475,6 +458,7 @@ public class UsuarioController extends EnderecoController {
         return cpf.length() == 14; //Se o tamanho do cpf for 14 retorna true
     }
 
+    //Função para verificar se o telefone é válido
     public boolean verificaTelefoneValido(String telefone) {
         return telefone.length() >= 13;
     }
@@ -492,5 +476,35 @@ public class UsuarioController extends EnderecoController {
         } else if (telefoneInvalido) {
             JOptionPane.showMessageDialog(null, "Telefone incompleto!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    
+    //Função para habilitar e desabilitar os campos de atualização
+    public void habilitarEditarAtulizar(boolean ativado){
+        viewAtualizar.getCampoTextoCEP().setEnabled(ativado);
+        viewAtualizar.getCampoTextoNumero().setEnabled(ativado);
+        viewAtualizar.getCampoTextoComplemento().setEnabled(ativado);
+        viewAtualizar.getBotaoAtulizarCEP().setEnabled(ativado);
+        viewAtualizar.getComboBoxEstado().setEnabled(ativado);
+        viewAtualizar.getComboBoxUF().setEnabled(ativado);
+        viewAtualizar.getComboBoxCidade().setEnabled(ativado);
+        viewAtualizar.getComboBoxBairro().setEnabled(ativado);
+        viewAtualizar.getComboBoxLogradouro().setEnabled(ativado);
+        viewAtualizar.getCampoTextoNome().setEnabled(ativado);
+        viewAtualizar.getCampoTextoCPF().setEnabled(ativado);
+        viewAtualizar.getCampoTextoTelefone().setEnabled(ativado);
+        viewAtualizar.getCampoTextoObservacao().setEnabled(ativado);
+        viewAtualizar.getCheckBoxAdm().setEnabled(ativado);
+        viewAtualizar.getRadioButtonSenha().setEnabled(ativado);
+        viewAtualizar.getRadioButtonSenha().setSelected(false);
+        viewAtualizar.getCampoTextoSenha().setEnabled(false);
+        viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(false);
+    }
+    
+    //Função para habilitar e desabilitar os campos de senha em atualizar
+    public void habilitarCamposAtualizarSenha(boolean ativado){
+        viewAtualizar.getCampoTextoSenha().setEnabled(ativado);
+        viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(ativado);
+        
     }
 }
