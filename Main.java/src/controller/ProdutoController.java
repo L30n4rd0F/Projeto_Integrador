@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Produto;
+import view.CadastrarCategoriaView;
 import view.CadastrarProdutoView;
 import view.ProdutoPane;
 import view.VendaPane;
@@ -24,6 +25,7 @@ public class ProdutoController {
     private VendaPane view;
     private ProdutoPane viewProdutoPane;
     private CadastrarProdutoView viewCadastroProduto;
+    private CadastrarCategoriaView viewCadastroCategoria;
 
     public ProdutoController(VendaPane view) {
         this.view = view;
@@ -35,6 +37,10 @@ public class ProdutoController {
     
     public ProdutoController(CadastrarProdutoView viewCadastroProduto) {
         this.viewCadastroProduto = viewCadastroProduto;
+    }
+    
+    public ProdutoController(CadastrarCategoriaView viewCadastroCategoria) {
+        this.viewCadastroCategoria = viewCadastroCategoria;
     }
 
     public void readTabelaProduto() throws SQLException {
@@ -406,21 +412,21 @@ public class ProdutoController {
     }
     
     public void apagarTodosCampos() {
-        viewCadastroProduto.getCampoProduto1().setText("");
-        viewCadastroProduto.getComboBoxCategoria1().setSelectedIndex(-1);
-        viewCadastroProduto.getCampoQuantidade1().setText("");
-        viewCadastroProduto.getComboBoxUnidade1().setSelectedIndex(-1);
-        viewCadastroProduto.getCampoPreco1().setText("");
-        viewCadastroProduto.getCampoDescricao1().setText("");
+        viewCadastroProduto.getCampoNomeProduto().setText("");
+        viewCadastroProduto.getComboBoxCategoria().setSelectedIndex(-1);
+        viewCadastroProduto.getCampoQuantidade().setText("");
+        viewCadastroProduto.getComboBoxUnidade().setSelectedIndex(-1);
+        viewCadastroProduto.getCampoPreco().setText("");
+        viewCadastroProduto.getCampoDescricao().setText("");
     }
     
     public void cadastrarProduto() throws SQLException {
-        String nomeProduto = viewCadastroProduto.getCampoProduto1().getText();
-        String nomeCategoria = viewCadastroProduto.getComboBoxCategoria1().getSelectedItem().toString();
-        int quantidade = Integer.parseInt(viewCadastroProduto.getCampoQuantidade1().getText().replace(',', '.'));
-        String unidade = viewCadastroProduto.getComboBoxUnidade1().getSelectedItem().toString();
-        float preco = Float.parseFloat(viewCadastroProduto.getCampoPreco1().getText());
-        String descricao = viewCadastroProduto.getCampoDescricao1().getText();
+        String nomeProduto = viewCadastroProduto.getCampoNomeProduto().getText();
+        String nomeCategoria = viewCadastroProduto.getComboBoxCategoria().getSelectedItem().toString();
+        int quantidade = Integer.parseInt(viewCadastroProduto.getCampoQuantidade().getText().replace(',', '.'));
+        String unidade = viewCadastroProduto.getComboBoxUnidade().getSelectedItem().toString();
+        float preco = Float.parseFloat(viewCadastroProduto.getCampoPreco().getText());
+        String descricao = viewCadastroProduto.getCampoDescricao().getText();
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.cadastrarProduto(nomeProduto, nomeCategoria, quantidade, unidade, preco, descricao);
     }
@@ -428,10 +434,38 @@ public class ProdutoController {
     public void readCategoriasCadastroProduto() throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         List<String> categorias = produtoDAO.readCategorias();;
-        viewCadastroProduto.getComboBoxCategoria1().removeAllItems();
+        viewCadastroProduto.getComboBoxCategoria().removeAllItems();
         for (String categoria : categorias) {
-            viewCadastroProduto.getComboBoxCategoria1().addItem(categoria);
+            viewCadastroProduto.getComboBoxCategoria().addItem(categoria);
+        }
+    }
+    
+    public void removerProduto(String nomeProduto) throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.removerProduto(nomeProduto);
+    }
+    
+    public void apagarTodosCamposCategoria() {
+        viewCadastroCategoria.getCampoCategoria().setText("");
+    }
+    
+    public void readCategoriasCadastroCategoria() throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        List<String> categorias = produtoDAO.readCategorias();
+        viewCadastroCategoria.getComboBoxCategoria().removeAllItems();
+        for (String categoria : categorias) {
+            viewCadastroCategoria.getComboBoxCategoria().addItem(categoria);
         }
     }
 
+    public void removerCategoria(String nomeCategoria) throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.removerCategoria(nomeCategoria);
+    }
+    
+    public void cadastrarCategoria(String categoria) throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.cadastrarCategoria(categoria);
+    }
+    
 }

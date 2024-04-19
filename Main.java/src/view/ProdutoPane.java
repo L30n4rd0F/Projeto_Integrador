@@ -15,6 +15,7 @@ public class ProdutoPane extends javax.swing.JPanel {
 
     private final ProdutoController controller;
     CadastrarProdutoView viewCadastro = new CadastrarProdutoView();
+    CadastrarCategoriaView viewCadastroCategoria = new CadastrarCategoriaView();
     
     public ProdutoPane() {
         initComponents();
@@ -125,6 +126,11 @@ public class ProdutoPane extends javax.swing.JPanel {
         });
 
         BotaoRemoverProduto.setText("Remover Produto");
+        BotaoRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRemoverProdutoActionPerformed(evt);
+            }
+        });
 
         BotaoAtualizar.setText("Atualizar");
         BotaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -265,8 +271,18 @@ public class ProdutoPane extends javax.swing.JPanel {
     }//GEN-LAST:event_CampoPesquisaNomeActionPerformed
 
     private void BotaoCadastrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarCategoriaActionPerformed
-        // TODO add your handling code here:
+        viewCadastroCategoria.setLocationRelativeTo(null);
+        viewCadastroCategoria.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarCategoriaActionPerformed
+
+    private void BotaoRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverProdutoActionPerformed
+        try {
+            controller.removerProduto(getTabelaProduto().getValueAt(getTabelaProduto().getSelectedRow(),1).toString());
+            controller.readTabelaProdutoPane();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BotaoRemoverProdutoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

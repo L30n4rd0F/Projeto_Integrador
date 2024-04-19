@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Produto;
 
 public class ProdutoDAO {
@@ -102,7 +103,7 @@ public class ProdutoDAO {
         statement.executeUpdate();
         statement.close();
     }
-    
+
     public ArrayList<Produto> buscarProdutoPorCategoria(String nomeProduto) throws SQLException {
         String sql = "select * from produtos where lower(fk_nome_categoria) like ?";
 
@@ -134,14 +135,14 @@ public class ProdutoDAO {
 
         return produtos;
     }
-    
-    public List<String> readCategorias() throws SQLException{
+
+    public List<String> readCategorias() throws SQLException {
         String sql = "SELECT nome_categoria FROM categoria";
 
         PreparedStatement statement = connection.prepareStatement(sql);
-        
+
         ResultSet resultSet = statement.executeQuery();
-        
+
         List<String> categorias = new ArrayList<>();
 
         while (resultSet.next()) {
@@ -154,8 +155,8 @@ public class ProdutoDAO {
 
         return categorias;
     }
-    
-    public void cadastrarProduto(String nomeProduto,String nomeCategoria,int quantidade,String unidade,float preco,String descricao) throws SQLException {
+
+    public void cadastrarProduto(String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
         String sql = "INSERT INTO produtos (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -165,9 +166,50 @@ public class ProdutoDAO {
         statement.setString(4, unidade);
         statement.setInt(5, quantidade);
         statement.setString(6, nomeCategoria);
-        
-        statement.executeQuery();
+
+        statement.executeUpdate();
+        statement.close();
     }
-    
+
+    public void removerProduto(String nomeProduto) throws SQLException {
+        String sql = "DELETE FROM produtos WHERE nome LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, nomeProduto);
+        statement.executeUpdate();
+        statement.close();
+    }
+
+    public void removerCategoria(String nomeCategoria) throws SQLException {
+        String sqlVerificarProdutos = "SELECT COUNT(*) FROM produtos WHERE fk_nome_categoria = ?";
+        PreparedStatement statementVerificarProdutos = connection.prepareStatement(sqlVerificarProdutos);
+        statementVerificarProdutos.setString(1, nomeCategoria);
+        ResultSet resultSet = statementVerificarProdutos.executeQuery();
+        resultSet.next();
+        int contaProdutos = resultSet.getInt(1);
+        statementVerificarProdutos.close();
+
+        // Se existem produtos vinculados à categoria, exibir mensagem e sair do método
+        if (contaProdutos > 0) {
+            JOptionPane.showMessageDialog(null, "Ainda há produtos cadastrados com esta categoria. Impossível remover.");
+            return;
+        }
+        String sql = "DELETE FROM categoria WHERE nome_categoria LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, nomeCategoria);
+        statement.executeUpdate();
+        statement.close();
+    }
+
+    public void cadastrarCategoria(String categoria) throws SQLException {
+        String sql = "INSERT INTO categoria (nome_categoria) VALUES (?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, categoria);
+
+        statement.executeUpdate();
+        statement.close();
+    }
 
 }
