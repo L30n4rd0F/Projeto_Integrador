@@ -202,7 +202,6 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
             Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
         }
         controller.apagarTodosCamposCategoria();
-        this.dispose();
     }//GEN-LAST:event_BotaoCadastrarCategoriaActionPerformed
 
 

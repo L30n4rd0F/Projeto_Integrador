@@ -123,13 +123,22 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         BotaoCadastrarProduto = new javax.swing.JButton();
         BotaoCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Cadastrar Produto");
 
         jLabel2.setText("Nome");
 
         ComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxCategoria.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ComboBoxCategoriaAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         ComboBoxUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unitario", "Centimetros(cm)"}));
 
@@ -252,6 +261,14 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         controller.apagarTodosCampos();
         this.dispose();
     }//GEN-LAST:event_BotaoCadastrarProdutoActionPerformed
+
+    private void ComboBoxCategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaAncestorAdded
+        try {
+            controller.readCategoriasCadastroProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ComboBoxCategoriaAncestorAdded
 
     /**
      * @param args the command line arguments
