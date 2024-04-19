@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -127,75 +128,74 @@ public class UsuarioController extends EnderecoController {
         viewCadastro.getCampoCadastroObservacaoUsuario().setText("");
         viewCadastro.getCheckAdmin().setSelected(false);
     }
-
-    @SuppressWarnings("unchecked") //Preenche os comboboxs dos estados e UF
-    public void comboBoxEstados() throws SQLException {
+    
+    public void comboBoxEstados(JComboBox<String> comboBoxEstado, JComboBox<String> comboBoxUF) throws SQLException {
         ArrayList<Endereco> estadosParaCB = estados();
 
         for (Endereco estado : estadosParaCB) {
-            viewCadastro.getComboBoxEstado().addItem(estado.getEstado());
-            viewCadastro.getComboBoxUF().addItem(estado.getSigla());
+            comboBoxEstado.addItem(estado.getEstado());
+            comboBoxUF.addItem(estado.getSigla());
         }
-        viewCadastro.getComboBoxEstado().setSelectedIndex(-1);//Não seleciona nenhuma linha
-        viewCadastro.getComboBoxUF().setSelectedIndex(-1);//Não seleciona nenhuma linha
+        comboBoxEstado.setSelectedIndex(-1);//Não seleciona nenhuma linha
+        comboBoxUF.setSelectedIndex(-1);//Não seleciona nenhuma linha
     }
 
-    public void atualizaComboBoxEstado() {
+    public void atualizaComboBoxEstado(JComboBox<String> comboBoxEstado, JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade,int selecionado) {
         //Seleciona o combo box de estado e uf respectivamente ao seu estado ou uf selecionado
-        viewCadastro.getComboBoxEstado().setSelectedIndex(viewCadastro.getEstadoSelecionado());
-        viewCadastro.getComboBoxUF().setSelectedIndex(viewCadastro.getEstadoSelecionado());
-
+        comboBoxEstado.setSelectedIndex(selecionado);
+        comboBoxUF.setSelectedIndex(selecionado);
+        
         try {
-            comboBoxCidades();
+            String sigla = (String) comboBoxUF.getSelectedItem();
+            comboBoxCidades(comboBoxCidade, sigla);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void comboBoxCidades() throws SQLException {
+    public void comboBoxCidades(JComboBox<String> comboBoxCidade, String sigla) throws SQLException {
 
-        String sigla = (String) viewCadastro.getComboBoxUF().getSelectedItem();
         ArrayList<String> cidadesParaCB = cidades(sigla);
 
-        viewCadastro.getComboBoxCidade().removeAllItems();//remove todos os itens do Combo Box
+        comboBoxCidade.removeAllItems();//remove todos os itens do Combo Box
         for (String cidade : cidadesParaCB) {
-            viewCadastro.getComboBoxCidade().addItem(cidade);
+            comboBoxCidade.addItem(cidade);
         }
-        viewCadastro.getComboBoxCidade().setSelectedIndex(-1);
+        comboBoxCidade.setSelectedIndex(-1);
     }
 
     //Preenche o Combo Box de bairro
     @SuppressWarnings("unchecked")
-    public void comboBoxBairros() throws SQLException {
+    public void comboBoxBairros(JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade, JComboBox<String> comboBoxBairro) throws SQLException {
 
-        String nome_cidade = (String) viewCadastro.getComboBoxCidade().getSelectedItem(); //Pega o nome da cidade selecionada
-        String uf = (String) viewCadastro.getComboBoxUF().getSelectedItem();
+        String nome_cidade = (String) comboBoxCidade.getSelectedItem(); //Pega o nome da cidade selecionada
+        String uf = (String) comboBoxUF.getSelectedItem();
 
         ArrayList<String> bairrosParaCB = bairros(nome_cidade, uf);
 
-        viewCadastro.getComboBoxBairro().removeAllItems();
+        comboBoxBairro.removeAllItems();
         for (String bairro : bairrosParaCB) {
-            viewCadastro.getComboBoxBairro().addItem(bairro);
+            comboBoxBairro.addItem(bairro);
         }
-        viewCadastro.getComboBoxBairro().setSelectedIndex(-1);
+        comboBoxBairro.setSelectedIndex(-1);
 
     }
 
     //Preenche o Combo Box de logradouro
     @SuppressWarnings("unchecked")
-    public void comboBoxLogradouros() throws SQLException {
-        String bairro = (String) viewCadastro.getComboBoxBairro().getSelectedItem();
-        String sigla = (String) viewCadastro.getComboBoxUF().getSelectedItem();
-        String cidade = (String) viewCadastro.getComboBoxCidade().getSelectedItem();
+    public void comboBoxLogradouros(JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade, JComboBox<String> comboBoxBairro, JComboBox<String> comboBoxLogradouro) throws SQLException {
+        String bairro = (String) comboBoxBairro.getSelectedItem();
+        String sigla = (String) comboBoxUF.getSelectedItem();
+        String cidade = (String) comboBoxCidade.getSelectedItem();
 
         ArrayList<String> logradourosParaCB = logradouro(bairro, sigla, cidade);
 
-        viewCadastro.getComboBoxLogradouro().removeAllItems();
+        comboBoxLogradouro.removeAllItems();
         for (String logradouro : logradourosParaCB) {
-            viewCadastro.getComboBoxLogradouro().addItem(logradouro);
+            comboBoxLogradouro.addItem(logradouro);
         }
-        viewCadastro.getComboBoxLogradouro().setSelectedIndex(-1);
+        comboBoxLogradouro.setSelectedIndex(-1);
     }
 
     //Preenche tudo com o endereco do cep
@@ -541,10 +541,10 @@ public class UsuarioController extends EnderecoController {
     //Função para preencher os campos de endereco
     public void preencherCamposAtualizarInfoEndereco(Endereco enderecoUsuarioAtualizar){
         viewAtualizar.getCampoTextoCEP().setText(enderecoUsuarioAtualizar.getCep());
-        viewAtualizar.getCampoTextoNumero().setText(enderecoUsuarioAtualizar.getNumero());
-        viewAtualizar.getCampoTextoComplemento().setText(enderecoUsuarioAtualizar.getComplemento());
         viewAtualizar.getComboBoxEstado().setSelectedItem(enderecoUsuarioAtualizar.getEstado());
         viewAtualizar.getComboBoxUF().setSelectedItem(enderecoUsuarioAtualizar.getUf());
+        viewAtualizar.getCampoTextoNumero().setText(enderecoUsuarioAtualizar.getNumero());
+        viewAtualizar.getCampoTextoComplemento().setText(enderecoUsuarioAtualizar.getComplemento());
         viewAtualizar.getComboBoxCidade().setSelectedItem(enderecoUsuarioAtualizar.getCidade());
         viewAtualizar.getComboBoxBairro().setSelectedItem(enderecoUsuarioAtualizar.getBairro());
         viewAtualizar.getComboBoxLogradouro().setSelectedItem(enderecoUsuarioAtualizar.getLogradouro());
@@ -553,6 +553,9 @@ public class UsuarioController extends EnderecoController {
     
     //Função para quando iniciar o atualizar ele manter o padrão
     public void inicializacaoCamposAtualizar(){
+        viewAtualizar.setEstadoSelecionado(-1);
+        viewAtualizar.setCidadeSelecionada(-1);
+        viewAtualizar.setBairroSelecionado(-1);
         viewAtualizar.getCampoTextoCEP().setText("");
         viewAtualizar.getCampoTextoNumero().setText("");
         viewAtualizar.getCampoTextoComplemento().setText("");
@@ -574,6 +577,7 @@ public class UsuarioController extends EnderecoController {
         viewAtualizar.getCampoTextoConfirmarSenha().setText("");
         habilitarEditarAtulizar(true);
     }
+    
     
   
 }

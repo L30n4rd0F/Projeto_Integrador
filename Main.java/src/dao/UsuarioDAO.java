@@ -273,7 +273,7 @@ public class UsuarioDAO {
             boolean adm = resultSet.getBoolean("admin");
             int id_endereco = resultSet.getInt("fk_id_endereco");
             
-             usuarioComDados = new Usuario(id, nome, cpf, telefone, admin, observacao);
+             usuarioComDados = new Usuario(id, nome, cpf, telefone, adm, observacao);
              usuarioComDados.setId_endereco(id_endereco);
              
             

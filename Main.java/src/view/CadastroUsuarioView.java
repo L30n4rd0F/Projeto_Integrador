@@ -73,11 +73,11 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         CampoCadastroCEP = new javax.swing.JTextField();
         BotaoAtualizarCEP = new javax.swing.JButton();
-        ComboBoxEstado = new javax.swing.JComboBox();
+        ComboBoxEstado = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         ComboBoxUF = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
-        ComboBoxCidade = new javax.swing.JComboBox();
+        ComboBoxCidade = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         ComboBoxBairro = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
@@ -243,6 +243,11 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         jLabel14.setText("Logradouro:");
 
         ComboBoxLogradouro.setEditable(true);
+        ComboBoxLogradouro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxLogradouroActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Número:");
 
@@ -699,10 +704,11 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotaoAtualizarCEPActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void ComboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxEstadoActionPerformed
         if(getComboBoxEstado().getSelectedIndex()>=0 && this.estadoSelecionado != getComboBoxEstado().getSelectedIndex() && getComboBoxEstado().getItemCount()>=26){
             this.estadoSelecionado = getComboBoxEstado().getSelectedIndex();    
-            controller.atualizaComboBoxEstado();
+            controller.atualizaComboBoxEstado(ComboBoxEstado, ComboBoxUF, ComboBoxCidade, this.estadoSelecionado);
             ComboBoxLogradouro.removeAllItems();
             this.cidadeSelecionada = -1;
             this.bairroSelecionado = -1;
@@ -712,7 +718,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
 
     private void ComboBoxEstadoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxEstadoAncestorAdded
         try {
-            controller.comboBoxEstados();
+            controller.comboBoxEstados(ComboBoxEstado, ComboBoxUF);
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -721,7 +727,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
     private void ComboBoxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxUFActionPerformed
         if(getComboBoxUF().getSelectedIndex()>=0 && this.estadoSelecionado != getComboBoxUF().getSelectedIndex() && getComboBoxUF().getItemCount()>=26){
             this.estadoSelecionado = getComboBoxUF().getSelectedIndex();    
-            controller.atualizaComboBoxEstado();
+            controller.atualizaComboBoxEstado(ComboBoxEstado, ComboBoxUF, ComboBoxCidade, this.estadoSelecionado);
             ComboBoxLogradouro.removeAllItems();
             this.cidadeSelecionada = -1;
             this.bairroSelecionado = -1;
@@ -734,7 +740,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         if(this.cidadeSelecionada != getComboBoxCidade().getSelectedIndex() && getComboBoxCidade().getSelectedIndex()>=0){
             this.cidadeSelecionada = getComboBoxCidade().getSelectedIndex();
             try {
-                controller.comboBoxBairros();
+                controller.comboBoxBairros(ComboBoxUF, ComboBoxCidade, ComboBoxBairro);
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -745,7 +751,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         if(this.bairroSelecionado != getComboBoxBairro().getSelectedIndex() && getComboBoxBairro().getSelectedIndex()>=0){
             this.bairroSelecionado = getComboBoxBairro().getSelectedIndex();
             try {
-                controller.comboBoxLogradouros();
+                controller.comboBoxLogradouros(ComboBoxUF, ComboBoxCidade, ComboBoxBairro, ComboBoxLogradouro);
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -764,6 +770,10 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_CampoTextoTelefoneKeyTyped
+
+    private void ComboBoxLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxLogradouroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxLogradouroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -818,8 +828,8 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
     private javax.swing.JTextField CampoTextoTelefone;
     private javax.swing.JCheckBox CheckAdmin;
     private javax.swing.JComboBox ComboBoxBairro;
-    private javax.swing.JComboBox ComboBoxCidade;
-    private javax.swing.JComboBox ComboBoxEstado;
+    private javax.swing.JComboBox<String> ComboBoxCidade;
+    private javax.swing.JComboBox<String> ComboBoxEstado;
     private javax.swing.JComboBox ComboBoxLogradouro;
     private javax.swing.JComboBox ComboBoxUF;
     private javax.swing.JLabel jLabel1;

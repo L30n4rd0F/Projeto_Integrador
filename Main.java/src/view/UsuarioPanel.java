@@ -310,6 +310,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TabelaUsuarioMouseClicked
 
+    @SuppressWarnings("unchecked")
     private void BotaoAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarUsuarioActionPerformed
         //Verifica se tem alguma linha selecionada
         if(getTabelaUsuario().getSelectedRow()!=-1){
@@ -317,6 +318,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             try {
                 viewAtualizarUsuario.setController(this.controller);
                 controller.inicializacaoCamposAtualizar();
+                controller.comboBoxEstados(viewAtualizarUsuario.getComboBoxEstado(), viewAtualizarUsuario.getComboBoxUF());
                 controller.preencherInformacaoUsuarioAtualizar();
                 viewAtualizarUsuario.setLocationRelativeTo(null);//Centraliza
                 viewAtualizarUsuario.setVisible(true);
@@ -331,7 +333,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
 
     private void BotaoRemoverUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverUsuarioActionPerformed
          
-        if(getTabelaUsuario().getSelectedRow()!=-1){
+        if(getTabelaUsuario().getSelectedRow()!=-1 && !getCampoPesquisaId().getText().isEmpty()){
             try {
                 controller.removerUsuario();
             } catch (SQLException ex) {
