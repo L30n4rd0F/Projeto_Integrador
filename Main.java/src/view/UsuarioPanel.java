@@ -82,6 +82,9 @@ public class UsuarioPanel extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CampoPesquisaNomeKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoPesquisaNomeKeyTyped(evt);
+            }
         });
 
         jLabel1.setText("Nome:");
@@ -400,6 +403,10 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private void ComboBoxPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboBoxPesquisaMouseClicked
 
     }//GEN-LAST:event_ComboBoxPesquisaMouseClicked
+
+    private void CampoPesquisaNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaNomeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoPesquisaNomeKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

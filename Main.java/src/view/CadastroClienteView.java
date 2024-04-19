@@ -487,9 +487,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
     private void ComboBoxEstadoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxEstadoAncestorAdded
         try {
-            controller.comboBoxEstadados();
+            controller.comboBoxEstados(ComboBoxEstado, ComboBoxUF);
         } catch (SQLException ex) {
-            Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ComboBoxEstadoAncestorAdded
 
@@ -498,10 +498,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEstadoFocusLost
 
     private void ComboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxEstadoActionPerformed
-        
         if(getComboBoxEstado().getSelectedIndex()>=0 && this.estadoSelecionado != getComboBoxEstado().getSelectedIndex() && getComboBoxEstado().getItemCount()>=26){
             this.estadoSelecionado = getComboBoxEstado().getSelectedIndex();    
-            controller.atualizaComboBoxEstado();
+            controller.atualizaComboBoxEstado(ComboBoxEstado, ComboBoxUF, ComboBoxCidade, this.estadoSelecionado);
             ComboBoxLogradouro.removeAllItems();
             this.cidadeSelecionada = -1;
             this.bairroSelecionado = -1;
@@ -510,10 +509,13 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEstadoActionPerformed
 
     private void ComboBoxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxUFActionPerformed
-        //Se tiver algo selecionado no combo box e ele for diferente do que ja tinha sido selecionado
         if(getComboBoxUF().getSelectedIndex()>=0 && this.estadoSelecionado != getComboBoxUF().getSelectedIndex() && getComboBoxUF().getItemCount()>=26){
-            this.estadoSelecionado = getComboBoxUF().getSelectedIndex();
-            controller.atualizaComboBoxEstado();
+            this.estadoSelecionado = getComboBoxUF().getSelectedIndex();    
+            controller.atualizaComboBoxEstado(ComboBoxEstado, ComboBoxUF, ComboBoxCidade, this.estadoSelecionado);
+            ComboBoxLogradouro.removeAllItems();
+            this.cidadeSelecionada = -1;
+            this.bairroSelecionado = -1;
+            ComboBoxBairro.removeAllItems();
         }
     }//GEN-LAST:event_ComboBoxUFActionPerformed
 
@@ -522,7 +524,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         if(this.cidadeSelecionada != getComboBoxCidade().getSelectedIndex() && getComboBoxCidade().getSelectedIndex()>=0){
             this.cidadeSelecionada = getComboBoxCidade().getSelectedIndex();
             try {
-                controller.comboBoxBairros();
+                controller.comboBoxBairros(ComboBoxUF, ComboBoxCidade, ComboBoxBairro);
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -557,7 +559,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         if(this.bairroSelecionado != getComboBoxBairro().getSelectedIndex() && getComboBoxBairro().getSelectedIndex()>=0){
             this.bairroSelecionado = getComboBoxBairro().getSelectedIndex();
             try {
-                controller.comboBoxLogradouros();
+                controller.comboBoxLogradouros(ComboBoxUF, ComboBoxCidade, ComboBoxBairro, ComboBoxLogradouro);
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroClienteView.class.getName()).log(Level.SEVERE, null, ex);
             }

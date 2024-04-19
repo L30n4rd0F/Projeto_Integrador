@@ -7,18 +7,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import model.Endereco;
-import view.CadastroClienteView;
 import java.sql.SQLException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class EnderecoController {
 
@@ -278,5 +275,75 @@ public class EnderecoController {
         
         enderecoDao.deleteEndereco(id);
     }
+    
+        public void comboBoxEstados(JComboBox<String> comboBoxEstado, JComboBox<String> comboBoxUF) throws SQLException {
+        ArrayList<Endereco> estadosParaCB = estados();
+
+        for (Endereco estado : estadosParaCB) {
+            comboBoxEstado.addItem(estado.getEstado());
+            comboBoxUF.addItem(estado.getSigla());
+        }
+        comboBoxEstado.setSelectedIndex(-1);//Não seleciona nenhuma linha
+        comboBoxUF.setSelectedIndex(-1);//Não seleciona nenhuma linha
+    }
+
+    public void atualizaComboBoxEstado(JComboBox<String> comboBoxEstado, JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade,int selecionado) {
+        //Seleciona o combo box de estado e uf respectivamente ao seu estado ou uf selecionado
+        comboBoxEstado.setSelectedIndex(selecionado);
+        comboBoxUF.setSelectedIndex(selecionado);
+        
+        try {
+            String sigla = (String) comboBoxUF.getSelectedItem();
+            comboBoxCidades(comboBoxCidade, sigla);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void comboBoxCidades(JComboBox<String> comboBoxCidade, String sigla) throws SQLException {
+
+        ArrayList<String> cidadesParaCB = cidades(sigla);
+
+        comboBoxCidade.removeAllItems();//remove todos os itens do Combo Box
+        for (String cidade : cidadesParaCB) {
+            comboBoxCidade.addItem(cidade);
+        }
+        comboBoxCidade.setSelectedIndex(-1);
+    }
+
+    //Preenche o Combo Box de bairro
+    @SuppressWarnings("unchecked")
+    public void comboBoxBairros(JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade, JComboBox<String> comboBoxBairro) throws SQLException {
+
+        String nome_cidade = (String) comboBoxCidade.getSelectedItem(); //Pega o nome da cidade selecionada
+        String uf = (String) comboBoxUF.getSelectedItem();
+
+        ArrayList<String> bairrosParaCB = bairros(nome_cidade, uf);
+
+        comboBoxBairro.removeAllItems();
+        for (String bairro : bairrosParaCB) {
+            comboBoxBairro.addItem(bairro);
+        }
+        comboBoxBairro.setSelectedIndex(-1);
+
+    }
+    
+    //Preenche o Combo Box de logradouro
+    @SuppressWarnings("unchecked")
+    public void comboBoxLogradouros(JComboBox<String> comboBoxUF, JComboBox<String> comboBoxCidade, JComboBox<String> comboBoxBairro, JComboBox<String> comboBoxLogradouro) throws SQLException {
+        String bairro = (String) comboBoxBairro.getSelectedItem();
+        String sigla = (String) comboBoxUF.getSelectedItem();
+        String cidade = (String) comboBoxCidade.getSelectedItem();
+
+        ArrayList<String> logradourosParaCB = logradouro(bairro, sigla, cidade);
+
+        comboBoxLogradouro.removeAllItems();
+        for (String logradouro : logradourosParaCB) {
+            comboBoxLogradouro.addItem(logradouro);
+        }
+        comboBoxLogradouro.setSelectedIndex(-1);
+    }
+    
     
 }
