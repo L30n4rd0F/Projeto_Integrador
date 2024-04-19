@@ -155,5 +155,19 @@ public class ProdutoDAO {
         return categorias;
     }
     
+    public void cadastrarProduto(String nomeProduto,String nomeCategoria,int quantidade,String unidade,float preco,String descricao) throws SQLException {
+        String sql = "INSERT INTO produtos (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, nomeProduto);
+        statement.setString(2, descricao);
+        statement.setFloat(3, preco);
+        statement.setString(4, unidade);
+        statement.setInt(5, quantidade);
+        statement.setString(6, nomeCategoria);
+        
+        statement.executeQuery();
+    }
+    
 
 }
