@@ -1,6 +1,7 @@
 package controller;
 
 import dao.Conexao;
+import dao.EnderecoDAO;
 import dao.UsuarioDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -507,4 +508,72 @@ public class UsuarioController extends EnderecoController {
         viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(ativado);
         
     }
+    
+    //Função para preenchaer os campos com as informações do usuario
+    public void preencherInformacaoUsuarioAtualizar() throws SQLException{
+        int id_usuario = Integer.parseInt(view.getCampoPesquisaId().getText());//Pega o id do campo de texto e transforma em int
+        
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
+        
+        Usuario usuarioAtualizar = usuarioDao.selectUsuarioPorId(id_usuario);//pega informações do usuário pelo id
+        
+        preencherCamposAtualizarInfoUsuario(usuarioAtualizar);//Preenche campos de identificação do usuário
+        
+        //Se o id do endereço for maior que 0 significa que possui endereço e entra
+        if(usuarioAtualizar.getId_endereco()>0){
+            EnderecoDAO enderecoDao = new EnderecoDAO(conexao);//Realiza a conexao
+            Endereco enderecoUsuario = enderecoDao.selectEnderecoCompletoPorIdEndereco(usuarioAtualizar.getId_endereco());//Pega O endereço completo pelo seu id
+            preencherCamposAtualizarInfoEndereco(enderecoUsuario);//Preenche os campos de endereçp
+        } 
+    }
+    
+    //Função para preencher os campos de identificacao do usuário
+    public void preencherCamposAtualizarInfoUsuario(Usuario usuarioAtualizar){     
+        viewAtualizar.getCampoTextoNome().setText(usuarioAtualizar.getNome());
+        viewAtualizar.getCampoTextoCPF().setText(usuarioAtualizar.getCpf());
+        viewAtualizar.getCampoTextoTelefone().setText(usuarioAtualizar.getTelefone());
+        viewAtualizar.getCampoTextoObservacao().setText(usuarioAtualizar.getObservacao());
+        viewAtualizar.getCheckBoxAdm().setSelected(usuarioAtualizar.isAdmin());      
+    }
+    
+    //Função para preencher os campos de endereco
+    public void preencherCamposAtualizarInfoEndereco(Endereco enderecoUsuarioAtualizar){
+        viewAtualizar.getCampoTextoCEP().setText(enderecoUsuarioAtualizar.getCep());
+        viewAtualizar.getCampoTextoNumero().setText(enderecoUsuarioAtualizar.getNumero());
+        viewAtualizar.getCampoTextoComplemento().setText(enderecoUsuarioAtualizar.getComplemento());
+        viewAtualizar.getComboBoxEstado().setSelectedItem(enderecoUsuarioAtualizar.getEstado());
+        viewAtualizar.getComboBoxUF().setSelectedItem(enderecoUsuarioAtualizar.getUf());
+        viewAtualizar.getComboBoxCidade().setSelectedItem(enderecoUsuarioAtualizar.getCidade());
+        viewAtualizar.getComboBoxBairro().setSelectedItem(enderecoUsuarioAtualizar.getBairro());
+        viewAtualizar.getComboBoxLogradouro().setSelectedItem(enderecoUsuarioAtualizar.getLogradouro());
+        
+    }
+    
+    //Função para quando iniciar o atualizar ele manter o padrão
+    public void inicializacaoCamposAtualizar(){
+        viewAtualizar.getCampoTextoCEP().setText("");
+        viewAtualizar.getCampoTextoNumero().setText("");
+        viewAtualizar.getCampoTextoComplemento().setText("");
+        viewAtualizar.getComboBoxEstado().setSelectedIndex(-1);
+        viewAtualizar.getComboBoxUF().setSelectedIndex(-1);
+        viewAtualizar.getComboBoxCidade().setSelectedIndex(-1);
+        viewAtualizar.getComboBoxBairro().setSelectedIndex(-1);
+        viewAtualizar.getComboBoxLogradouro().setSelectedIndex(-1);
+        viewAtualizar.getCampoTextoNome().setText("");
+        viewAtualizar.getCampoTextoCPF().setText("");
+        viewAtualizar.getCampoTextoTelefone().setText("");
+        viewAtualizar.getCampoTextoObservacao().setText("");
+        viewAtualizar.getCheckBoxAdm().setSelected(false);
+        viewAtualizar.getRadioButtonSenha().setSelected(false);
+        viewAtualizar.getCampoTextoSenha().setEnabled(false);
+        viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(false);
+        viewAtualizar.getRadioButtonEditar().setSelected(true);
+        viewAtualizar.getCampoTextoSenha().setText("");
+        viewAtualizar.getCampoTextoConfirmarSenha().setText("");
+        habilitarEditarAtulizar(true);
+    }
+    
+  
 }

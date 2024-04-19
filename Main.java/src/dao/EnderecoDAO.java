@@ -101,10 +101,15 @@ public class EnderecoDAO {
             String cep = resultSet.getString("cep");
             String nome = resultSet.getString("nome");
             String uf = resultSet.getString("uf");
-            
+            int id_cidade = resultSet.getInt("fk_id_cidades");
+            int id_bairro = resultSet.getInt("fk_id_bairro");
+                   
             enderecoComDados.setLogradouro(nome);
             enderecoComDados.setCep(cep);
             enderecoComDados.setSigla(uf);
+            enderecoComDados.setId_logradouro(id_logradouro);
+            enderecoComDados.setId_cidade(id_cidade);
+            enderecoComDados.setId_bairro(id_bairro);
             
         }
         return enderecoComDados;
@@ -130,6 +135,69 @@ public class EnderecoDAO {
         
         return enderecoLogradouro.getCep();//retorna o cep
     }
+    
+    //Função para retornar o nome da cidade pelo seu id
+    public String selectNomeCidadePorId(int id) throws SQLException{
+        String cidade = "";
+        
+        String sql = "SELECT * FROM cidades WHERE id_cidades = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+           cidade = resultSet.getString("nome");
+        }
+        return  cidade;
+    }
+    
+    //Função para retornar o nome do bairro pelo seu id
+    public String selectNomeBairroPorId(int id) throws SQLException{
+        String bairro = "";
+        
+        String sql = "SELECT * FROM bairros WHERE id_bairro = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+           bairro = resultSet.getString("nome");
+        }
+        return  bairro;
+    }
+    
+    //Função para retornar um endereço completo apenas com seu id
+    public Endereco selectEnderecoCompletoPorIdEndereco(int id) throws SQLException{
+        //Definição e inicialização de variáveis
+        int id_logradouro, id_cidade, id_bairro;
+        id_logradouro = id_cidade = id_bairro = 0;
+        
+        String sql = "SELECT * FROM endereco WHERE id_endereco = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        
+        ResultSet resultSet = statement.getResultSet();
+        
+        while(resultSet.next()){
+           id_logradouro = resultSet.getInt("fk_id_logradouro");//Pega o id_logradouro do endereço cadastrado
+        }
+        
+        Endereco enderecoLogradouro = selectLogradouroPorId(id_logradouro);//Chama a função para pegar os dados do logradouro
+        enderecoLogradouro.setCidade(selectNomeCidadePorId(enderecoLogradouro.getId_cidade()));//Chama função para pegar o nome da cidade
+        enderecoLogradouro.setBairro(selectNomeBairroPorId(enderecoLogradouro.getId_bairro()));//Chama função para pegar o nome do bairro
+        
+        return enderecoLogradouro;
+    }
+        
+    
     
     //Leitura das cidades -- Não está sendo utilizada!
     public ArrayList<Endereco> readCidade() throws SQLException{

@@ -8,7 +8,7 @@ package model;
  *
  * @author Th3Br
  */
-public class Endereco {
+public class Endereco extends Logradouro{
     private int id_endereco;
     private String logradouro;
     private String bairro;

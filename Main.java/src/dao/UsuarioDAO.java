@@ -254,5 +254,30 @@ public class UsuarioDAO {
             return -1;
         }
     }
-
+    
+    public Usuario selectUsuarioPorId(int id) throws SQLException{
+        String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareCall(sql);
+        statement.setInt(1, id);
+        
+        ResultSet resultSet = statement.executeQuery();
+       
+        Usuario usuarioComDados = null;
+        
+        while(resultSet.next()){
+            String cpf = resultSet.getString("cpf");
+            String nome = resultSet.getString("nome");
+            String telefone = resultSet.getString("telefone");
+            String observacao = resultSet.getString("observacao");
+            boolean adm = resultSet.getBoolean("admin");
+            int id_endereco = resultSet.getInt("fk_id_endereco");
+            
+             usuarioComDados = new Usuario(id, nome, cpf, telefone, admin, observacao);
+             usuarioComDados.setId_endereco(id_endereco);
+             
+            
+        }
+         return usuarioComDados;
+    }
 }

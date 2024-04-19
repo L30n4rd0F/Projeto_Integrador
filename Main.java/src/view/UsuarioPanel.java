@@ -313,9 +313,16 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private void BotaoAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarUsuarioActionPerformed
         //Verifica se tem alguma linha selecionada
         if(getTabelaUsuario().getSelectedRow()!=-1){
-            viewAtualizarUsuario.setController(this.controller);
-            viewAtualizarUsuario.setLocationRelativeTo(null);//Centraliza
-            viewAtualizarUsuario.setVisible(true);
+            
+            try {
+                viewAtualizarUsuario.setController(this.controller);
+                controller.inicializacaoCamposAtualizar();
+                controller.preencherInformacaoUsuarioAtualizar();
+                viewAtualizarUsuario.setLocationRelativeTo(null);//Centraliza
+                viewAtualizarUsuario.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }   
         }
         else{
             JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
