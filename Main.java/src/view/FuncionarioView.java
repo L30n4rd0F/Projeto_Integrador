@@ -108,11 +108,11 @@ public class FuncionarioView extends javax.swing.JFrame {
         getContentPane().add(BotaoAbrirPaneHome);
         BotaoAbrirPaneHome.setBounds(80, 30, 150, 37);
 
-        MainPane.setMaximumSize(new java.awt.Dimension(1570, 1000));
-        MainPane.setMinimumSize(new java.awt.Dimension(1570, 1000));
+        MainPane.setMaximumSize(null);
+        MainPane.setMinimumSize(null);
         MainPane.setLayout(new java.awt.CardLayout());
         getContentPane().add(MainPane);
-        MainPane.setBounds(310, 30, 1570, 980);
+        MainPane.setBounds(310, 30, 1570, 940);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/img2.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
