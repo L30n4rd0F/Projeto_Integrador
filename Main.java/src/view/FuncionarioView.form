@@ -118,15 +118,15 @@
     <Container class="javax.swing.JLayeredPane" name="MainPane">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1570, 1000]"/>
+          <Dimension value="null"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1570, 1000]"/>
+          <Dimension value="null"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="310" y="30" width="1570" height="980"/>
+          <AbsoluteConstraints x="310" y="30" width="1570" height="940"/>
         </Constraint>
       </Constraints>
 
