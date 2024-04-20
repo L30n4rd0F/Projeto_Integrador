@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Produto;
+import view.AtualizarProdutoView;
 import view.CadastrarCategoriaView;
 import view.CadastrarProdutoView;
 import view.ProdutoPane;
@@ -26,6 +27,7 @@ public class ProdutoController {
     private ProdutoPane viewProdutoPane;
     private CadastrarProdutoView viewCadastroProduto;
     private CadastrarCategoriaView viewCadastroCategoria;
+    private AtualizarProdutoView viewAtualizarProduto;
 
     public ProdutoController(VendaPane view) {
         this.view = view;
@@ -41,6 +43,10 @@ public class ProdutoController {
     
     public ProdutoController(CadastrarCategoriaView viewCadastroCategoria) {
         this.viewCadastroCategoria = viewCadastroCategoria;
+    }
+    
+    public ProdutoController(AtualizarProdutoView viewAtualizarProduto) {
+        this.viewAtualizarProduto = viewAtualizarProduto;
     }
 
     public void readTabelaProduto() throws SQLException {
@@ -466,6 +472,37 @@ public class ProdutoController {
     public void cadastrarCategoria(String categoria) throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.cadastrarCategoria(categoria);
+    }
+    
+    public void readCategoriasAtualizarProduto() throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        List<String> categorias = produtoDAO.readCategorias();;
+        viewAtualizarProduto.getComboBoxCategoria().removeAllItems();
+        for (String categoria : categorias) {
+            viewAtualizarProduto.getComboBoxCategoria().addItem(categoria);
+        }
+    }
+    
+    public void apagarTodosCamposAtualizar() {
+        viewAtualizarProduto.getCampoNomeProduto().setText("");
+        viewAtualizarProduto.getComboBoxCategoria().setSelectedIndex(-1);
+        viewAtualizarProduto.getCampoQuantidade().setText("");
+        viewAtualizarProduto.getComboBoxUnidade().setSelectedIndex(-1);
+        viewAtualizarProduto.getCampoPreco().setText("");
+        viewAtualizarProduto.getCampoDescricao().setText("");
+    }
+    
+    public void atualizarProduto() throws SQLException {
+        String nomeProduto = viewAtualizarProduto.getCampoNomeProduto().getText();
+        String nomeCategoria = viewAtualizarProduto.getComboBoxCategoria().getSelectedItem().toString();
+        int quantidade = Integer.parseInt(viewAtualizarProduto.getCampoQuantidade().getText().replace(',', '.'));
+        String unidade = viewAtualizarProduto.getComboBoxUnidade().getSelectedItem().toString();
+        float preco = Float.parseFloat(viewAtualizarProduto.getCampoPreco().getText());
+        String descricao = viewAtualizarProduto.getCampoDescricao().getText();
+        int idProduto = Integer.parseInt(viewAtualizarProduto.getCampoIdProduto().getText());
+        
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.atualizarProduto(idProduto, nomeProduto, nomeCategoria, quantidade, unidade, preco, descricao);
     }
     
 }

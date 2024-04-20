@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.ProdutoController;
@@ -9,39 +8,48 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Produto;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-public class CadastrarProdutoView extends javax.swing.JFrame {
-    
+public final class AtualizarProdutoView extends javax.swing.JFrame {
+
     private final ProdutoController controller;
 
-    public CadastrarProdutoView() {
+    public AtualizarProdutoView() {
         initComponents();
-        
+
         this.controller = new ProdutoController(this);
-        
-        
-        controller.apagarTodosCampos();
-        
+
+        controller.apagarTodosCamposAtualizar();
+
+        this.setLocationRelativeTo(null);
+        AutoCompleteDecorator.decorate(ComboBoxCategoria);
+        AutoCompleteDecorator.decorate(ComboBoxUnidade);
+
+    }
+
+    public void produto(String produtoSelecionado) {
         try {
-            controller.readCategoriasCadastroProduto();
+            controller.readCategoriasAtualizarProduto();
+            Produto pr = controller.readProdutosSelecionados(produtoSelecionado);
+            getCampoDescricao().setText(pr.getDescricao());
+            getCampoNomeProduto().setText(pr.getNome());
+            getComboBoxCategoria().setSelectedItem(pr.getCategoria());
+            getCampoQuantidade().setText(String.valueOf(pr.getQuantidade()));
+            getComboBoxUnidade().setSelectedItem(pr.getUnidade());
+            getCampoPreco().setText(String.valueOf(pr.getPreco()));
+            getCampoIdProduto().setText(String.valueOf(pr.getId_produto()));
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        this.setLocationRelativeTo(null); //Centraliza o frame na tela
-        //this.controllerEndereco = new EnderecoController(this);
-        AutoCompleteDecorator.decorate(ComboBoxCategoria);
-        AutoCompleteDecorator.decorate(ComboBoxUnidade);
     }
 
-
-    public JButton getBotaoCadastrarProduto() {
-        return BotaoCadastrarProduto;
+    public JButton getBotaoAtualizarProduto() {
+        return BotaoAtualizarProduto;
     }
 
-    public void setBotaoCadastrarProduto(JButton BotaoCadastrarProduto) {
-        this.BotaoCadastrarProduto = BotaoCadastrarProduto;
+    public void setBotaoAtualizarProduto(JButton BotaoAtualizarProduto) {
+        this.BotaoAtualizarProduto = BotaoAtualizarProduto;
     }
 
     public JButton getBotaoCancelar() {
@@ -100,34 +108,48 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         this.ComboBoxUnidade = ComboBoxUnidade;
     }
 
-    
-    
+    public JTextField getCampoIdProduto() {
+        return CampoIdProduto;
+    }
+
+    public void setCampoIdProduto(JTextField CampoIdProduto) {
+        this.CampoIdProduto = CampoIdProduto;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        CampoDescricao = new javax.swing.JTextArea();
         CampoNomeProduto = new javax.swing.JTextField();
         ComboBoxCategoria = new javax.swing.JComboBox<>();
+        BotaoAtualizarProduto = new javax.swing.JButton();
         CampoQuantidade = new javax.swing.JTextField();
+        BotaoCancelar = new javax.swing.JButton();
         ComboBoxUnidade = new javax.swing.JComboBox<>();
         CampoPreco = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        CampoDescricao = new javax.swing.JTextArea();
-        BotaoCadastrarProduto = new javax.swing.JButton();
-        BotaoCancelar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        CampoIdProduto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Cadastrar Produto");
+        jLabel1.setText("Atualizar Produto");
+
+        jLabel7.setText("Descrição");
 
         jLabel2.setText("Nome");
+
+        CampoDescricao.setColumns(20);
+        CampoDescricao.setRows(5);
+        jScrollPane1.setViewportView(CampoDescricao);
 
         ComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ComboBoxCategoria.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -137,6 +159,20 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        BotaoAtualizarProduto.setText("Atualizar Produto");
+        BotaoAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoAtualizarProdutoActionPerformed(evt);
+            }
+        });
+
+        BotaoCancelar.setText("Cancelar");
+        BotaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCancelarActionPerformed(evt);
             }
         });
 
@@ -150,23 +186,12 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
 
         jLabel6.setText("Preço R$");
 
-        jLabel7.setText("Descrição");
+        jLabel8.setText("Id do Produto");
 
-        CampoDescricao.setColumns(20);
-        CampoDescricao.setRows(5);
-        jScrollPane1.setViewportView(CampoDescricao);
-
-        BotaoCadastrarProduto.setText("Cadastrar Produto");
-        BotaoCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+        CampoIdProduto.setEnabled(false);
+        CampoIdProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCadastrarProdutoActionPerformed(evt);
-            }
-        });
-
-        BotaoCancelar.setText("Cancelar");
-        BotaoCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCancelarActionPerformed(evt);
+                CampoIdProdutoActionPerformed(evt);
             }
         });
 
@@ -174,8 +199,8 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 59, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,33 +213,43 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
                             .addComponent(ComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CampoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(ComboBoxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(CampoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addComponent(BotaoCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                        .addComponent(BotaoAtualizarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(BotaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(CampoIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CampoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(ComboBoxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CampoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6)))))))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel8)
+                    .addComponent(CampoIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -237,18 +272,37 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
+                        .addGap(0, 15, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BotaoCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotaoAtualizarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BotaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64))))
+                        .addGap(158, 158, 158))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ComboBoxCategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaAncestorAdded
+        try {
+            controller.readCategoriasAtualizarProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ComboBoxCategoriaAncestorAdded
+
+    private void BotaoAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarProdutoActionPerformed
+        try {
+            controller.atualizarProduto();
+            controller.readCategoriasAtualizarProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(AtualizarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        controller.apagarTodosCamposAtualizar();
+        this.dispose();
+    }//GEN-LAST:event_BotaoAtualizarProdutoActionPerformed
+
     private void BotaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCancelarActionPerformed
-        controller.apagarTodosCampos();
+        controller.apagarTodosCamposAtualizar();
         this.dispose();
         try {
             controller.readTabelaProdutoPane();
@@ -257,23 +311,9 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotaoCancelarActionPerformed
 
-    private void BotaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarProdutoActionPerformed
-        try {
-            controller.cadastrarProduto();
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        controller.apagarTodosCampos();
-        this.dispose();
-    }//GEN-LAST:event_BotaoCadastrarProdutoActionPerformed
-
-    private void ComboBoxCategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaAncestorAdded
-        try {
-            controller.readCategoriasCadastroProduto();
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_ComboBoxCategoriaAncestorAdded
+    private void CampoIdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoIdProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,28 +332,30 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarProdutoView().setVisible(true);
+                new AtualizarProdutoView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoCadastrarProduto;
+    private javax.swing.JButton BotaoAtualizarProduto;
     private javax.swing.JButton BotaoCancelar;
     private javax.swing.JTextArea CampoDescricao;
+    private javax.swing.JTextField CampoIdProduto;
     private javax.swing.JTextField CampoNomeProduto;
     private javax.swing.JTextField CampoPreco;
     private javax.swing.JTextField CampoQuantidade;
@@ -326,6 +368,7 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

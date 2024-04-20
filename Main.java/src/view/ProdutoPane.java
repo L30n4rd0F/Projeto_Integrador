@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -16,6 +17,7 @@ public class ProdutoPane extends javax.swing.JPanel {
     private final ProdutoController controller;
     CadastrarProdutoView viewCadastro = new CadastrarProdutoView();
     CadastrarCategoriaView viewCadastroCategoria = new CadastrarCategoriaView();
+    AtualizarProdutoView viewAtualizarProduto = new AtualizarProdutoView();
     
     public ProdutoPane() {
         initComponents();
@@ -202,13 +204,15 @@ public class ProdutoPane extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BotaoNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotaoAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotaoRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BotaoCadastrarCategoria)))
                 .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(BotaoAtualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,12 +225,13 @@ public class ProdutoPane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72)
+                .addGap(26, 26, 26)
+                .addComponent(BotaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoCadastrarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(95, 95, 95))
@@ -259,10 +264,13 @@ public class ProdutoPane extends javax.swing.JPanel {
     }//GEN-LAST:event_CampoPesquisaNomeKeyReleased
 
     private void BotaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarActionPerformed
-        try {
-            controller.readTabelaProdutoPane();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProdutoPane.class.getName()).log(Level.SEVERE, null, ex);
+        if (getTabelaProduto().getSelectedRow()!=-1) {
+        viewAtualizarProduto.setLocationRelativeTo(null);
+        viewAtualizarProduto.setVisible(true);
+        String produtoSelecionado = getTabelaProduto().getValueAt(getTabelaProduto().getSelectedRow(), 0).toString();
+        viewAtualizarProduto.produto(produtoSelecionado);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um produto primeiro.");
         }
     }//GEN-LAST:event_BotaoAtualizarActionPerformed
 

@@ -177,11 +177,21 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        try {
+            controller.readTabelaProdutoPane();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         controller.apagarTodosCamposCategoria();
         this.dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void BotaoConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConcluidoActionPerformed
+        try {
+            controller.readTabelaProdutoPane();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         controller.apagarTodosCamposCategoria();
         this.dispose();
     }//GEN-LAST:event_BotaoConcluidoActionPerformed
@@ -198,6 +208,7 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
     private void BotaoCadastrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarCategoriaActionPerformed
         try {
             controller.cadastrarCategoria(getCampoCategoria().getText());
+            controller.readTabelaProdutoPane();
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
         }
