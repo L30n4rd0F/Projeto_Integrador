@@ -132,7 +132,7 @@ public class ProdutoPane extends javax.swing.JPanel {
             }
         });
 
-        BotaoAtualizar.setText("Atualizar");
+        BotaoAtualizar.setText("Ver mais informações");
         BotaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAtualizarActionPerformed(evt);
@@ -203,7 +203,7 @@ public class ProdutoPane extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BotaoNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BotaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotaoAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotaoRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)

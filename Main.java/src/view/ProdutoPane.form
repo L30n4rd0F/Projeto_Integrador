@@ -40,7 +40,7 @@
                   <Group type="102" attributes="0">
                       <Component id="BotaoNovoProduto" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="BotaoAtualizar" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="BotaoAtualizar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="BotaoRemoverProduto" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -131,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="BotaoAtualizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atualizar"/>
+        <Property name="text" type="java.lang.String" value="Ver mais informa&#xe7;&#xf5;es"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoAtualizarActionPerformed"/>
