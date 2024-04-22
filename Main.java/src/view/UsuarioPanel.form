@@ -47,8 +47,8 @@
                                       <EmptySpace min="-2" pref="372" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="BotaoApagarCampos" pref="150" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="BotaoApagarCampos" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="CampoPesquisaNome" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>

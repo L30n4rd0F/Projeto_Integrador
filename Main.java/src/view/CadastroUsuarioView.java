@@ -188,6 +188,17 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
 
         jLabel9.setText("CEP:");
 
+        CampoCadastroCEP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CampoCadastroCEPActionPerformed(evt);
+            }
+        });
+        CampoCadastroCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoCadastroCEPKeyTyped(evt);
+            }
+        });
+
         BotaoAtualizarCEP.setText("jButton1");
         BotaoAtualizarCEP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -774,6 +785,19 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
     private void ComboBoxLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxLogradouroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxLogradouroActionPerformed
+
+    private void CampoCadastroCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoCadastroCEPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoCadastroCEPActionPerformed
+
+    private void CampoCadastroCEPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoCadastroCEPKeyTyped
+        if(controllerTexto.formatacaoCEP(evt, getCampoCadastroCEP().getText())){
+            getCampoCadastroCEP().setText(controllerTexto.mascaraCEP(getCampoCadastroCEP().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoCadastroCEPKeyTyped
 
     /**
      * @param args the command line arguments

@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.sort.SortUtils;
 
 public class EnderecoController {
 
@@ -40,9 +41,12 @@ public class EnderecoController {
                         String line;
                         while ((line = reader.readLine()) != null) {
                             response.append(line);
+                            if(line.contains("erro") && line.contains(": true")) {//
+                                JOptionPane.showMessageDialog(null, "CEP não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                                return null;
+                            }          
                         }
                     }
-
                     // Processar a resposta JSON manualmente
                     endereco = parseJsonToAddress(response.toString());  
                 } else {
@@ -50,6 +54,9 @@ public class EnderecoController {
                 }
             } catch (IOException e) {
             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "CEP inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return endereco;
     }

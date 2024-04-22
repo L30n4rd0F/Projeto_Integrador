@@ -118,6 +118,11 @@ public class CadastroClienteView extends javax.swing.JFrame {
                 CampoCepActionPerformed(evt);
             }
         });
+        CampoCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoCepKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("CEP:");
 
@@ -630,6 +635,15 @@ public class CadastroClienteView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_CampoTelefoneClienteKeyTyped
+
+    private void CampoCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoCepKeyTyped
+        if(controllerTexto.formatacaoCEP(evt, getCampoCep().getText())){
+            getCampoCep().setText(controllerTexto.mascaraCEP(getCampoCep().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoCepKeyTyped
 
     /**
      * @param args the command line arguments

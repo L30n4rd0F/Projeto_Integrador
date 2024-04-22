@@ -17,8 +17,7 @@ public class TextoController {
     
     //Define limite para campo do CPF
     public boolean limiteCPF(String cpf){
-        int limite = 13;
-        return cpf.length()<=limite;
+        return cpf.length()<=13;
      
     }
     
@@ -42,8 +41,7 @@ public class TextoController {
     
     //Verifica se o limite do telefone não foi batido
     public boolean limiteTelefone(String telefone){
-        int limite = 14;
-        return telefone.length()<=limite;
+        return telefone.length()<=14;
     }
     
     //Cria uma espécie de máscara para o telefone
@@ -58,4 +56,22 @@ public class TextoController {
         }
         return telefone;
     }
+    
+    public boolean formatacaoCEP(java.awt.event.KeyEvent evt, String cep){
+        return (limiteCEP(cep) && apenasNumero(evt));
+    }
+    
+    private boolean limiteCEP(String cep){
+        return cep.length()<=8;
+    }
+    
+    public String mascaraCEP(String cep){
+        int tamanho = cep.length();
+        
+        if(tamanho==5){
+            cep += "-";
+        }
+        return cep;
+    }
+
 }
