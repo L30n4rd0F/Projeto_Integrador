@@ -287,7 +287,7 @@ public class ProdutoController {
         }
     }
 
-    public void concluirVenda() throws SQLException, ParseException {
+    public void concluirVenda(String metodoPagamento) throws SQLException, ParseException {
         DefaultTableModel modeloCarrinho = (DefaultTableModel) view.getTabelaCarrinho().getModel();
         if (modeloCarrinho.getRowCount() > 0) {
 
@@ -308,7 +308,7 @@ public class ProdutoController {
                 float valorTotal = Float.parseFloat(view.getCampoValorTotalCarrinho().getText().replace(',', '.'));
 
                 HistoricoDAO historicoDAO = new HistoricoDAO(conexao);
-                int id_historico = historicoDAO.adicionarCarrinhoHistorico(valorTotal, id_usuario, id_cliente);
+                int id_historico = historicoDAO.adicionarCarrinhoHistorico(valorTotal, id_usuario, id_cliente, metodoPagamento);
 
                 for (int i = 0; i < modeloCarrinho.getRowCount(); i++) {
 

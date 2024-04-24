@@ -1,7 +1,6 @@
 package view;
 
 import controller.ProdutoController;
-import controller.TextoController;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -14,6 +13,8 @@ public class VendaPane extends javax.swing.JPanel {
 
     private final ProdutoController controller;
     private String cpf;
+    private String metodoPagamento;
+    MetodoPagamentoView viewMetodoPagamento = new MetodoPagamentoView();
 
     public VendaPane() {
         initComponents();
@@ -26,6 +27,22 @@ public class VendaPane extends javax.swing.JPanel {
             Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public static void concluirVenda(String metodoPagamento,ProdutoController controller) throws SQLException {
+        try {
+            controller.concluirVenda(metodoPagamento);
+        } catch (ParseException ex) {
+            Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String getMetodoPagamento() {
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
     }
 
     public String getCpf() {
@@ -341,7 +358,7 @@ public class VendaPane extends javax.swing.JPanel {
             }
         });
 
-        BotaoConcluirVenda.setText("Concluir Venda");
+        BotaoConcluirVenda.setText("Escolher método de pagamento");
         BotaoConcluirVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoConcluirVendaActionPerformed(evt);
@@ -609,11 +626,10 @@ public class VendaPane extends javax.swing.JPanel {
     }//GEN-LAST:event_jFrame1formWindowActivated
 
     private void BotaoConcluirVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConcluirVendaActionPerformed
-        try {
-            controller.concluirVenda();
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        viewMetodoPagamento.getCampoValorTotal().setText(getCampoValorTotalCarrinho().getText());
+        viewMetodoPagamento.setController(controller);
+        viewMetodoPagamento.setLocationRelativeTo(null);
+        viewMetodoPagamento.setVisible(true);
     }//GEN-LAST:event_BotaoConcluirVendaActionPerformed
 
     private void CampoQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoQuantidadeKeyReleased

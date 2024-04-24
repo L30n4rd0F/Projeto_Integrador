@@ -16,7 +16,7 @@ public class HistoricoDAO {
         this.connection = connection;
     }
 
-    public int adicionarCarrinhoHistorico(float precoTotal, int id_usuario, Integer id_cliente) throws SQLException, ParseException {
+    public int adicionarCarrinhoHistorico(float precoTotal, int id_usuario, Integer id_cliente, String metodoPagamento) throws SQLException, ParseException {
         Historico historico = new Historico(precoTotal, id_usuario, id_cliente);
         // Formatando a data para o formato "dia-mês-ano"
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -28,10 +28,10 @@ public class HistoricoDAO {
         String sql;
 
         if (id_cliente == 0) {
-            sql = "INSERT INTO historico (data, tempo, preco_total, fk_id_usuario) VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO historico (data, tempo, preco_total, fk_id_usuario, metodo_pagamento) VALUES (?, ?, ?, ?, ?)";
 
         } else {
-            sql = "INSERT INTO historico (data, tempo, preco_total, fk_id_usuario, fk_id_cliente) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO historico (data, tempo, preco_total, fk_id_usuario, fk_id_cliente, metodo_pagamento) VALUES (?, ?, ?, ?, ?, ?)";
         }
 
         PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -42,6 +42,9 @@ public class HistoricoDAO {
         statement.setInt(4, historico.getFk_id_usuario());
         if(id_cliente!=0){
             statement.setInt(5, historico.getFk_id_cliente());
+            statement.setString(6, metodoPagamento);
+        } else {
+            statement.setString(5, metodoPagamento);
         }
 
         statement.executeUpdate();
