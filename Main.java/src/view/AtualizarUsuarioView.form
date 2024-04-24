@@ -27,17 +27,17 @@
               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="CheckBoxEndereco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="CampoTextoCEP" min="-2" pref="79" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="BotaoAtulizarCEP" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="BotaoAtualizarCEP" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -182,8 +182,8 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <Component id="CheckBoxEndereco" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -195,7 +195,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CampoTextoCEP" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BotaoAtulizarCEP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BotaoAtualizarCEP" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxUF" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxCidade" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -318,14 +318,6 @@
         <Property name="text" type="java.lang.String" value="Confirmar Senha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="text" type="java.lang.String" value="CEP:"/>
@@ -333,10 +325,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="CampoTextoCEP">
     </Component>
-    <Component class="javax.swing.JButton" name="BotaoAtulizarCEP">
+    <Component class="javax.swing.JButton" name="BotaoAtualizarCEP">
       <Properties>
         <Property name="text" type="java.lang.String" value="jButton1"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoAtualizarCEPActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxEstado">
       <Properties>
@@ -418,6 +413,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoSalvarAlteracaoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoDesfazerAlteracao">
       <Properties>
@@ -444,6 +442,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Bairro:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="CheckBoxEndereco">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBoxEnderecoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

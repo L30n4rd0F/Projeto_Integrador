@@ -61,10 +61,9 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         CampoTextoConfirmarSenha = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         CampoTextoCEP = new javax.swing.JTextField();
-        BotaoAtulizarCEP = new javax.swing.JButton();
+        BotaoAtualizarCEP = new javax.swing.JButton();
         ComboBoxEstado = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         ComboBoxUF = new javax.swing.JComboBox();
@@ -82,6 +81,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         ComboBoxBairro = new javax.swing.JComboBox();
         CheckBoxAdm = new javax.swing.JCheckBox();
         jLabel14 = new javax.swing.JLabel();
+        CheckBoxEndereco = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -126,12 +126,14 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
 
         jLabel8.setText("Confirmar Senha:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setText("Endereço:");
-
         jLabel10.setText("CEP:");
 
-        BotaoAtulizarCEP.setText("jButton1");
+        BotaoAtualizarCEP.setText("jButton1");
+        BotaoAtualizarCEP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoAtualizarCEPActionPerformed(evt);
+            }
+        });
 
         ComboBoxEstado.setEditable(true);
         ComboBoxEstado.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -178,6 +180,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         jLabel17.setText("Complemento:");
 
         BotaoSalvarAlteracao.setText("Salvar");
+        BotaoSalvarAlteracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoSalvarAlteracaoActionPerformed(evt);
+            }
+        });
 
         BotaoDesfazerAlteracao.setText("Desfazer Alterações");
 
@@ -192,6 +199,13 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
 
         jLabel14.setText("Bairro:");
 
+        CheckBoxEndereco.setText("Endereço");
+        CheckBoxEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxEnderecoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,16 +214,16 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
                 .addGap(90, 90, 90)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(CheckBoxEndereco)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(CampoTextoCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(BotaoAtulizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(BotaoAtualizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel10))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,8 +331,8 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CampoTextoConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(51, 51, 51)
-                .addComponent(jLabel9)
+                .addGap(47, 47, 47)
+                .addComponent(CheckBoxEndereco)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -329,7 +343,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoTextoCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoAtulizarCEP)
+                    .addComponent(BotaoAtualizarCEP)
                     .addComponent(ComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,6 +425,18 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxBairroActionPerformed
 
+    private void CheckBoxEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxEnderecoActionPerformed
+        controller.habilitarCamposAtualizarEndereco(getRadioButtonEditar().isSelected(),getCheckBoxEndereco().isSelected());
+    }//GEN-LAST:event_CheckBoxEnderecoActionPerformed
+
+    private void BotaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvarAlteracaoActionPerformed
+        // controller.salvarAtualizacao(getCheckBoxEndereco().isSelected());
+    }//GEN-LAST:event_BotaoSalvarAlteracaoActionPerformed
+
+    private void BotaoAtualizarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCEPActionPerformed
+        
+    }//GEN-LAST:event_BotaoAtualizarCEPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -455,11 +481,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     }
 
     public JButton getBotaoAtulizarCEP() {
-        return BotaoAtulizarCEP;
+        return BotaoAtualizarCEP;
     }
 
     public void setBotaoAtulizarCEP(JButton BotaoAtulizarCEP) {
-        this.BotaoAtulizarCEP = BotaoAtulizarCEP;
+        this.BotaoAtualizarCEP = BotaoAtulizarCEP;
     }
 
     public JButton getBotaoDesfazerAlteracao() {
@@ -571,6 +597,14 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         return ComboBoxUF;
     }
 
+    public JCheckBox getCheckBoxEndereco() {
+        return CheckBoxEndereco;
+    }
+
+    public void setCheckBoxEndereco(JCheckBox CheckBoxEndereco) {
+        this.CheckBoxEndereco = CheckBoxEndereco;
+    }
+
     public void setComboBoxUF(JComboBox ComboBoxUF) {
         this.ComboBoxUF = ComboBoxUF;
     }
@@ -642,7 +676,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoAtulizarCEP;
+    private javax.swing.JButton BotaoAtualizarCEP;
     private javax.swing.JButton BotaoDesfazerAlteracao;
     private javax.swing.JButton BotaoSalvarAlteracao;
     private javax.swing.JTextField CampoTextoCEP;
@@ -655,6 +689,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     private javax.swing.JTextField CampoTextoSenha;
     private javax.swing.JTextField CampoTextoTelefone;
     private javax.swing.JCheckBox CheckBoxAdm;
+    private javax.swing.JCheckBox CheckBoxEndereco;
     private javax.swing.JComboBox ComboBoxBairro;
     private javax.swing.JComboBox ComboBoxCidade;
     private javax.swing.JComboBox ComboBoxEstado;
@@ -678,7 +713,6 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

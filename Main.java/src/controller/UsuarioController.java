@@ -413,15 +413,8 @@ public class UsuarioController extends EnderecoController {
     
     //Função para habilitar e desabilitar os campos de atualização
     public void habilitarEditarAtulizar(boolean ativado){
-        viewAtualizar.getCampoTextoCEP().setEnabled(ativado);
-        viewAtualizar.getCampoTextoNumero().setEnabled(ativado);
-        viewAtualizar.getCampoTextoComplemento().setEnabled(ativado);
-        viewAtualizar.getBotaoAtulizarCEP().setEnabled(ativado);
-        viewAtualizar.getComboBoxEstado().setEnabled(ativado);
-        viewAtualizar.getComboBoxUF().setEnabled(ativado);
-        viewAtualizar.getComboBoxCidade().setEnabled(ativado);
-        viewAtualizar.getComboBoxBairro().setEnabled(ativado);
-        viewAtualizar.getComboBoxLogradouro().setEnabled(ativado);
+        habilitarCamposAtualizarEndereco(ativado, viewAtualizar.getCheckBoxEndereco().isSelected());
+        viewAtualizar.getCheckBoxEndereco().setEnabled(ativado);
         viewAtualizar.getCampoTextoNome().setEnabled(ativado);
         viewAtualizar.getCampoTextoCPF().setEnabled(ativado);
         viewAtualizar.getCampoTextoTelefone().setEnabled(ativado);
@@ -431,6 +424,23 @@ public class UsuarioController extends EnderecoController {
         viewAtualizar.getRadioButtonSenha().setSelected(false);
         viewAtualizar.getCampoTextoSenha().setEnabled(false);
         viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(false);
+    }
+    
+    
+    //Função para habilitar campos de endereço na atualização
+    public void habilitarCamposAtualizarEndereco(boolean editarAtivado, boolean comEndereco){
+        if (!editarAtivado) {comEndereco = false;}//Verifica se está habilitado a função de editar
+        
+        viewAtualizar.getCampoTextoCEP().setEnabled(comEndereco);
+        viewAtualizar.getCampoTextoNumero().setEnabled(comEndereco);
+        viewAtualizar.getCampoTextoComplemento().setEnabled(comEndereco);
+        viewAtualizar.getBotaoAtulizarCEP().setEnabled(comEndereco);
+        viewAtualizar.getComboBoxEstado().setEnabled(comEndereco);
+        viewAtualizar.getComboBoxUF().setEnabled(comEndereco);
+        viewAtualizar.getComboBoxCidade().setEnabled(comEndereco);
+        viewAtualizar.getComboBoxBairro().setEnabled(comEndereco);
+        viewAtualizar.getComboBoxLogradouro().setEnabled(comEndereco);
+        
     }
     
     //Função para habilitar e desabilitar os campos de senha em atualizar
@@ -451,9 +461,12 @@ public class UsuarioController extends EnderecoController {
         Usuario usuarioAtualizar = usuarioDao.selectUsuarioPorId(id_usuario);//pega informações do usuário pelo id
         
         preencherCamposAtualizarInfoUsuario(usuarioAtualizar);//Preenche campos de identificação do usuário
+        viewAtualizar.getCheckBoxEndereco().setSelected(false);
         
         //Se o id do endereço for maior que 0 significa que possui endereço e entra
         if(usuarioAtualizar.getId_endereco()>0){
+            viewAtualizar.getCheckBoxEndereco().setSelected(true);
+            habilitarCamposAtualizarEndereco(true, true);
             EnderecoDAO enderecoDao = new EnderecoDAO(conexao);//Realiza a conexao
             Endereco enderecoUsuario = enderecoDao.selectEnderecoCompletoPorIdEndereco(usuarioAtualizar.getId_endereco());//Pega O endereço completo pelo seu id
             preencherCamposAtualizarInfoEndereco(enderecoUsuario);//Preenche os campos de endereçp
@@ -509,6 +522,13 @@ public class UsuarioController extends EnderecoController {
         habilitarEditarAtulizar(true);
     }
     
+    //Função para salvar atualização do usuário
+    public void salvarAtualizacao(boolean comEndereco){
+        //Caso o endereco esteja ativo
+        if(comEndereco){
+            
+        }
+    }
     
   
 }
