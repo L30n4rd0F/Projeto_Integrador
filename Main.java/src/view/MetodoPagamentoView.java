@@ -27,6 +27,14 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
         buttonGroup1.add(RadioButtonDebito);
     }
 
+    public JTextField getCampoValorParcelado() {
+        return CampoValorParcelado;
+    }
+
+    public void setCampoValorParcelado(JTextField CampoValorParcelado) {
+        this.CampoValorParcelado = CampoValorParcelado;
+    }
+
     public ProdutoController getController() {
         return controller;
     }
@@ -140,6 +148,8 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
         RadioButtonCredito = new javax.swing.JRadioButton();
         RadioButtonPix = new javax.swing.JRadioButton();
         RadioButtonDebito = new javax.swing.JRadioButton();
+        CampoValorParcelado = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel9.setText("jLabel9");
 
@@ -158,6 +168,7 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
 
         jLabel7.setText("Valor total R$");
 
+        CampoDinherio.setEnabled(false);
         CampoDinherio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CampoDinherioKeyReleased(evt);
@@ -174,6 +185,12 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
         jLabel8.setText("Troco");
 
         ComboBoxParcela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1x", "2x", "3x", "4x" , "5x" , "6x" }));
+        ComboBoxParcela.setEnabled(false);
+        ComboBoxParcela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxParcelaActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Parcelas");
 
@@ -192,10 +209,29 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
         });
 
         RadioButtonCredito.setText("Crédito");
+        RadioButtonCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonCreditoActionPerformed(evt);
+            }
+        });
 
         RadioButtonPix.setText("Pix");
+        RadioButtonPix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonPixActionPerformed(evt);
+            }
+        });
 
         RadioButtonDebito.setText("Débito");
+        RadioButtonDebito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonDebitoActionPerformed(evt);
+            }
+        });
+
+        CampoValorParcelado.setEnabled(false);
+
+        jLabel2.setText("Valor Parcelado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,31 +241,38 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(RadioButtonDinheiro)
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(RadioButtonCredito)
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel10)
-                            .addComponent(ComboBoxParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioButtonDebito)
-                            .addComponent(BotaoConfirmarVenda)
-                            .addComponent(RadioButtonPix)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(CampoTroco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                .addComponent(CampoDinherio, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jLabel1)
                         .addGap(161, 161, 161)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(CampoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(CampoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RadioButtonDinheiro)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(CampoTroco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addComponent(CampoDinherio, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(RadioButtonCredito)
+                                        .addGap(72, 72, 72)
+                                        .addComponent(jLabel4))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jLabel10))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(CampoValorParcelado, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ComboBoxParcela, javax.swing.GroupLayout.Alignment.LEADING, 0, 90, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(RadioButtonDebito)
+                                    .addComponent(BotaoConfirmarVenda)
+                                    .addComponent(RadioButtonPix)))
+                            .addComponent(jLabel2))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,19 +290,23 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
                     .addComponent(RadioButtonDinheiro)
                     .addComponent(RadioButtonCredito)
                     .addComponent(RadioButtonPix))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoDinherio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(RadioButtonDebito))
+                    .addComponent(RadioButtonDebito)
+                    .addComponent(ComboBoxParcela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addComponent(jLabel8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboBoxParcela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoConfirmarVenda))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(BotaoConfirmarVenda)
+                    .addComponent(CampoValorParcelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -274,7 +321,11 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoTrocoActionPerformed
 
     private void RadioButtonDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonDinheiroActionPerformed
-        // TODO add your handling code here:
+        getCampoDinherio().setEnabled(true);
+        getComboBoxParcela().setEnabled(false);
+        getCampoValorParcelado().setText("");
+        getCampoDinherio().setText("");
+        getCampoTroco().setText("");
     }//GEN-LAST:event_RadioButtonDinheiroActionPerformed
 
     private void BotaoConfirmarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConfirmarVendaActionPerformed
@@ -304,16 +355,54 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoConfirmarVendaActionPerformed
 
     private void CampoDinherioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoDinherioKeyReleased
-        String pagamento;
-        String valorTotal;
-        pagamento = getCampoDinherio().getText();
-        valorTotal = getCampoValorTotal().getText();
-        valorTotal = valorTotal.replace(',', '.');
-        pagamento = pagamento.replace(',', '.');
-        float total = Float.parseFloat(pagamento) - Float.parseFloat(valorTotal);
-        String totalFormatado = String.format("%.2f", total).replace('.', ',');
-        getCampoTroco().setText(totalFormatado);
+        if (RadioButtonDinheiro.isSelected()) {
+            getCampoDinherio().setEnabled(true);
+            String pagamento;
+            String valorTotal;
+            pagamento = getCampoDinherio().getText();
+            valorTotal = getCampoValorTotal().getText();
+            valorTotal = valorTotal.replace(',', '.');
+            pagamento = pagamento.replace(',', '.');
+            float total = Float.parseFloat(pagamento) - Float.parseFloat(valorTotal);
+            String totalFormatado = String.format("%.2f", total).replace('.', ',');
+            getCampoTroco().setText(totalFormatado);
+        }
     }//GEN-LAST:event_CampoDinherioKeyReleased
+
+    private void ComboBoxParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxParcelaActionPerformed
+        if (RadioButtonCredito.isSelected()) {
+            String parcela = ((String) getComboBoxParcela().getSelectedItem()).replace("x", "");
+            String valorTotal = getCampoValorTotal().getText();
+            valorTotal = valorTotal.replace(',', '.');
+            float total = Float.parseFloat(valorTotal) / Float.parseFloat(parcela);
+            String totalFormatado = String.format("%.2f", total).replace('.', ',');
+            getCampoValorParcelado().setText(totalFormatado);
+        }
+    }//GEN-LAST:event_ComboBoxParcelaActionPerformed
+
+    private void RadioButtonCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonCreditoActionPerformed
+        getCampoDinherio().setEnabled(false);
+        getComboBoxParcela().setEnabled(true);
+        getCampoValorParcelado().setText("");
+        getCampoDinherio().setText("");
+        getCampoTroco().setText("");
+    }//GEN-LAST:event_RadioButtonCreditoActionPerformed
+
+    private void RadioButtonPixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonPixActionPerformed
+        getCampoDinherio().setEnabled(false);
+        getComboBoxParcela().setEnabled(false);
+        getCampoValorParcelado().setText("");
+        getCampoDinherio().setText("");
+        getCampoTroco().setText("");
+    }//GEN-LAST:event_RadioButtonPixActionPerformed
+
+    private void RadioButtonDebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonDebitoActionPerformed
+        getCampoDinherio().setEnabled(false);
+        getComboBoxParcela().setEnabled(false);
+        getCampoValorParcelado().setText("");
+        getCampoDinherio().setText("");
+        getCampoTroco().setText("");
+    }//GEN-LAST:event_RadioButtonDebitoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,6 +444,7 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
     private javax.swing.JButton BotaoConfirmarVenda;
     private javax.swing.JTextField CampoDinherio;
     private javax.swing.JTextField CampoTroco;
+    private javax.swing.JTextField CampoValorParcelado;
     private javax.swing.JTextField CampoValorTotal;
     private javax.swing.JComboBox<String> ComboBoxParcela;
     private javax.swing.JRadioButton RadioButtonCredito;
@@ -368,6 +458,7 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
