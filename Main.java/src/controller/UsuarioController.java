@@ -424,6 +424,8 @@ public class UsuarioController extends EnderecoController {
         viewAtualizar.getRadioButtonSenha().setSelected(false);
         viewAtualizar.getCampoTextoSenha().setEnabled(false);
         viewAtualizar.getCampoTextoConfirmarSenha().setEnabled(false);
+        viewAtualizar.getBotaoSalvarAlteracao().setEnabled(ativado);
+       
     }
     
     
@@ -459,9 +461,9 @@ public class UsuarioController extends EnderecoController {
         UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
         
         Usuario usuarioAtualizar = usuarioDao.selectUsuarioPorId(id_usuario);//pega informações do usuário pelo id
+        viewAtualizar.setUsuario(usuarioAtualizar);
         
         preencherCamposAtualizarInfoUsuario(usuarioAtualizar);//Preenche campos de identificação do usuário
-        viewAtualizar.getCheckBoxEndereco().setSelected(false);
         
         //Se o id do endereço for maior que 0 significa que possui endereço e entra
         if(usuarioAtualizar.getId_endereco()>0){
@@ -519,16 +521,59 @@ public class UsuarioController extends EnderecoController {
         viewAtualizar.getRadioButtonEditar().setSelected(true);
         viewAtualizar.getCampoTextoSenha().setText("");
         viewAtualizar.getCampoTextoConfirmarSenha().setText("");
+        viewAtualizar.getCheckBoxEndereco().setSelected(false);
         habilitarEditarAtulizar(true);
     }
     
-    //Função para salvar atualização do usuário
-    public void salvarAtualizacao(boolean comEndereco){
-        //Caso o endereco esteja ativo
-        if(comEndereco){
-            
+    
+    //Função para salvar atualização do usuário -- Incompleta
+    public void salvarAtualizacao(Usuario usuarioPadrao){
+        //Váriaveis para verificação
+        boolean jaPossuiEndereco, editarSenhaHabilitado, editarEnderecoHabilitado, campoEmBranco;
+        
+        //Verificações
+        jaPossuiEndereco = usuarioTemEndereco(usuarioPadrao.getId_endereco());//Verifica se ele possui endereçp
+        editarSenhaHabilitado = viewAtualizar.getRadioButtonSenha().isSelected();
+        editarEnderecoHabilitado = viewAtualizar.getCheckBoxEndereco().isSelected();
+        campoEmBranco = campoNuloAtualizar();
+        
+        //Se algum campo está fora das conformidades ele entra 
+        if(campoEmBranco){
+            avisosErro(campoEmBranco, false, false, false, false);//Função para mostrar o aviso de erro conforme o caso
         }
+        else{
+            //Terá que realizar o update de acordo com as opções selecionadas 
+            //editarSenhaHabilitado e editarEnderecoHabilitado
+        }
+
+        
     }
     
-  
+    //Função para verificar se tem campos nulos em atualizar -- Incompleta
+    public boolean campoNuloAtualizar(){
+        boolean nomeNulo = viewAtualizar.getCampoTextoNome().getText().isEmpty();
+        boolean cpfNulo = viewAtualizar.getCampoTextoCPF().getText().isEmpty();
+        boolean telefoneNulo = viewAtualizar.getCampoTextoTelefone().getText().isEmpty();
+        boolean senhaNulo = false;
+        boolean enderecoNulo = false;
+        
+        if(viewAtualizar.getRadioButtonSenha().isSelected()){
+            char[] senha = viewAtualizar.getCampoTextoSenha().getPassword();
+            char[] senhaConfirmar = viewAtualizar.getCampoTextoConfirmarSenha().getPassword();
+            senhaNulo = senha.length==0 || senhaConfirmar.length==0;
+        }
+        
+        if(viewAtualizar.getCheckBoxEndereco().isSelected()){
+            //Verifica se os campos do endereço estão preenchidos
+        }
+        
+        return nomeNulo || cpfNulo || telefoneNulo || senhaNulo || enderecoNulo;
+    }
+    
+    //public boolean verificaCampoSenha(){}
+    
+    //Função para verificar se o usuário tem Endereço
+    public boolean usuarioTemEndereco(int id){
+        return id>0;
+    }
 }

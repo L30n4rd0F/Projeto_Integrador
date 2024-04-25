@@ -12,9 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Usuario;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -24,6 +26,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class AtualizarUsuarioView extends javax.swing.JFrame {
 
     private UsuarioController controller;
+    private Usuario usuario;
     private int estadoSelecionado = -1, cidadeSelecionada = -1, bairroSelecionado = -1;
     
     public AtualizarUsuarioView() { 
@@ -57,9 +60,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         CampoTextoObservacao = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         RadioButtonSenha = new javax.swing.JRadioButton();
-        CampoTextoSenha = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        CampoTextoConfirmarSenha = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         CampoTextoCEP = new javax.swing.JTextField();
@@ -82,6 +83,8 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         CheckBoxAdm = new javax.swing.JCheckBox();
         jLabel14 = new javax.swing.JLabel();
         CheckBoxEndereco = new javax.swing.JCheckBox();
+        CampoTextoSenha = new javax.swing.JPasswordField();
+        CampoTextoConfirmarSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,11 +121,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        CampoTextoSenha.setEnabled(false);
-
         jLabel7.setText("Senha:");
-
-        CampoTextoConfirmarSenha.setEnabled(false);
 
         jLabel8.setText("Confirmar Senha:");
 
@@ -206,6 +205,10 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
+        CampoTextoSenha.setEnabled(false);
+
+        CampoTextoConfirmarSenha.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,32 +268,32 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(CampoTextoNumero))))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(CampoTextoComplemento)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BotaoDesfazerAlteracao, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BotaoSalvarAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(ComboBoxCidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
-                                        .addComponent(CampoTextoConfirmarSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CampoTextoSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CampoTextoTelefone, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel13))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ComboBoxBairro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CheckBoxAdm)
-                                            .addComponent(jLabel14))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(CampoTextoComplemento)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(BotaoDesfazerAlteracao, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(BotaoSalvarAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(ComboBoxCidade, 0, 151, Short.MAX_VALUE)
+                                        .addComponent(CampoTextoTelefone)
+                                        .addComponent(jLabel13)
+                                        .addComponent(CampoTextoSenha))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ComboBoxBairro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(CheckBoxAdm)
+                                                .addComponent(jLabel14))
+                                            .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(CampoTextoConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
@@ -430,7 +433,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBoxEnderecoActionPerformed
 
     private void BotaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvarAlteracaoActionPerformed
-        // controller.salvarAtualizacao(getCheckBoxEndereco().isSelected());
+        controller.salvarAtualizacao(usuario);
     }//GEN-LAST:event_BotaoSalvarAlteracaoActionPerformed
 
     private void BotaoAtualizarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCEPActionPerformed
@@ -470,6 +473,14 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
                 new AtualizarUsuarioView().setVisible(true);
             }
         });
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     public UsuarioController getController() {
@@ -520,11 +531,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         this.CampoTextoComplemento = CampoTextoComplemento;
     }
 
-    public JTextField getCampoTextoConfirmarSenha() {
+    public JPasswordField getCampoTextoConfirmarSenha() {
         return CampoTextoConfirmarSenha;
     }
 
-    public void setCampoTextoConfirmarSenha(JTextField CampoTextoConfirmarSenha) {
+    public void setCampoTextoConfirmarSenha(JPasswordField CampoTextoConfirmarSenha) {
         this.CampoTextoConfirmarSenha = CampoTextoConfirmarSenha;
     }
 
@@ -553,14 +564,14 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         this.CampoTextoObservacao = CampoTextoObservacao;
     }
 
-    public JTextField getCampoTextoSenha() {
+    public JPasswordField getCampoTextoSenha() {
         return CampoTextoSenha;
     }
 
-    public void setCampoTextoSenha(JTextField CampoTextoSenha) {
+    public void setCampoTextoSenha(JPasswordField CampoTextoSenha) {
         this.CampoTextoSenha = CampoTextoSenha;
     }
-
+    
     public JTextField getCampoTextoTelefone() {
         return CampoTextoTelefone;
     }
@@ -682,11 +693,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     private javax.swing.JTextField CampoTextoCEP;
     private javax.swing.JTextField CampoTextoCPF;
     private javax.swing.JTextField CampoTextoComplemento;
-    private javax.swing.JTextField CampoTextoConfirmarSenha;
+    private javax.swing.JPasswordField CampoTextoConfirmarSenha;
     private javax.swing.JTextField CampoTextoNome;
     private javax.swing.JTextField CampoTextoNumero;
     private javax.swing.JTextArea CampoTextoObservacao;
-    private javax.swing.JTextField CampoTextoSenha;
+    private javax.swing.JPasswordField CampoTextoSenha;
     private javax.swing.JTextField CampoTextoTelefone;
     private javax.swing.JCheckBox CheckBoxAdm;
     private javax.swing.JCheckBox CheckBoxEndereco;
