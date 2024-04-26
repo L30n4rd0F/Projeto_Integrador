@@ -232,7 +232,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="BotaoAtualizarUsuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atualizar"/>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoAtualizarUsuarioActionPerformed"/>

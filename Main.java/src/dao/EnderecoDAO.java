@@ -177,6 +177,8 @@ public class EnderecoDAO {
         //Definição e inicialização de variáveis
         int id_logradouro, id_cidade, id_bairro;
         id_logradouro = id_cidade = id_bairro = 0;
+        int numero = 0;
+        String complemento = "";
         
         String sql = "SELECT * FROM endereco WHERE id_endereco = ?";
         
@@ -188,11 +190,16 @@ public class EnderecoDAO {
         
         while(resultSet.next()){
            id_logradouro = resultSet.getInt("fk_id_logradouro");//Pega o id_logradouro do endereço cadastrado
+           numero = resultSet.getInt("numero");
+           complemento = resultSet.getString("complemento");
         }
         
         Endereco enderecoLogradouro = selectLogradouroPorId(id_logradouro);//Chama a função para pegar os dados do logradouro
         enderecoLogradouro.setCidade(selectNomeCidadePorId(enderecoLogradouro.getId_cidade()));//Chama função para pegar o nome da cidade
         enderecoLogradouro.setBairro(selectNomeBairroPorId(enderecoLogradouro.getId_bairro()));//Chama função para pegar o nome do bairro
+        enderecoLogradouro.setComplemento(complemento);
+        enderecoLogradouro.setNumero(Integer.toString(numero));
+        
         
         return enderecoLogradouro;
     }

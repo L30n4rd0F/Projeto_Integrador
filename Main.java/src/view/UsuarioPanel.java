@@ -144,7 +144,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TabelaUsuario);
 
-        BotaoAtualizarUsuario.setText("Atualizar");
+        BotaoAtualizarUsuario.setText("Modificar");
         BotaoAtualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAtualizarUsuarioActionPerformed(evt);

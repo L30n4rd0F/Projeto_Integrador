@@ -50,6 +50,14 @@ public class Usuario extends Endereco{
         this.observacao = observacao;
     }
 
+    public Usuario(String nome, String cpf, String telefone, boolean admin, String observacao) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.admin = admin;
+        this.observacao = observacao;
+    }
+
     public Usuario(int id, String nome, String cpf, String telefone, boolean admin) {
         this.id = id;
         this.nome = nome;

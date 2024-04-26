@@ -433,7 +433,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBoxEnderecoActionPerformed
 
     private void BotaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvarAlteracaoActionPerformed
-        controller.salvarAtualizacao(usuario);
+        try {
+            controller.salvarAtualizacao(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtualizarUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotaoSalvarAlteracaoActionPerformed
 
     private void BotaoAtualizarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCEPActionPerformed

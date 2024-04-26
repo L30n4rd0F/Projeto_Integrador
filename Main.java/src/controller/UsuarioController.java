@@ -527,29 +527,70 @@ public class UsuarioController extends EnderecoController {
     
     
     //Função para salvar atualização do usuário -- Incompleta
-    public void salvarAtualizacao(Usuario usuarioPadrao){
+    public void salvarAtualizacao(Usuario usuarioPadrao) throws SQLException{
         //Váriaveis para verificação
-        boolean jaPossuiEndereco, editarSenhaHabilitado, editarEnderecoHabilitado, campoEmBranco;
+        boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais;
+        
+        String senha = new String(viewAtualizar.getCampoTextoSenha().getPassword());
+        String senhaConfirma = new String(viewAtualizar.getCampoTextoConfirmarSenha().getPassword());
         
         //Verificações
         jaPossuiEndereco = usuarioTemEndereco(usuarioPadrao.getId_endereco());//Verifica se ele possui endereçp
         editarSenhaHabilitado = viewAtualizar.getRadioButtonSenha().isSelected();
-        editarEnderecoHabilitado = viewAtualizar.getCheckBoxEndereco().isSelected();
+        enderecoHabilitado = viewAtualizar.getCheckBoxEndereco().isSelected();
         campoEmBranco = campoNuloAtualizar();
+        senhasIguais = comparacaoStrings(senha, senhaConfirma);
         
         //Se algum campo está fora das conformidades ele entra 
-        if(campoEmBranco){
-            avisosErro(campoEmBranco, false, false, false, false);//Função para mostrar o aviso de erro conforme o caso
+        if(campoEmBranco || !senhasIguais){
+            avisosErro(campoEmBranco, false, !senhasIguais, false, false);//Função para mostrar o aviso de erro conforme o caso
         }
+        
+        //Caso contrário ele entra para realizar o update
         else{
-            //Terá que realizar o update de acordo com as opções selecionadas 
-            //editarSenhaHabilitado e editarEnderecoHabilitado
+            if(jaPossuiEndereco){//Se ja possui endereço ele entra
+                realizarUpdateDeUsuarioQueJaPossuiEndereco(editarSenhaHabilitado, enderecoHabilitado, usuarioPadrao);
+            }
+            else{//Caso não possui ele entra neste else
+                realizarUpdateDeUsuarioQueNãoPossuiEndereco(editarSenhaHabilitado, enderecoHabilitado, usuarioPadrao);
+            }
+        }   
+    } 
+    
+    //Função para atualizar usuario que já possui endereço -- Incompleta
+    public void realizarUpdateDeUsuarioQueJaPossuiEndereco(boolean editarSenha, boolean teraEndereco, Usuario usuarioParaModificar) throws SQLException{
+        
+        //Realiza a conexao
+        Connection conexao = new Conexao().getConnection();
+        UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
+        
+        Usuario usuarioModificado = informacaoDosCamposPessoaisAtualizar();
+        usuarioModificado.setId(usuarioParaModificar.getId());
+        
+        //Realizar o update dos dados normais
+        usuarioDao.update(usuarioModificado);
+        
+        //verificações para o update
+        if(editarSenha){//Se as edições de senha estão ativadas, ele entra
+            String senha = new String(viewAtualizar.getCampoTextoSenha().getPassword());
+            //usuarioDao.updateSenha(usuarioParaModificar.getId(), senha); -- Ainda não implementada
         }
-
+        
+        if(!teraEndereco){//Se a for modificado para que o usuário não tenha um endereço, ele entra 
+            //Deletar o endereço cadastrado
+        }
+        
         
     }
     
-    //Função para verificar se tem campos nulos em atualizar -- Incompleta
+    //Função para atualizar usuario que não possui endereço -- Incompleta
+    public void realizarUpdateDeUsuarioQueNãoPossuiEndereco(boolean editarSenha, boolean teraEndereco, Usuario usuarioParaModificar){
+        
+        //verificações para o update
+        
+    }
+    
+    //Função para verificar se tem campos nulos em atualizar
     public boolean campoNuloAtualizar(){
         boolean nomeNulo = viewAtualizar.getCampoTextoNome().getText().isEmpty();
         boolean cpfNulo = viewAtualizar.getCampoTextoCPF().getText().isEmpty();
@@ -560,11 +601,22 @@ public class UsuarioController extends EnderecoController {
         if(viewAtualizar.getRadioButtonSenha().isSelected()){
             char[] senha = viewAtualizar.getCampoTextoSenha().getPassword();
             char[] senhaConfirmar = viewAtualizar.getCampoTextoConfirmarSenha().getPassword();
+            
+            //Caso um dos campos de senha esteje vazio ele retorna true
             senhaNulo = senha.length==0 || senhaConfirmar.length==0;
         }
         
+        //Se a check box de endereço estiver ativada ele verifica se os campos estão preenchidos
         if(viewAtualizar.getCheckBoxEndereco().isSelected()){
-            //Verifica se os campos do endereço estão preenchidos
+            String cep = viewAtualizar.getCampoTextoCEP().getText();
+            String uf = (String) viewAtualizar.getComboBoxUF().getSelectedItem();
+            String cidade = (String) viewAtualizar.getComboBoxCidade().getSelectedItem();
+            String bairro = (String) viewAtualizar.getComboBoxBairro().getSelectedItem();
+            String logradouro = (String) viewAtualizar.getComboBoxLogradouro().getSelectedItem();
+            String numero = viewAtualizar.getCampoTextoNumero().getText();
+            
+            //Caso algum campo esteja em branco ele retorna true
+            enderecoNulo = cep.isEmpty() || uf.isEmpty() || cidade.isEmpty() || bairro.isEmpty() || logradouro.isEmpty() || numero.isEmpty();
         }
         
         return nomeNulo || cpfNulo || telefoneNulo || senhaNulo || enderecoNulo;
@@ -575,5 +627,23 @@ public class UsuarioController extends EnderecoController {
     //Função para verificar se o usuário tem Endereço
     public boolean usuarioTemEndereco(int id){
         return id>0;
+    }
+    
+    //Função para pegar as informações dos campos pessoais em Atualizar
+    public Usuario informacaoDosCamposPessoaisAtualizar() {
+        String nome, cpf, telefone, observacao, senha;
+        char[] senhaChar;
+        boolean admin;
+
+        //Pega o que foi inserido nos campos e armazena em váriaveis
+        nome = viewAtualizar.getCampoTextoNome().getText();
+        cpf = viewAtualizar.getCampoTextoCPF().getText();
+        telefone = viewAtualizar.getCampoTextoTelefone().getText();
+        observacao = viewAtualizar.getCampoTextoComplemento().getText();
+        admin = viewAtualizar.getCheckBoxAdm().isSelected();
+
+        Usuario clienteComDados = new Usuario(nome, cpf, telefone, admin, observacao);
+        return clienteComDados;
+
     }
 }
