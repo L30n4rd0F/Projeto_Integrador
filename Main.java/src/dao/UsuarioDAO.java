@@ -33,6 +33,7 @@ public class UsuarioDAO {
         statement.setBoolean(5, usuario.isAdmin());
         statement.setString(6, usuario.getObservacao());
         statement.execute();
+        statement.close();
 
     }
     
@@ -48,6 +49,7 @@ public class UsuarioDAO {
         statement.setString(6, usuario.getObservacao());
         statement.setInt(7, id_endereco);
         statement.execute();
+        statement.close();
     }
 
     public void delete(Usuario usuario) throws SQLException {
@@ -56,7 +58,7 @@ public class UsuarioDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, usuario.getId());
         statement.execute();
-        
+        statement.close();
     }
     
     //Verifica se o usuário possui um endereço
@@ -107,7 +109,18 @@ public class UsuarioDAO {
         statement.setInt(5, usuario.getId());
 
         statement.execute();
-
+        statement.close();
+    }
+    
+    public void updateSenha(int id_usuario, String senha) throws SQLException{
+        String sql = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, senha);
+        statement.setInt(2, id_usuario);
+        statement.execute();
+        statement.close();  
     }
 
     public boolean verificaLoginPorCPFeSenha(Usuario usuario) throws SQLException {

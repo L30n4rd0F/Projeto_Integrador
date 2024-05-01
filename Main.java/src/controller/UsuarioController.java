@@ -527,7 +527,7 @@ public class UsuarioController extends EnderecoController {
     
     
     //Função para salvar atualização do usuário -- Incompleta
-    public void salvarAtualizacao(Usuario usuarioPadrao) throws SQLException{
+    public void salvarAtualizacao(Usuario usuario) throws SQLException{
         //Váriaveis para verificação
         boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais;
         
@@ -535,7 +535,6 @@ public class UsuarioController extends EnderecoController {
         String senhaConfirma = new String(viewAtualizar.getCampoTextoConfirmarSenha().getPassword());
         
         //Verificações
-        jaPossuiEndereco = usuarioTemEndereco(usuarioPadrao.getId_endereco());//Verifica se ele possui endereçp
         editarSenhaHabilitado = viewAtualizar.getRadioButtonSenha().isSelected();
         enderecoHabilitado = viewAtualizar.getCheckBoxEndereco().isSelected();
         campoEmBranco = campoNuloAtualizar();
@@ -548,17 +547,11 @@ public class UsuarioController extends EnderecoController {
         
         //Caso contrário ele entra para realizar o update
         else{
-            if(jaPossuiEndereco){//Se ja possui endereço ele entra
-                realizarUpdateDeUsuarioQueJaPossuiEndereco(editarSenhaHabilitado, enderecoHabilitado, usuarioPadrao);
-            }
-            else{//Caso não possui ele entra neste else
-                realizarUpdateDeUsuarioQueNãoPossuiEndereco(editarSenhaHabilitado, enderecoHabilitado, usuarioPadrao);
-            }
-        }   
+            realizarUpdate(editarSenhaHabilitado, enderecoHabilitado, usuario);
+        }
     } 
     
-    //Função para atualizar usuario que já possui endereço -- Incompleta
-    public void realizarUpdateDeUsuarioQueJaPossuiEndereco(boolean editarSenha, boolean teraEndereco, Usuario usuarioParaModificar) throws SQLException{
+    public void realizarUpdate(boolean editarSenha, boolean teraEndereco, Usuario usuarioParaModificar) throws SQLException{
         
         //Realiza a conexao
         Connection conexao = new Conexao().getConnection();
@@ -567,27 +560,28 @@ public class UsuarioController extends EnderecoController {
         Usuario usuarioModificado = informacaoDosCamposPessoaisAtualizar();
         usuarioModificado.setId(usuarioParaModificar.getId());
         
-        //Realizar o update dos dados normais
         usuarioDao.update(usuarioModificado);
         
-        //verificações para o update
-        if(editarSenha){//Se as edições de senha estão ativadas, ele entra
+        if(editarSenha){//realiza o update da senha, caso necessário
             String senha = new String(viewAtualizar.getCampoTextoSenha().getPassword());
-            //usuarioDao.updateSenha(usuarioParaModificar.getId(), senha); -- Ainda não implementada
+            usuarioDao.updateSenha(usuarioModificado.getId(), senha); 
         }
         
-        if(!teraEndereco){//Se a for modificado para que o usuário não tenha um endereço, ele entra 
-            //Deletar o endereço cadastrado
+        //Se ele já tem um endereço e teraEndereco = false;
+        if(usuarioParaModificar.getId_endereco()>0 && !teraEndereco){
+            // 1 - desvincular o endereco do usuario  
+            // 2 - Excluir o endereço
+        }else if(usuarioParaModificar.getId_endereco()==0 && teraEndereco){
+        //Se ele não possui um endereco cadastrado e teraEndereco = true;
+           //Pegar as informações do endereco dos campos
+           //Inserir novo endereço no banco de dados
+           //Vincular o usuario com o endereço
+        } else if(teraEndereco){//Caso contrário apenas realizar o update
+            //Pegar as informações do endereco
+            //Realizar update do endereco dos campos
         }
-        
-        
-    }
-    
-    //Função para atualizar usuario que não possui endereço -- Incompleta
-    public void realizarUpdateDeUsuarioQueNãoPossuiEndereco(boolean editarSenha, boolean teraEndereco, Usuario usuarioParaModificar){
-        
-        //verificações para o update
-        
+           
+                
     }
     
     //Função para verificar se tem campos nulos em atualizar
@@ -624,15 +618,9 @@ public class UsuarioController extends EnderecoController {
     
     //public boolean verificaCampoSenha(){}
     
-    //Função para verificar se o usuário tem Endereço
-    public boolean usuarioTemEndereco(int id){
-        return id>0;
-    }
-    
     //Função para pegar as informações dos campos pessoais em Atualizar
     public Usuario informacaoDosCamposPessoaisAtualizar() {
-        String nome, cpf, telefone, observacao, senha;
-        char[] senhaChar;
+        String nome, cpf, telefone, observacao;
         boolean admin;
 
         //Pega o que foi inserido nos campos e armazena em váriaveis
