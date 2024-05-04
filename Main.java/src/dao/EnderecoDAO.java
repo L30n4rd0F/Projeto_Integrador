@@ -50,10 +50,23 @@ public class EnderecoDAO {
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
-        statement.execute();
-        
+        statement.execute(); 
     }
-      
+    
+    public void updateEndereco(Endereco endereco) throws SQLException{
+        String sql = "UPDATE endereco SET numero = ?, complemento = ?, fk_id_logradouro = ? WHERE id_endereco = ?";
+        Integer numero = Integer.parseInt(endereco.getNumero());
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, numero);
+        statement.setString(2, endereco.getComplemento());
+        statement.setInt(3, endereco.getId_logradouro());
+        statement.setInt(4, endereco.getId_endereco());
+        statement.execute();
+        statement.close();
+    } 
+    
+    //Le a tabela de estados no BD      
     
     //Le a tabela de estados no BD
     public ArrayList<Endereco> readEstado() throws SQLException{
@@ -404,7 +417,6 @@ public class EnderecoDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, bairro);
         statement.setInt(2, id_cidade);
-        statement.execute();
-        
+        statement.execute(); 
     }
 }

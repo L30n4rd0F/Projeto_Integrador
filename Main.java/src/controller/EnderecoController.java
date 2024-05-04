@@ -273,6 +273,30 @@ public class EnderecoController {
         return id_endereco;
     }
     
+    //Função para atualizar o endereco
+    public void atualizarEndereco(Endereco endereco) throws SQLException{
+        
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
+        
+        //Caso o cep não existe no banco de dados realizará a verificação e inserção no banco de dados
+        if(!enderecoDao.existeCEP(endereco.getCep())){
+            int id_cidade = enderecoDao.pegarIdCidade(endereco.getUf(), endereco.getCidade());
+            
+            //Verifica se o bairro do endereço existe -- Se não existe ele entra
+                if(!enderecoDao.existeBairro(endereco.getBairro(), id_cidade)){
+                     enderecoDao.novoBairro(endereco.getBairro(),id_cidade);//Insere o bairro no banco de dados
+                }
+                
+                int id_bairro = enderecoDao.pegarIdBairro(endereco.getBairro(),id_cidade);//pega o id do bairro
+                enderecoDao.novoLogradouro(endereco, id_cidade, id_bairro); //Insere o logradouro no banco de dados
+        }
+        
+        endereco.setId_logradouro(enderecoDao.pegerIdLogradouro(endereco.getCep()));//Pega o id do logradouro e seta ele no objeto 
+        enderecoDao.updateEndereco(endereco);
+    }
+    
     //Função para remover o endereço com seu id
     public void removerEnderecoComId(int id) throws SQLException{
         

@@ -38,7 +38,7 @@ public class UsuarioDAO {
     }
     
     public void insertComEndereco(Usuario usuario, int id_endereco) throws SQLException{
-        String sql = "insert into usuario(nome, cpf, senha, telefone, admin, observacao, fk_id_endereco) values(?, ?, ?, ?, ?, ?, ?); ";
+        String sql = "INSERT INTO usuario(nome, cpf, senha, telefone, admin, observacao, fk_id_endereco) VALUES(?, ?, ?, ?, ?, ?, ?); ";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getNome());
@@ -51,12 +51,31 @@ public class UsuarioDAO {
         statement.execute();
         statement.close();
     }
+    
+    public void updateEndereco(int id_endereco, int id_usuario) throws SQLException{
+        String sql = "UPDATE usuario SET fk_id_endereco = ? WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_endereco);
+        statement.setInt(2, id_usuario);
+        statement.execute();
+        statement.close();
+    }
 
     public void delete(Usuario usuario) throws SQLException {
-        String sql = "delete from usuario where id_usuario = ?";
+        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, usuario.getId());
+        statement.execute();
+        statement.close();
+    }
+    
+    public void deleteEndereco(int id_usuario) throws SQLException{
+        String sql = "UPDATE usuario SET fk_id_endereco = null WHERE id_usuario = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_usuario);
         statement.execute();
         statement.close();
     }
@@ -97,7 +116,7 @@ public class UsuarioDAO {
     }
 
     public void update(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuario SET nome = ?, cpf = ?, telefone = ?, admin = ? WHERE id_usuario = ?";
+        String sql = "UPDATE usuario SET nome = ?, cpf = ?, telefone = ?, admin = ?, observacao = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -106,7 +125,8 @@ public class UsuarioDAO {
         statement.setString(2, usuario.getCpf());
         statement.setString(3, usuario.getTelefone());
         statement.setBoolean(4, usuario.isAdmin());
-        statement.setInt(5, usuario.getId());
+        statement.setString(5, usuario.getObservacao());
+        statement.setInt(6, usuario.getId());
 
         statement.execute();
         statement.close();

@@ -548,6 +548,9 @@ public class UsuarioController extends EnderecoController {
         //Caso contrário ele entra para realizar o update
         else{
             realizarUpdate(editarSenhaHabilitado, enderecoHabilitado, usuario);
+            readTabelaUsuario();
+            JOptionPane.showMessageDialog(null, "Informações modificadas", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            viewAtualizar.dispose();
         }
     } 
     
@@ -569,19 +572,17 @@ public class UsuarioController extends EnderecoController {
         
         //Se ele já tem um endereço e teraEndereco = false;
         if(usuarioParaModificar.getId_endereco()>0 && !teraEndereco){
-            // 1 - desvincular o endereco do usuario  
-            // 2 - Excluir o endereço
-        }else if(usuarioParaModificar.getId_endereco()==0 && teraEndereco){
-        //Se ele não possui um endereco cadastrado e teraEndereco = true;
-           //Pegar as informações do endereco dos campos
-           //Inserir novo endereço no banco de dados
-           //Vincular o usuario com o endereço
+            usuarioDao.deleteEndereco(usuarioModificado.getId());//Desvincula o endereco do usuário
+            removerEnderecoComId(usuarioParaModificar.getId_endereco());//Remover o endereco do banco de dados
+        }else if(usuarioParaModificar.getId_endereco()==0 && teraEndereco){//Se ele não possui um endereco cadastrado e teraEndereco = true;
+           Endereco endereco = informacaoDosCamposEnderecoAtualizar();//Pega as informações do endereco dos campos
+           int id_endereco = cadastroEndereco(endereco, false);//Inserir novo endereço no banco de dados
+           usuarioDao.updateEndereco(id_endereco, usuarioModificado.getId());//Vincular o usuario com o endereço
         } else if(teraEndereco){//Caso contrário apenas realizar o update
-            //Pegar as informações do endereco
-            //Realizar update do endereco dos campos
-        }
-           
-                
+            Endereco endereco = informacaoDosCamposEnderecoAtualizar();//Pega as informações do endereco dos campos
+            endereco.setId_endereco(usuarioParaModificar.getId_endereco());
+            atualizarEndereco(endereco);
+        }   
     }
     
     //Função para verificar se tem campos nulos em atualizar
@@ -627,11 +628,28 @@ public class UsuarioController extends EnderecoController {
         nome = viewAtualizar.getCampoTextoNome().getText();
         cpf = viewAtualizar.getCampoTextoCPF().getText();
         telefone = viewAtualizar.getCampoTextoTelefone().getText();
-        observacao = viewAtualizar.getCampoTextoComplemento().getText();
+        observacao = viewAtualizar.getCampoTextoObservacao().getText();
         admin = viewAtualizar.getCheckBoxAdm().isSelected();
 
-        Usuario clienteComDados = new Usuario(nome, cpf, telefone, admin, observacao);
-        return clienteComDados;
+        Usuario usuarioComDados = new Usuario(nome, cpf, telefone, admin, observacao);
+        return usuarioComDados;
 
+    }
+    
+    //Função para pegar as informações dos ccampos de endereco em Atualizar
+    public Endereco informacaoDosCamposEnderecoAtualizar(){
+        String cep, uf, cidade, bairro, logradouro, numero, complemento;
+        
+        cep = viewAtualizar.getCampoTextoCEP().getText();
+        uf = (String) viewAtualizar.getComboBoxUF().getSelectedItem();
+        cidade = (String) viewAtualizar.getComboBoxCidade().getSelectedItem();
+        bairro = (String) viewAtualizar.getComboBoxBairro().getSelectedItem();
+        logradouro = (String) viewAtualizar.getComboBoxLogradouro().getSelectedItem();
+        numero = viewAtualizar.getCampoTextoNumero().getText();
+        complemento = viewAtualizar.getCampoTextoComplemento().getText();
+        
+        Endereco enderecoDosCampos = new Endereco(logradouro, bairro, cidade, cep, numero, uf, complemento);
+        
+        return enderecoDosCampos;
     }
 }
