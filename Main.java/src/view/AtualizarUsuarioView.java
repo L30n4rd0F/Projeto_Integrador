@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.TextoController;
 import controller.UsuarioController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class AtualizarUsuarioView extends javax.swing.JFrame {
 
     private UsuarioController controller;
+    private TextoController controllerTexto = new TextoController();
     private Usuario usuario;
     private int estadoSelecionado = -1, cidadeSelecionada = -1, bairroSelecionado = -1;
     
@@ -104,7 +106,19 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
 
         jLabel2.setText("Nome completo:");
 
+        CampoTextoCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoTextoCPFKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("CPF:");
+
+        CampoTextoTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoTextoTelefoneKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Telefone:");
 
@@ -126,6 +140,12 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         jLabel8.setText("Confirmar Senha:");
 
         jLabel10.setText("CEP:");
+
+        CampoTextoCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoTextoCEPKeyTyped(evt);
+            }
+        });
 
         BotaoAtualizarCEP.setText("jButton1");
         BotaoAtualizarCEP.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +206,11 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         });
 
         BotaoDesfazerAlteracao.setText("Desfazer Alterações");
+        BotaoDesfazerAlteracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoDesfazerAlteracaoActionPerformed(evt);
+            }
+        });
 
         ComboBoxBairro.setEditable(true);
         ComboBoxBairro.addActionListener(new java.awt.event.ActionListener() {
@@ -441,8 +466,60 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoSalvarAlteracaoActionPerformed
 
     private void BotaoAtualizarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCEPActionPerformed
+        String cep = getCampoTextoCEP().getText();
         
+        String logradouro = (String) getComboBoxLogradouro().getSelectedItem();
+        String cidade = (String) getComboBoxCidade().getSelectedItem();
+        String uf = (String) getComboBoxUF().getSelectedItem();
+        
+        if(!cep.isEmpty()){
+            try {
+                controller.preencherCamposEnderecoAtualizar(cep);
+            } catch (SQLException ex) {
+                Logger.getLogger(AtualizarUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            if(!logradouro.isEmpty() && !cidade.isEmpty() && !uf.isEmpty()){
+                try {
+                    controller.preencherCEP();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AtualizarUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_BotaoAtualizarCEPActionPerformed
+
+    private void CampoTextoCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoCPFKeyTyped
+        if(controllerTexto.formatacaoCPF(evt, getCampoTextoCPF().getText())){
+            getCampoTextoCPF().setText(controllerTexto.mascaraCPF(getCampoTextoCPF().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoTextoCPFKeyTyped
+
+    private void CampoTextoTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoTelefoneKeyTyped
+        if(controllerTexto.formatacaoTelefone(evt, getCampoTextoTelefone().getText())){
+            getCampoTextoTelefone().setText(controllerTexto.mascaraTelefone(getCampoTextoTelefone().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoTextoTelefoneKeyTyped
+
+    private void CampoTextoCEPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoCEPKeyTyped
+        if(controllerTexto.formatacaoCEP(evt, getCampoTextoCEP().getText())){
+            getCampoTextoCEP().setText(controllerTexto.mascaraCEP(getCampoTextoCEP().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoTextoCEPKeyTyped
+
+    private void BotaoDesfazerAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesfazerAlteracaoActionPerformed
+        controller.desfazerAlterecao(usuario);
+    }//GEN-LAST:event_BotaoDesfazerAlteracaoActionPerformed
 
     /**
      * @param args the command line arguments

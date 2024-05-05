@@ -461,7 +461,6 @@ public class UsuarioController extends EnderecoController {
         UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
         
         Usuario usuarioAtualizar = usuarioDao.selectUsuarioPorId(id_usuario);//pega informações do usuário pelo id
-        viewAtualizar.setUsuario(usuarioAtualizar);
         
         preencherCamposAtualizarInfoUsuario(usuarioAtualizar);//Preenche campos de identificação do usuário
         
@@ -471,8 +470,17 @@ public class UsuarioController extends EnderecoController {
             habilitarCamposAtualizarEndereco(true, true);
             EnderecoDAO enderecoDao = new EnderecoDAO(conexao);//Realiza a conexao
             Endereco enderecoUsuario = enderecoDao.selectEnderecoCompletoPorIdEndereco(usuarioAtualizar.getId_endereco());//Pega O endereço completo pelo seu id
-            preencherCamposAtualizarInfoEndereco(enderecoUsuario);//Preenche os campos de endereçp
+            preencherCamposAtualizarInfoEndereco(enderecoUsuario);//Preenche os campos de endereço
+            
+            usuarioAtualizar.setCep(enderecoUsuario.getCep());
+            usuarioAtualizar.setUf(enderecoUsuario.getUf());
+            usuarioAtualizar.setCidade(enderecoUsuario.getCidade());
+            usuarioAtualizar.setBairro(enderecoUsuario.getBairro());
+            usuarioAtualizar.setLogradouro(enderecoUsuario.getLogradouro());
+            usuarioAtualizar.setNumero(enderecoUsuario.getNumero());
+            usuarioAtualizar.setComplemento(enderecoUsuario.getComplemento());
         } 
+        viewAtualizar.setUsuario(usuarioAtualizar);
     }
     
     //Função para preencher os campos de identificacao do usuário
@@ -529,7 +537,7 @@ public class UsuarioController extends EnderecoController {
     //Função para salvar atualização do usuário -- Incompleta
     public void salvarAtualizacao(Usuario usuario) throws SQLException{
         //Váriaveis para verificação
-        boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais;
+        boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais, cpfValido, telefoneValido;
         
         String senha = new String(viewAtualizar.getCampoTextoSenha().getPassword());
         String senhaConfirma = new String(viewAtualizar.getCampoTextoConfirmarSenha().getPassword());
@@ -539,10 +547,12 @@ public class UsuarioController extends EnderecoController {
         enderecoHabilitado = viewAtualizar.getCheckBoxEndereco().isSelected();
         campoEmBranco = campoNuloAtualizar();
         senhasIguais = comparacaoStrings(senha, senhaConfirma);
+        cpfValido = verificaCPFvalido(viewAtualizar.getCampoTextoCPF().getText());
+        telefoneValido = verificaTelefoneValido(viewAtualizar.getCampoTextoTelefone().getText());
         
         //Se algum campo está fora das conformidades ele entra 
-        if(campoEmBranco || !senhasIguais){
-            avisosErro(campoEmBranco, false, !senhasIguais, false, false);//Função para mostrar o aviso de erro conforme o caso
+        if(campoEmBranco || !senhasIguais || !cpfValido || !telefoneValido){
+            avisosErro(campoEmBranco, false, !senhasIguais, !cpfValido, !telefoneValido);//Função para mostrar o aviso de erro conforme o caso
         }
         
         //Caso contrário ele entra para realizar o update
@@ -651,5 +661,58 @@ public class UsuarioController extends EnderecoController {
         Endereco enderecoDosCampos = new Endereco(logradouro, bairro, cidade, cep, numero, uf, complemento);
         
         return enderecoDosCampos;
+    }
+    
+    //Preenche tudo com o endereco do cep
+    public void preencherCamposEnderecoAtualizar(String cep) throws SQLException {
+        Endereco endereco = buscarEndereco(cep);
+
+        if (endereco != null) {
+            // Define os valores nos campos JTextField com os dados do endereço
+            viewAtualizar.getComboBoxUF().setSelectedItem(endereco.getSigla());
+            viewAtualizar.getComboBoxEstado().setSelectedIndex(viewAtualizar.getComboBoxUF().getSelectedIndex());
+            viewAtualizar.getComboBoxCidade().setSelectedItem(endereco.getCidade());
+            viewAtualizar.getComboBoxBairro().setSelectedItem(endereco.getBairro());
+            viewAtualizar.getComboBoxLogradouro().setSelectedItem(endereco.getLogradouro());
+            viewAtualizar.getCampoTextoNumero().setText(endereco.getNumero());
+        } else {
+            // Se o endereço não for encontrado, limpe os campos
+            viewAtualizar.getComboBoxBairro().setSelectedIndex(-1);
+            viewAtualizar.getComboBoxCidade().setSelectedIndex(-1);
+            viewAtualizar.getComboBoxUF().setSelectedIndex(-1);
+            viewAtualizar.getComboBoxEstado().setSelectedIndex(-1);
+            viewAtualizar.getComboBoxLogradouro().setSelectedIndex(-1);
+            viewAtualizar.getCampoTextoNumero().setText("");
+        }
+    }
+    
+        //Função para preenchar o CEP com informações do endereço
+    public void preencherCEPAtulizar() throws SQLException {
+
+        Endereco endereco = buscarCEP(enderecoDosCamposPreenchidos());//Chama a função para buscar o CEP pelas informções do endereço
+        viewAtualizar.getCampoTextoCEP().setText(endereco.getCep());
+        viewAtualizar.getComboBoxBairro().setSelectedItem(endereco.getBairro());
+        viewAtualizar.getCampoTextoNumero().setText(endereco.getNumero());
+    }
+    
+    public void desfazerAlterecao(Usuario usuario){
+        viewAtualizar.getRadioButtonEditar().setSelected(true);
+        habilitarEditarAtulizar(true);
+        habilitarCamposAtualizarEndereco(true, usuario.getId_endereco()>0);
+        viewAtualizar.getCampoTextoNome().setText(usuario.getNome());
+        viewAtualizar.getCampoTextoCPF().setText(usuario.getCpf());
+        viewAtualizar.getCampoTextoTelefone().setText(usuario.getTelefone());
+        viewAtualizar.getCampoTextoObservacao().setText(usuario.getObservacao());
+        viewAtualizar.getCheckBoxAdm().setSelected(usuario.isAdmin());      
+        viewAtualizar.getCheckBoxEndereco().setSelected(usuario.getId_endereco()>0);
+        viewAtualizar.getCampoTextoCEP().setText(usuario.getCep());
+        viewAtualizar.getComboBoxUF().setSelectedItem(usuario.getSigla());
+        viewAtualizar.getComboBoxEstado().setSelectedIndex(viewAtualizar.getComboBoxUF().getSelectedIndex());
+        viewAtualizar.getComboBoxCidade().setSelectedItem(usuario.getCidade());
+        viewAtualizar.getComboBoxBairro().setSelectedItem(usuario.getBairro());
+        viewAtualizar.getComboBoxLogradouro().setSelectedItem(usuario.getLogradouro());
+        viewAtualizar.getCampoTextoNumero().setText(usuario.getNumero());
+        viewAtualizar.getCampoTextoSenha().setText("");
+        viewAtualizar.getCampoTextoConfirmarSenha().setText("");
     }
 }

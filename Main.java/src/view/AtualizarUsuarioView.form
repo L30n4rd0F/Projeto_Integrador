@@ -257,6 +257,9 @@
     <Component class="javax.swing.JTextField" name="CampoTextoNome">
     </Component>
     <Component class="javax.swing.JTextField" name="CampoTextoCPF">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CampoTextoCPFKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -264,6 +267,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="CampoTextoTelefone">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CampoTextoTelefoneKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -314,6 +320,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="CampoTextoCEP">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CampoTextoCEPKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoAtualizarCEP">
       <Properties>
@@ -411,6 +420,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Desfazer Altera&#xe7;&#xf5;es"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoDesfazerAlteracaoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxBairro">
       <Properties>
