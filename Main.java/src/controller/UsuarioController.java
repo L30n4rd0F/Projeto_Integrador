@@ -687,9 +687,9 @@ public class UsuarioController extends EnderecoController {
     }
     
         //Função para preenchar o CEP com informações do endereço
-    public void preencherCEPAtulizar() throws SQLException {
+    public void preencherCEPAtualizar() throws SQLException {
 
-        Endereco endereco = buscarCEP(enderecoDosCamposPreenchidos());//Chama a função para buscar o CEP pelas informções do endereço
+        Endereco endereco = buscarCEP(informacaoDosCamposEnderecoAtualizar());//Chama a função para buscar o CEP pelas informções do endereço
         viewAtualizar.getCampoTextoCEP().setText(endereco.getCep());
         viewAtualizar.getComboBoxBairro().setSelectedItem(endereco.getBairro());
         viewAtualizar.getCampoTextoNumero().setText(endereco.getNumero());

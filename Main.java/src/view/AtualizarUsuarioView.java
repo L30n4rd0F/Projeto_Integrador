@@ -482,7 +482,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         else{
             if(!logradouro.isEmpty() && !cidade.isEmpty() && !uf.isEmpty()){
                 try {
-                    controller.preencherCEP();
+                    controller.preencherCEPAtualizar();
                 } catch (SQLException ex) {
                     Logger.getLogger(AtualizarUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
                 }
