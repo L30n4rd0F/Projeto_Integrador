@@ -454,7 +454,8 @@ public class UsuarioController extends EnderecoController {
     
     //Função para preenchaer os campos com as informações do usuario
     public void preencherInformacaoUsuarioAtualizar() throws SQLException{
-        int id_usuario = Integer.parseInt(view.getCampoPesquisaId().getText());//Pega o id do campo de texto e transforma em int
+        //Pega o id do campo de texto e transforma em int
+        int id_usuario =  (int) view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(),0);
         
         //Realiza a conexão
         Connection conexao = new Conexao().getConnection();

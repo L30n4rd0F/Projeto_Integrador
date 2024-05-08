@@ -23,7 +23,7 @@ public class UsuarioDAO {
 
     //Esta comentada para evitar ficar inserindo usuario atoa
     public void insert(Usuario usuario) throws SQLException {
-        String sql = "insert into usuario(nome, cpf, senha, telefone, admin, observacao) values(?, ?, ?, ?, ?, ?); ";
+        String sql = "INSERT INTO usuario(nome, cpf, senha, telefone, admin, observacao) VALUES(?, ?, ?, ?, ?, ?);";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getNome());
@@ -38,7 +38,7 @@ public class UsuarioDAO {
     }
     
     public void insertComEndereco(Usuario usuario, int id_endereco) throws SQLException{
-        String sql = "INSERT INTO usuario(nome, cpf, senha, telefone, admin, observacao, fk_id_endereco) VALUES(?, ?, ?, ?, ?, ?, ?); ";
+        String sql = "INSERT INTO usuario(nome, cpf, senha, telefone, admin, observacao, fk_id_endereco) VALUES(?, ?, ?, ?, ?, ?, ?);";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getNome());
@@ -88,6 +88,7 @@ public class UsuarioDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         statement.execute();
+        
         
         ResultSet resultSet = statement.getResultSet();
         
@@ -144,7 +145,7 @@ public class UsuarioDAO {
     }
 
     public boolean verificaLoginPorCPFeSenha(Usuario usuario) throws SQLException {
-        String sql = "select * from usuario where cpf = ? and senha = ? ";
+        String sql = "SELECT * FROM usuario WHERE cpf = ? AND senha = ? ";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getCpf());
@@ -157,7 +158,7 @@ public class UsuarioDAO {
     }
 
     public boolean verificaExistencia(Usuario usuario) throws SQLException {
-        String sql = "select * from usuario where cpf = ?";
+        String sql = "SELECT * FROM usuario WHERE cpf = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getCpf());
@@ -169,7 +170,7 @@ public class UsuarioDAO {
     }
 
     public boolean verificaAdmin(Usuario usuario) throws SQLException {
-        String sql = "select * from usuario where cpf = ?";
+        String sql = "SELECT * FROM usuario WHERE cpf = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getCpf());
@@ -186,7 +187,7 @@ public class UsuarioDAO {
     //Leitura de todos os usuarios
     public ArrayList<Usuario> readUsuario() throws SQLException {
 
-        String sql = "select * from usuario";
+        String sql = "SELECT * FROM usuario";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -306,9 +307,7 @@ public class UsuarioDAO {
             int id_endereco = resultSet.getInt("fk_id_endereco");
             
              usuarioComDados = new Usuario(id, nome, cpf, telefone, adm, observacao);
-             usuarioComDados.setId_endereco(id_endereco);
-             
-            
+             usuarioComDados.setId_endereco(id_endereco);       
         }
          return usuarioComDados;
     }
