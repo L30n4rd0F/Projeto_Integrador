@@ -54,6 +54,9 @@ public class TextoController {
         if(tamanho==3){
             telefone = telefone + ")" + " ";
         }
+        if(tamanho==10){
+            telefone = telefone + "-";
+        }
         return telefone;
     }
     

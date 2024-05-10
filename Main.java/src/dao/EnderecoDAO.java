@@ -42,6 +42,8 @@ public class EnderecoDAO {
             id_endereco = resultSet.getInt("id_endereco");
         }
         
+        statement.close();
+        
         return id_endereco;
     }
     
@@ -50,7 +52,8 @@ public class EnderecoDAO {
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
-        statement.execute(); 
+        statement.execute();
+        statement.close();
     }
     
     public void updateEndereco(Endereco endereco) throws SQLException{
@@ -94,6 +97,7 @@ public class EnderecoDAO {
             
             estados.add(estadoEndereco);//Envia o objeto pro array de Endereco
         }
+        statement.close();
         
         return estados; //Retorna o array
         
@@ -125,6 +129,7 @@ public class EnderecoDAO {
             enderecoComDados.setId_bairro(id_bairro);
             
         }
+        statement.close();
         return enderecoComDados;
     }
     
@@ -182,6 +187,7 @@ public class EnderecoDAO {
         while(resultSet.next()){
            bairro = resultSet.getString("nome");
         }
+        
         return  bairro;
     }
     
@@ -213,7 +219,7 @@ public class EnderecoDAO {
         enderecoLogradouro.setComplemento(complemento);
         enderecoLogradouro.setNumero(Integer.toString(numero));
         
-        
+        statement.close();
         return enderecoLogradouro;
     }
         
@@ -239,6 +245,7 @@ public class EnderecoDAO {
             cidades.add(cidadeEndereco);
         }
         
+        statement.close();
         return cidades;
     }
     
@@ -264,6 +271,7 @@ public class EnderecoDAO {
             cidades.add(cidadeEndereco);
         }
         
+        statement.close();
         return cidades;
     }
     
@@ -344,7 +352,7 @@ public class EnderecoDAO {
             
             logradouros.add(logradouroEndereco);
         }
-        
+        statement.close();
         return logradouros;
         
     }
@@ -368,7 +376,7 @@ public class EnderecoDAO {
             
             bairros.add(bairroEndereco);
         }
-        
+        statement.close();
         return bairros;
     }
     
@@ -380,7 +388,6 @@ public class EnderecoDAO {
         statement.execute();
         
         ResultSet resultSet = statement.getResultSet();
-        
         return resultSet.next();
     }
     
@@ -418,5 +425,6 @@ public class EnderecoDAO {
         statement.setString(1, bairro);
         statement.setInt(2, id_cidade);
         statement.execute(); 
+        statement.close();
     }
 }

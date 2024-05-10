@@ -392,7 +392,7 @@ public class UsuarioController extends EnderecoController {
 
     //Função para verificar se o telefone é válido
     public boolean verificaTelefoneValido(String telefone) {
-        return telefone.length() >= 13;
+        return telefone.length() == 15;
     }
 
     //Função para mandar os avisos de erro de acordo com os erros
@@ -455,7 +455,8 @@ public class UsuarioController extends EnderecoController {
     //Função para preenchaer os campos com as informações do usuario
     public void preencherInformacaoUsuarioAtualizar() throws SQLException{
         //Pega o id do campo de texto e transforma em int
-        int id_usuario =  (int) view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(),0);
+        int id_usuario = (int) view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 0);//Pega o id do campo de texto e transforma em int
+
         
         //Realiza a conexão
         Connection conexao = new Conexao().getConnection();

@@ -581,6 +581,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         return ComboBoxCidade;
     }
     
+    @SuppressWarnings("unchecked")
     public void setComboBoxCidade(JComboBox ComboBoxCidade) {
         this.ComboBoxCidade = ComboBoxCidade;
     }
@@ -589,6 +590,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         return ComboBoxEstado;
     }
 
+    @SuppressWarnings("unchecked")
     public void setComboBoxEstado(JComboBox ComboBoxEstado) {
         this.ComboBoxEstado = ComboBoxEstado;
     }
@@ -727,6 +729,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxEstadoActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void ComboBoxEstadoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxEstadoAncestorAdded
         try {
             controller.comboBoxEstados(ComboBoxEstado, ComboBoxUF);
@@ -735,6 +738,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxEstadoAncestorAdded
 
+    @SuppressWarnings("unchecked")
     private void ComboBoxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxUFActionPerformed
         if(getComboBoxUF().getSelectedIndex()>=0 && this.estadoSelecionado != getComboBoxUF().getSelectedIndex() && getComboBoxUF().getItemCount()>=26){
             this.estadoSelecionado = getComboBoxUF().getSelectedIndex();    
@@ -746,6 +750,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxUFActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void ComboBoxCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxCidadeActionPerformed
 
         if(this.cidadeSelecionada != getComboBoxCidade().getSelectedIndex() && getComboBoxCidade().getSelectedIndex()>=0){
@@ -758,6 +763,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboBoxCidadeActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void ComboBoxBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxBairroActionPerformed
         if(this.bairroSelecionado != getComboBoxBairro().getSelectedIndex() && getComboBoxBairro().getSelectedIndex()>=0){
             this.bairroSelecionado = getComboBoxBairro().getSelectedIndex();

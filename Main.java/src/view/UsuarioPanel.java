@@ -319,7 +319,6 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private void BotaoAtualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarUsuarioActionPerformed
         //Verifica se tem alguma linha selecionada
         if(getTabelaUsuario().getSelectedRow()!=-1){
-            
             try {
                 viewAtualizarUsuario.setController(this.controller);
                 controller.inicializacaoCamposAtualizar();

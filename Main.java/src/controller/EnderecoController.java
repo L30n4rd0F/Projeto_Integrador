@@ -152,11 +152,16 @@ public class EnderecoController {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
+                    if(line.contains("[]")) {//
+                        JOptionPane.showMessageDialog(null, "Informações de endereço inválidas!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        return null;
+                    }   
                 }
             }
             endereco = parseJsonToAddress(response.toString());
         } else {
             // Se a conexão não foi bem-sucedida, mostra o código de erro
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro na pesquisa com o ViaCEP", "Erro", JOptionPane.ERROR_MESSAGE);
             System.out.println("Erro na requisicao: " + responseCode);
         }
         }catch (IOException e) {
