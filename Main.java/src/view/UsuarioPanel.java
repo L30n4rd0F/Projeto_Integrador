@@ -87,7 +87,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Nome");
 
         CampoPesquisaCPF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -108,7 +108,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("CPF:");
+        jLabel2.setText("CPF");
 
         CampoPesquisaId.setEditable(false);
         CampoPesquisaId.setBackground(new java.awt.Color(220, 220, 220));
@@ -119,14 +119,14 @@ public class UsuarioPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Id:");
+        jLabel3.setText("ID");
 
         TabelaUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "CPF", "Telefone", "Admin"
+                "ID", "Nome", "CPF", "Telefone", "Admin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -144,7 +144,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TabelaUsuario);
 
-        BotaoAtualizarUsuario.setText("Modificar");
+        BotaoAtualizarUsuario.setText("Alterar");
         BotaoAtualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAtualizarUsuarioActionPerformed(evt);
@@ -170,7 +170,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             }
         });
 
-        BotaoApagarCampos.setText("Apagar Campos");
+        BotaoApagarCampos.setText("Limpar Campos");
         BotaoApagarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoApagarCamposActionPerformed(evt);

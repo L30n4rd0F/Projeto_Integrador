@@ -57,7 +57,7 @@ public class ClientePane extends javax.swing.JPanel {
         CampoPesquisaId.setBackground(new java.awt.Color(220, 220, 220));
         CampoPesquisaId.setFocusable(false);
 
-        jLabel1.setText("Id:");
+        jLabel1.setText("ID");
 
         CampoPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,7 @@ public class ClientePane extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Nome:");
+        jLabel2.setText("Nome");
 
         CampoPesquisaCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +73,7 @@ public class ClientePane extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("CPF:");
+        jLabel4.setText("CPF");
 
         TabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

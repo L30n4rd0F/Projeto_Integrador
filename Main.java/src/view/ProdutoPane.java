@@ -116,9 +116,9 @@ public class ProdutoPane extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Buscar produto por nome:");
+        jLabel1.setText("Buscar produto por nome");
 
-        jLabel2.setText("Buscar produto por categora:");
+        jLabel2.setText("Buscar produto por categora");
 
         BotaoNovoProduto.setText("Novo Produto");
         BotaoNovoProduto.addActionListener(new java.awt.event.ActionListener() {

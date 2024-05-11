@@ -103,10 +103,10 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("CPF:");
+        jLabel2.setText("CPF");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Dados de identificação do cliente:");
+        jLabel7.setText("Dados de identificação do cliente");
 
         CampoCep.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -124,11 +124,11 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("CEP:");
+        jLabel6.setText("CEP");
 
-        jLabel8.setText("Logradouro:");
+        jLabel8.setText("Logradouro");
 
-        jLabel9.setText("Bairro:");
+        jLabel9.setText("Bairro");
 
         CampoNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,9 +136,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Numero:");
+        jLabel10.setText("Número");
 
-        jLabel11.setText("Complemento:");
+        jLabel11.setText("Complemento");
 
         CampoComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,9 +146,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Estado:");
+        jLabel12.setText("Estado");
 
-        jLabel13.setText("Cidade:");
+        jLabel13.setText("Cidade");
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel14.setText("Cadastro de cliente");
@@ -178,7 +178,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         CampoObservacaoCliente.setRows(5);
         jScrollPane1.setViewportView(CampoObservacaoCliente);
 
-        jLabel15.setText("Observação(ões):");
+        jLabel15.setText("Observação(ões)");
 
         ComboBoxEstado.setEditable(true);
         ComboBoxEstado.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -208,7 +208,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setText("UF:");
+        jLabel16.setText("UF");
 
         ComboBoxCidade.setEditable(true);
         ComboBoxCidade.addItemListener(new java.awt.event.ItemListener() {
@@ -295,9 +295,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Nome Completo:");
+        jLabel3.setText("Nome Completo");
 
-        jLabel4.setText("Telefone:");
+        jLabel4.setText("Telefone");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -378,11 +378,12 @@ public class CadastroClienteView extends javax.swing.JFrame {
                                     .addGap(212, 212, 212))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CampoNomeCliente)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(CampoNomeCliente)
+                                            .addGap(69, 69, 69))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
-                                            .addGap(0, 0, Short.MAX_VALUE)))
-                                    .addGap(69, 69, 69)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
                                         .addComponent(CampoCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))

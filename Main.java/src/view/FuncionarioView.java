@@ -108,7 +108,6 @@ public class FuncionarioView extends javax.swing.JFrame {
         getContentPane().add(BotaoAbrirPaneHome);
         BotaoAbrirPaneHome.setBounds(80, 30, 150, 37);
 
-        MainPane.setMaximumSize(null);
         MainPane.setMinimumSize(null);
         MainPane.setLayout(new java.awt.CardLayout());
         getContentPane().add(MainPane);

@@ -102,9 +102,9 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
         jLabel4.setText("Atualizar Usuário");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Dados de identificação:");
+        jLabel1.setText("Dados de identificação");
 
-        jLabel2.setText("Nome completo:");
+        jLabel2.setText("Nome completo");
 
         CampoTextoCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -112,7 +112,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("CPF:");
+        jLabel3.setText("CPF");
 
         CampoTextoTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -120,26 +120,26 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Telefone:");
+        jLabel5.setText("Telefone");
 
         CampoTextoObservacao.setColumns(20);
         CampoTextoObservacao.setRows(5);
         jScrollPane1.setViewportView(CampoTextoObservacao);
 
-        jLabel6.setText("Observação(ões):");
+        jLabel6.setText("Observação(ões)");
 
-        RadioButtonSenha.setText("Senha:");
+        RadioButtonSenha.setText("Senha");
         RadioButtonSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RadioButtonSenhaActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Senha:");
+        jLabel7.setText("Senha");
 
-        jLabel8.setText("Confirmar Senha:");
+        jLabel8.setText("Confirmar Senha");
 
-        jLabel10.setText("CEP:");
+        jLabel10.setText("CEP");
 
         CampoTextoCEP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -170,7 +170,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Estado:");
+        jLabel11.setText("Estado");
 
         ComboBoxUF.setEditable(true);
         ComboBoxUF.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +179,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("UF:");
+        jLabel12.setText("UF");
 
         ComboBoxCidade.setEditable(true);
         ComboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +188,15 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Cidade:");
+        jLabel13.setText("Cidade");
 
-        jLabel15.setText("Logradouro:");
+        jLabel15.setText("Logradouro");
 
         ComboBoxLogradouro.setEditable(true);
 
-        jLabel16.setText("Número:");
+        jLabel16.setText("Número");
 
-        jLabel17.setText("Complemento:");
+        jLabel17.setText("Complemento");
 
         BotaoSalvarAlteracao.setText("Salvar");
         BotaoSalvarAlteracao.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +221,7 @@ public class AtualizarUsuarioView extends javax.swing.JFrame {
 
         CheckBoxAdm.setText("Admin");
 
-        jLabel14.setText("Bairro:");
+        jLabel14.setText("Bairro");
 
         CheckBoxEndereco.setText("Endereço");
         CheckBoxEndereco.addActionListener(new java.awt.event.ActionListener() {

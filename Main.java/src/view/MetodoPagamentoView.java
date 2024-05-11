@@ -273,7 +273,7 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
                                     .addComponent(BotaoConfirmarVenda)
                                     .addComponent(RadioButtonPix)))
                             .addComponent(jLabel2))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

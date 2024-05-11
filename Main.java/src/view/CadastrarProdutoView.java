@@ -125,6 +125,7 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Cadastrar Produto");
 
         jLabel2.setText("Nome");

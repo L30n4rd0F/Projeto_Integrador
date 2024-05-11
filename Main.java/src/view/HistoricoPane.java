@@ -52,16 +52,21 @@ public class HistoricoPane extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(TabelaHistorico);
 
-        jLabel2.setText("id:");
+        jLabel2.setText("Id");
 
         jTextField1.setEditable(false);
         jTextField1.setEnabled(false);
 
-        BotaoApagarCampos.setText("Apagar Campos");
+        BotaoApagarCampos.setText("Limpar Campos");
+        BotaoApagarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoApagarCamposActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Vendedor:");
+        jLabel1.setText("Vendedor");
 
-        jLabel3.setText("Cliente:");
+        jLabel3.setText("Cliente");
 
         BotaoVerInformacao.setText("Ver mais informações");
 
@@ -116,6 +121,10 @@ public class HistoricoPane extends javax.swing.JPanel {
                 .addGap(95, 95, 95))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BotaoApagarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoApagarCamposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotaoApagarCamposActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

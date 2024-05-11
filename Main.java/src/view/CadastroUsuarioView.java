@@ -128,13 +128,13 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nome Completo:");
+        jLabel1.setText("Nome Completo");
 
         jLabel2.setText("CPF");
 
-        jLabel3.setText("Telefone:");
+        jLabel3.setText("Telefone");
 
-        jLabel4.setText("Senha:");
+        jLabel4.setText("Senha");
 
         CampoTextoSenhaUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,38 +155,39 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        BotaoApagarCamposCadastroIdentificacao.setText("Apagar Campos");
+        BotaoApagarCamposCadastroIdentificacao.setText("Limpar Campos");
         BotaoApagarCamposCadastroIdentificacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoApagarCamposCadastroIdentificacaoActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Confirme a senha:");
+        jLabel5.setText("Confirme a senha");
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel6.setText("Cadastro de Usuário");
 
-        jLabel7.setText("Observação(ões):");
+        jLabel7.setText("Observação(ões)");
 
         BotaoRadioEndereco.setSelected(true);
-        BotaoRadioEndereco.setText("Endereço:");
+        BotaoRadioEndereco.setText("Endereço");
         BotaoRadioEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoRadioEnderecoActionPerformed(evt);
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Dados de identificação do usuário:");
 
-        BotaoApagarCamposCadastroEndereco.setText("Apagar Campos");
+        BotaoApagarCamposCadastroEndereco.setText("Limpar Campos");
         BotaoApagarCamposCadastroEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoApagarCamposCadastroEnderecoActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("CEP:");
+        jLabel9.setText("CEP");
 
         CampoCadastroCEP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +223,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Estado:");
+        jLabel10.setText("Estado");
 
         ComboBoxUF.setEditable(true);
         ComboBoxUF.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +232,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("UF:");
+        jLabel11.setText("UF");
 
         ComboBoxCidade.setEditable(true);
         ComboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +241,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Cidade:");
+        jLabel12.setText("Cidade");
 
         ComboBoxBairro.setEditable(true);
         ComboBoxBairro.addActionListener(new java.awt.event.ActionListener() {
@@ -249,9 +250,9 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Bairro:");
+        jLabel13.setText("Bairro");
 
-        jLabel14.setText("Logradouro:");
+        jLabel14.setText("Logradouro");
 
         ComboBoxLogradouro.setEditable(true);
         ComboBoxLogradouro.addActionListener(new java.awt.event.ActionListener() {
@@ -260,9 +261,9 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("Número:");
+        jLabel15.setText("Número");
 
-        jLabel16.setText("Complemento:");
+        jLabel16.setText("Complemento");
 
         BotaoCancelarCadastro.setText("Cancelar");
 

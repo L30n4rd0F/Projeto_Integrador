@@ -91,7 +91,7 @@ public class AdmView extends javax.swing.JFrame {
         BotaoAbrirPaneVenda.setBounds(45, 95, 150, 37);
 
         BotaoAbrirPaneUsuario.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        BotaoAbrirPaneUsuario.setText("Usuarios");
+        BotaoAbrirPaneUsuario.setText("Usuários");
         BotaoAbrirPaneUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         BotaoAbrirPaneUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

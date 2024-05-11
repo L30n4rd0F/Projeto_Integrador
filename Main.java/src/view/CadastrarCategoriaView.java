@@ -151,7 +151,7 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
                         .addComponent(BotaoRemoverCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotaoConcluido)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +170,7 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
                     .addComponent(Cancelar)
                     .addComponent(BotaoConcluido)
                     .addComponent(BotaoRemoverCategoria))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();

@@ -141,6 +141,7 @@ public final class AtualizarProdutoView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Atualizar Produto");
 
         jLabel7.setText("Descrição");

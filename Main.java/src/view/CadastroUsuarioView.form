@@ -251,7 +251,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome Completo:"/>
+        <Property name="text" type="java.lang.String" value="Nome Completo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -261,12 +261,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefone:"/>
+        <Property name="text" type="java.lang.String" value="Telefone"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Senha:"/>
+        <Property name="text" type="java.lang.String" value="Senha"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="CampoTextoSenhaUsuario">
@@ -289,7 +289,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="BotaoApagarCamposCadastroIdentificacao">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apagar Campos"/>
+        <Property name="text" type="java.lang.String" value="Limpar Campos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoApagarCamposCadastroIdentificacaoActionPerformed"/>
@@ -297,7 +297,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Confirme a senha:"/>
+        <Property name="text" type="java.lang.String" value="Confirme a senha"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -310,13 +310,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o(&#xf5;es):"/>
+        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o(&#xf5;es)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="BotaoRadioEndereco">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
+        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoRadioEnderecoActionPerformed"/>
@@ -324,12 +324,15 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Dados de identifica&#xe7;&#xe3;o do usu&#xe1;rio:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoApagarCamposCadastroEndereco">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apagar Campos"/>
+        <Property name="text" type="java.lang.String" value="Limpar Campos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoApagarCamposCadastroEnderecoActionPerformed"/>
@@ -337,7 +340,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CEP:"/>
+        <Property name="text" type="java.lang.String" value="CEP"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="CampoCadastroCEP">
@@ -368,7 +371,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Estado:"/>
+        <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxUF">
@@ -384,7 +387,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="UF:"/>
+        <Property name="text" type="java.lang.String" value="UF"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxCidade">
@@ -400,7 +403,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cidade:"/>
+        <Property name="text" type="java.lang.String" value="Cidade"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxBairro">
@@ -416,12 +419,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bairro:"/>
+        <Property name="text" type="java.lang.String" value="Bairro"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Logradouro:"/>
+        <Property name="text" type="java.lang.String" value="Logradouro"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxLogradouro">
@@ -441,12 +444,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N&#xfa;mero:"/>
+        <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Complemento:"/>
+        <Property name="text" type="java.lang.String" value="Complemento"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoCancelarCadastro">

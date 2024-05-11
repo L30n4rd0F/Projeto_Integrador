@@ -109,12 +109,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar produto por nome:"/>
+        <Property name="text" type="java.lang.String" value="Buscar produto por nome"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar produto por categora:"/>
+        <Property name="text" type="java.lang.String" value="Buscar produto por categora"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoNovoProduto">

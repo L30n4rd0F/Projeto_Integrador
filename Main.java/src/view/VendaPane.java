@@ -425,7 +425,7 @@ public class VendaPane extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setText("Buscar Produto(os)");
+        jLabel7.setText("Buscar Produto:");
 
         CampoBuscarProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
