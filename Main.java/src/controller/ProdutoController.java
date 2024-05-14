@@ -307,7 +307,7 @@ public class ProdutoController {
 
                 float valorTotal = Float.parseFloat(view.getCampoValorTotalCarrinho().getText().replace(',', '.'));
 
-                HistoricoDAO historicoDAO = new HistoricoDAO(conexao);
+                HistoricoDAO historicoDAO = new HistoricoDAO();
                 int id_historico = historicoDAO.adicionarCarrinhoHistorico(valorTotal, id_usuario, id_cliente, metodoPagamento);
 
                 for (int i = 0; i < modeloCarrinho.getRowCount(); i++) {

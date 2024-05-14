@@ -11,6 +11,11 @@ public class Historico {
     private float precoTotal;
     private int fk_id_cliente;
     private int fk_id_usuario;
+    private String nome_cliente;
+    private String nome_funcionario;
+    private String date;
+    private String time;
+    private String metodo_pagamento;
 
     public Historico(float precoTotal, int fk_id_usuario, int fk_id_cliente) {
         this.data = new Date(); // Cria a data atual
@@ -19,6 +24,61 @@ public class Historico {
         this.fk_id_cliente = fk_id_cliente;
         this.fk_id_usuario = fk_id_usuario;
     }
+
+    public Historico(int id_historico, float precoTotal, String nome_cliente, String nome_funcionario, String date, String time, String metodo_pagamento) {
+        this.id_historico = id_historico;
+        this.precoTotal = precoTotal;
+        this.nome_cliente = nome_cliente;
+        this.nome_funcionario = nome_funcionario;
+        this.date = date;
+        this.time = time;
+        this.metodo_pagamento = metodo_pagamento;
+    }
+
+
+    public String getMetodo_pagamento() {
+        return metodo_pagamento;
+    }
+
+    public void setMetodo_pagamento(String metodo_pagamento) {
+        this.metodo_pagamento = metodo_pagamento;
+    }
+    
+    
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getNome_cliente() {
+        return nome_cliente;
+    }
+
+    public void setNome_cliente(String nome_cliente) {
+        this.nome_cliente = nome_cliente;
+    }
+
+    public String getNome_funcionario() {
+        return nome_funcionario;
+    }
+
+    public void setNome_funcionario(String nome_funcionario) {
+        this.nome_funcionario = nome_funcionario;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    
 
     public int getId_historico() {
         return id_historico;
