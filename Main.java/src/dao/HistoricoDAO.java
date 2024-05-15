@@ -65,9 +65,9 @@ public class HistoricoDAO {
 
     public ArrayList<Historico> readHistorico() throws SQLException {
         String sql = "SELECT h.id_historico, h.data, h.tempo, h.preco_total, c.nome AS nome_cliente, u.nome AS nome_usuario, h.metodo_pagamento "
-            + "FROM HISTORICO h "
-            + "LEFT JOIN cliente c ON h.fk_id_cliente = c.id_cliente "
-            + "INNER JOIN usuario u ON h.fk_id_usuario = u.id_usuario";
+                + "FROM HISTORICO h "
+                + "LEFT JOIN cliente c ON h.fk_id_cliente = c.id_cliente "
+                + "INNER JOIN usuario u ON h.fk_id_usuario = u.id_usuario";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -94,6 +94,24 @@ public class HistoricoDAO {
         resultSet.close();
         statement.close();
         return historico;
+    }
+
+    public int getHistoricoId(String data, String tempo) throws SQLException {
+        String sql = "SELECT id_historico FROM historico WHERE data = ? AND tempo = ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+        statement.setString(1, data);
+        statement.setString(2, tempo);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        resultSet.next();
+        int idHistorico = resultSet.getInt("id_historico");
+
+        resultSet.close();
+        statement.close();
+        return idHistorico;
     }
 
 }

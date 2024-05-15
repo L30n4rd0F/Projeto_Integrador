@@ -33,4 +33,10 @@ public class HistoricoController {
         }
         
     }
+    
+    public int getHistoricoId(String data, String tempo) throws SQLException {
+        HistoricoDAO historicoDAO = new HistoricoDAO();
+        int idHistorico = historicoDAO.getHistoricoId(data, tempo);
+        return idHistorico;
+    }
 }

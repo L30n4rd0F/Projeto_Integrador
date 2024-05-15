@@ -7,6 +7,8 @@ public class Compra {
     private String unidade;
     private int fk_id_historico;
     private int fk_id_produto;
+    private String nome_produto;
+    private int quantidade;
 
     public Compra(int id_compra, float preco, String unidade, int fk_id_historico, int fk_id_produto) {
         this.id_compra = id_compra;
@@ -14,6 +16,30 @@ public class Compra {
         this.unidade = unidade;
         this.fk_id_historico = fk_id_historico;
         this.fk_id_produto = fk_id_produto;
+    }
+
+    public Compra(String nome_produto, float preco, int quantidade, String unidade) {
+        this.preco = preco;
+        this.unidade = unidade;
+        this.nome_produto = nome_produto;
+        this.quantidade = quantidade;
+    }
+
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public String getNome_produto() {
+        return nome_produto;
+    }
+
+    public void setNome_produto(String nome_produto) {
+        this.nome_produto = nome_produto;
     }
 
     public int getId_compra() {
