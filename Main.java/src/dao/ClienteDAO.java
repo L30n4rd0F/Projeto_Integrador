@@ -26,6 +26,7 @@ public class ClienteDAO {
         statement.setInt(4, id_endereco);
         statement.setString(5, cliente.getObservacao());
         statement.execute();
+        statement.close();
         
     }
     
@@ -56,6 +57,7 @@ public class ClienteDAO {
             
            clientes.add(clienteComDados);
         }
+        statement.close();
         return clientes;
     }
     
@@ -70,6 +72,7 @@ public class ClienteDAO {
         statement.setString(3, cliente.getTelefone());
         statement.setString(4, cliente.getObservacao());
         statement.execute();
+        statement.close();
 
     }
 
@@ -102,6 +105,37 @@ public class ClienteDAO {
         
         return resultSet.next();
 
+    }
+    
+    public ArrayList<Cliente> buscarClienteCPFeNome(Cliente cliente) throws SQLException{
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ? and cpf LIKE ?";
+
+        // Conexao com o bd
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + cliente.getNome() + "%");
+        statement.setString(2, "%" + cliente.getCpf() + "%");
+
+        // Executando a consulta
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        // Iterando sobre os resultados
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id_cliente");
+            String nome = resultSet.getString("nome");
+            String cpf = resultSet.getString("cpf");
+            String telefone = resultSet.getString("telefone");
+            String observacao = resultSet.getString("observacao");
+            int idEndereco = resultSet.getInt("fk_id_endereco");
+            
+            Cliente clienteEncontrado = new Cliente(id, nome, cpf, telefone, observacao);
+            clienteEncontrado.setId_endereco(idEndereco);
+            clientes.add(clienteEncontrado);
+        }
+        statement.close();
+
+        return clientes;
     }
 
 }

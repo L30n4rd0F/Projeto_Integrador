@@ -5,6 +5,7 @@
 package view;
 
 import controller.ClienteController;
+import controller.TextoController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ public class ClientePane extends javax.swing.JPanel {
     
     CadastroClienteView viewCadastro = new CadastroClienteView();
     ClienteController controller;
+    TextoController controllerTexto = new TextoController();
     
     public ClientePane() {
         initComponents();
@@ -64,12 +66,25 @@ public class ClientePane extends javax.swing.JPanel {
                 CampoPesquisaNomeActionPerformed(evt);
             }
         });
+        CampoPesquisaNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CampoPesquisaNomeKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Nome");
 
         CampoPesquisaCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoPesquisaCPFActionPerformed(evt);
+            }
+        });
+        CampoPesquisaCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CampoPesquisaCPFKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoPesquisaCPFKeyTyped(evt);
             }
         });
 
@@ -167,6 +182,31 @@ public class ClientePane extends javax.swing.JPanel {
         controller.apagarTodosCampos();
         viewCadastro.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarClienteActionPerformed
+
+    private void CampoPesquisaCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaCPFKeyReleased
+        try {
+            controller.buscarCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientePane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CampoPesquisaCPFKeyReleased
+
+    private void CampoPesquisaCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaCPFKeyTyped
+        if(controllerTexto.formatacaoCPF(evt, getCampoPesquisaCPF().getText())){
+            getCampoPesquisaCPF().setText(controllerTexto.mascaraCPF(getCampoPesquisaCPF().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoPesquisaCPFKeyTyped
+
+    private void CampoPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaNomeKeyReleased
+        try {
+            controller.buscarCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientePane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CampoPesquisaNomeKeyReleased
 
     public JTextField getCampoPesquisaCPF() {
         return CampoPesquisaCPF;

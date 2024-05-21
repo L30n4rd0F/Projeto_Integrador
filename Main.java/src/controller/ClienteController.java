@@ -272,5 +272,42 @@ public class ClienteController extends EnderecoController {
             JOptionPane.showMessageDialog(null, "Telefone está incompleto!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    public void buscarCliente() throws SQLException{
+        view.getCampoPesquisaId().setText(""); //Campo do id vazio
+        
+        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaCliente().getModel(); //Pega o modelo da tabela 
+        modelo.setNumRows(0);
+        view.getTabelaCliente().setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+    
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+        
+        Cliente clientePesquisa =  new Cliente();
+        
+        clientePesquisa.setNome(view.getCampoPesquisaNome().getText());
+        clientePesquisa.setCpf(view.getCampoPesquisaCPF().getText());
+        
+        for(Cliente cliente : clienteDao.buscarClienteCPFeNome(clientePesquisa)){
+            //Se o cliente tem um id_endereço maior que 0 significa que ele possui um endereço cadastrado
+            if(cliente.getId_endereco()>0){
+                //Realiza a conexao e a busca pelo cep do logradouro com o id do endereco.
+                EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
+                cliente.setCep(enderecoDao.selectCEPPorIdEndereco(cliente.getId_endereco()));
+            }
+            
+            modelo.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                cliente.getTelefone(),
+                cliente.getCep()
+            });
+        }
+        
+    
+    }
 
 }
