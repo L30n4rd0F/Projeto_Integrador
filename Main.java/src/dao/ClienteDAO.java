@@ -137,5 +137,27 @@ public class ClienteDAO {
 
         return clientes;
     }
-
+    
+    public Cliente selectClientePorID(int id) throws SQLException{
+        String sql = "SELECT * FROM cliente WHERE id_cliente=?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        
+        ResultSet resultSet = statement.executeQuery();
+        Cliente clienteComDados = new Cliente();
+        
+        while(resultSet.next()){
+            String nome = resultSet.getString("nome");
+            String cpf = resultSet.getString("cpf");
+            String telefone = resultSet.getString("telefone");
+            String observacao = resultSet.getString("observacao");
+            int idEndereco = resultSet.getInt("fk_id_endereco");
+            
+            clienteComDados = new Cliente(id, nome, cpf, telefone, observacao);
+            clienteComDados.setId_endereco(idEndereco);
+        }
+        statement.close();
+        return clienteComDados;         
+    }
 }

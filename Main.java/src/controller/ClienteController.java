@@ -5,23 +5,23 @@ import dao.Conexao;
 import dao.EnderecoDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Cliente;
 import model.Endereco;
+import view.AtualizarClienteView;
 import view.CadastroClienteView;
 import view.ClientePane;
 
 public class ClienteController extends EnderecoController {
 
+    private AtualizarClienteView atualizarView;
     private CadastroClienteView cadastroView;
     private ClientePane view;
 
-    public ClienteController(CadastroClienteView cadastroView, ClientePane view) {
+    public ClienteController(AtualizarClienteView atualizarView, CadastroClienteView cadastroView, ClientePane view) {
+        this.atualizarView = atualizarView;
         this.cadastroView = cadastroView;
         this.view = view;
     }
@@ -312,6 +312,67 @@ public class ClienteController extends EnderecoController {
         view.getCampoPesquisaId().setText("");
         view.getCampoPesquisaCPF().setText("");
         view.getCampoPesquisaNome().setText("");
+    }
+    
+    
+    public void preencherInfoClienteAtualizar() throws SQLException{
+        int id_cliente = (int) view.getTabelaCliente().getValueAt(view.getTabelaCliente().getSelectedRow(), 0);//Pega o id do campo de texto e transforma em int
+
+         //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+        
+        Cliente clienteInfo = clienteDao.selectClientePorID(id_cliente);
+        
+        preencherCamposInfoCliente(clienteInfo);
+        
+        if(clienteInfo.getId_endereco()>0){
+            EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
+            Endereco enderecoCliente = enderecoDao.selectEnderecoCompletoPorIdEndereco(clienteInfo.getId_endereco());
+            preencherCamposEnderecoCliente(enderecoCliente);
+            
+            clienteInfo.setCep(enderecoCliente.getCep());
+            clienteInfo.setUf(enderecoCliente.getUf());
+            clienteInfo.setCidade(enderecoCliente.getCidade());
+            clienteInfo.setBairro(enderecoCliente.getBairro());
+            clienteInfo.setLogradouro(enderecoCliente.getLogradouro());
+            clienteInfo.setNumero(enderecoCliente.getNumero());
+            clienteInfo.setComplemento(enderecoCliente.getComplemento());
+        }
+        atualizarView.setCliente(clienteInfo);
+    }
+    
+    public void preencherCamposInfoCliente(Cliente clienteInfo){
+        atualizarView.getTxNome().setText(clienteInfo.getNome());
+        atualizarView.getTxCPF().setText(clienteInfo.getCpf());
+        atualizarView.getTxTelefone().setText(clienteInfo.getTelefone());
+        atualizarView.getTxaObservacao().setText(clienteInfo.getObservacao());
+    }
+    
+    public void preencherCamposEnderecoCliente(Endereco endereco){
+        atualizarView.getCheckEndereco().setSelected(true);
+        atualizarView.getTxCEP().setText(endereco.getCep());
+        atualizarView.getCbUF().setSelectedItem(endereco.getUf());
+        atualizarView.getCbCidade().setSelectedItem(endereco.getCidade());
+        atualizarView.getCbBairro().setSelectedItem(endereco.getBairro());
+        atualizarView.getCbLogradouro().setSelectedItem(endereco.getLogradouro());
+        atualizarView.getTxNumero().setText(endereco.getNumero());
+        atualizarView.getTxComplemento().setText(endereco.getComplemento());
+    }
+    
+    public void apagarCamposAtualizar(){
+        atualizarView.getTxNome().setText("");
+        atualizarView.getTxCPF().setText("");
+        atualizarView.getTxTelefone().setText("");
+        atualizarView.getTxaObservacao().setText("");
+        atualizarView.getCheckEndereco().setSelected(false);
+        atualizarView.getTxCEP().setText("");
+        atualizarView.getCbUF().setSelectedIndex(-1);
+        atualizarView.getCbCidade().setSelectedIndex(-1);
+        atualizarView.getCbBairro().setSelectedIndex(-1);
+        atualizarView.getCbLogradouro().setSelectedIndex(-1);
+        atualizarView.getTxNumero().setText("");
+        atualizarView.getTxComplemento().setText("");
     }
 
 }

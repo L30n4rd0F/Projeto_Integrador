@@ -26,7 +26,7 @@ public class ClientePane extends javax.swing.JPanel {
     
     public ClientePane() {
         initComponents();
-        controller = new ClienteController(viewCadastro, this);
+        controller = new ClienteController(viewAtualizar, viewCadastro, this);
         
         try {
             controller.readTabelaCliente();
@@ -239,12 +239,20 @@ public class ClientePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BotaoLimparCamposClienteActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void BotaoAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarClienteActionPerformed
        
         if(getTabelaCliente().getSelectedRow()!=-1){ 
-            viewAtualizar.setController(this.controller);
-            viewAtualizar.setLocationRelativeTo(null);
-            viewAtualizar.setVisible(true);
+            try{
+                controller.apagarCamposAtualizar();
+                viewAtualizar.setController(this.controller);
+                viewAtualizar.setLocationRelativeTo(null);
+                controller.comboBoxEstados(viewAtualizar.getCbEstado(), viewAtualizar.getCbUF());
+                controller.preencherInfoClienteAtualizar();
+                viewAtualizar.setVisible(true);
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
