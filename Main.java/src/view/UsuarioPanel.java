@@ -200,9 +200,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(372, 372, 372))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(BotaoApagarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(CampoPesquisaNome))
+                                        .addComponent(CampoPesquisaNome)
                                         .addGap(258, 258, 258)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -214,11 +212,14 @@ public class UsuarioPanel extends javax.swing.JPanel {
                                 .addComponent(ComboBoxPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(50, 50, 50))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotaoCadastrarUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotaoRemoverUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotaoAtualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BotaoApagarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotaoCadastrarUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoRemoverUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoAtualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -327,7 +328,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
                 viewAtualizarUsuario.setLocationRelativeTo(null);//Centraliza
                 viewAtualizarUsuario.setVisible(true);
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
             }   
         }
         else{
@@ -354,7 +355,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         try {
             controller.buscarUsuario();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ComboBoxPesquisaActionPerformed
 
@@ -363,7 +364,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         try {
             controller.readTabelaUsuario();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotaoApagarCamposActionPerformed
 
@@ -397,7 +398,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         try {
             controller.buscarUsuario();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_CampoPesquisaCPFKeyReleased
 

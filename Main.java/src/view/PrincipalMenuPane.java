@@ -4,15 +4,15 @@
  */
 package view;
 
+import javax.swing.JLabel;
+import model.Usuario;
+
 /**
  *
  * @author luizf
  */
 public class PrincipalMenuPane extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PrincipalMenuPane
-     */
     public PrincipalMenuPane() {
         initComponents();
     }
@@ -26,26 +26,40 @@ public class PrincipalMenuPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        LabelNomeUsuarioLogado = new javax.swing.JLabel();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/img2.jpg"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(1570, 1000));
-        jLabel1.setMinimumSize(new java.awt.Dimension(1570, 1000));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        LabelNomeUsuarioLogado.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        LabelNomeUsuarioLogado.setText("nulo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1570, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(LabelNomeUsuarioLogado)
+                .addContainerGap(1539, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(LabelNomeUsuarioLogado)
+                .addContainerGap(1007, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JLabel getLabelNomeUsuarioLogado() {
+        return LabelNomeUsuarioLogado;
+    }
 
+    public void setLabelNomeUsuarioLogado(JLabel LabelNomeUsuarioLogado) {
+        this.LabelNomeUsuarioLogado = LabelNomeUsuarioLogado;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel LabelNomeUsuarioLogado;
     // End of variables declaration//GEN-END:variables
 }

@@ -283,7 +283,6 @@ public class UsuarioDAO {
         if (resultSet.next()) {
             return resultSet.getInt("id_usuario");
         } else {
-            System.out.println("NAO ACHADO");
             return -1;
         }
     }

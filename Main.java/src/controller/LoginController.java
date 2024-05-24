@@ -45,6 +45,8 @@ public class LoginController {
             //Se existe um usuario havera outra verificação;
             if(existe){
                 cpfUsuarioLogado = usuarioAutenticar.getCpf();
+                int id_usuario = UsuarioDao.buscarIdUsuarioCPF(cpfUsuarioLogado);
+                usuarioAutenticar = UsuarioDao.selectUsuarioPorId(id_usuario);
                 
                 //Verifica se usuario é admin
                 admin = UsuarioDao.verificaAdmin (usuarioAutenticar);
@@ -52,10 +54,12 @@ public class LoginController {
                 //Aparece a tela com base no true or false da váriavel admin
                 if(admin){
                     AdmView telaMenu = new AdmView();
+                    telaMenu.setUsuarioLogado(usuarioAutenticar);
                     telaMenu.setCpf(cpfUsuarioLogado);
                     telaMenu.setVisible(true);//torna a tela do menu visivel
                 }else{
                     FuncionarioView telaMenu = new FuncionarioView();// : new FuncionarioView();
+                    telaMenu.setUsuarioLogado(usuarioAutenticar);
                     telaMenu.setCpf(cpfUsuarioLogado);
                     telaMenu.setVisible(true);//torna a tela do menu visivel
                 }

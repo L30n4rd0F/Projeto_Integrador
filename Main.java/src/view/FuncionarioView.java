@@ -5,6 +5,7 @@ import controller.MenuUsuarioController;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import model.Usuario;
 import model.Utilitarios;
 
 /**
@@ -14,6 +15,7 @@ import model.Utilitarios;
 public class FuncionarioView extends javax.swing.JFrame {
 
     private final MenuUsuarioController controller;
+    Usuario usuarioLogado = new Usuario();
     UsuarioPanel usuarioPane = new UsuarioPanel();
     PrincipalMenuPane menuPrincipal = new PrincipalMenuPane();
     ProdutoPane produtoPane = new ProdutoPane();
@@ -176,8 +178,14 @@ public class FuncionarioView extends javax.swing.JFrame {
         this.vendaPane = vendaPane;
     }
 
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
 
-
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+        getMenuPrincipal().getLabelNomeUsuarioLogado().setText("Olá! " + usuarioLogado.getNome());
+    }
     
     private void BotaoAbrirPaneHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAbrirPaneHomeActionPerformed
         controller.menuPrincipal();

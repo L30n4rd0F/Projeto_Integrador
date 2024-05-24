@@ -305,9 +305,13 @@ public class ClienteController extends EnderecoController {
                 cliente.getTelefone(),
                 cliente.getCep()
             });
-        }
-        
+        }       
+    }
     
+    public void limparCamposPesquisa(){
+        view.getCampoPesquisaId().setText("");
+        view.getCampoPesquisaCPF().setText("");
+        view.getCampoPesquisaNome().setText("");
     }
 
 }

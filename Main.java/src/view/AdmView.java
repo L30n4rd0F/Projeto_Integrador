@@ -6,6 +6,7 @@ package view;
 
 import controller.MenuAdmController;
 import java.awt.Toolkit;
+import model.Usuario;
 import model.Utilitarios;
 
 /**
@@ -15,6 +16,7 @@ import model.Utilitarios;
 public class AdmView extends javax.swing.JFrame {
 
     private final MenuAdmController controller;
+    Usuario usuarioLogado = new Usuario();
     UsuarioPanel usuarioPane = new UsuarioPanel();
     PrincipalMenuPane menuPrincipal = new PrincipalMenuPane();
     ProdutoPane produtoPane = new ProdutoPane();
@@ -63,7 +65,6 @@ public class AdmView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(null);
@@ -202,6 +203,15 @@ public class AdmView extends javax.swing.JFrame {
 
     public void setVendaPane(VendaPane vendaPane) {
         this.vendaPane = vendaPane;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+        getMenuPrincipal().getLabelNomeUsuarioLogado().setText("Olá! " + usuarioLogado.getNome());
     }
 
     private void BotaoAbrirPaneUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAbrirPaneUsuarioActionPerformed
