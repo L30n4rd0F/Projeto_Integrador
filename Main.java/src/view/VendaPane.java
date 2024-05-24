@@ -1,6 +1,7 @@
 package view;
 
 import controller.ProdutoController;
+import controller.TextoController;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ public class VendaPane extends javax.swing.JPanel {
     private String cpf;
     private String metodoPagamento;
     MetodoPagamentoView viewMetodoPagamento = new MetodoPagamentoView();
+    TextoController textoController = new TextoController();
 
     public VendaPane() {
         initComponents();
@@ -489,6 +491,11 @@ public class VendaPane extends javax.swing.JPanel {
                 CampoCpfClienteActionPerformed(evt);
             }
         });
+        CampoCpfCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoCpfClienteKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -706,6 +713,15 @@ public class VendaPane extends javax.swing.JPanel {
     private void CampoCpfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoCpfClienteActionPerformed
 
     }//GEN-LAST:event_CampoCpfClienteActionPerformed
+
+    private void CampoCpfClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoCpfClienteKeyTyped
+       if(textoController.formatacaoCPF(evt, getCampoCpfCliente().getText())){
+           getCampoCpfCliente().setText(textoController.mascaraCPF(getCampoCpfCliente().getText()));
+       }
+       else{
+           evt.consume();
+       }
+    }//GEN-LAST:event_CampoCpfClienteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -339,7 +339,20 @@ public class ClienteController extends EnderecoController {
             clienteInfo.setNumero(enderecoCliente.getNumero());
             clienteInfo.setComplemento(enderecoCliente.getComplemento());
         }
+        habilitarEnderecoAtualizar(clienteInfo.getId_endereco()>0);
         atualizarView.setCliente(clienteInfo);
+    }
+    
+    public void habilitarEnderecoAtualizar(boolean habilitar){
+        atualizarView.getBtPesquisarEndereco().setEnabled(habilitar);
+        atualizarView.getTxCEP().setEnabled(habilitar);
+        atualizarView.getCbEstado().setEnabled(habilitar);
+        atualizarView.getCbUF().setEnabled(habilitar);
+        atualizarView.getCbCidade().setEnabled(habilitar);
+        atualizarView.getCbBairro().setEnabled(habilitar);
+        atualizarView.getCbLogradouro().setEnabled(habilitar);
+        atualizarView.getTxNumero().setEnabled(habilitar);
+        atualizarView.getTxComplemento().setEnabled(habilitar);
     }
     
     public void preencherCamposInfoCliente(Cliente clienteInfo){
@@ -365,8 +378,13 @@ public class ClienteController extends EnderecoController {
         atualizarView.getTxCPF().setText("");
         atualizarView.getTxTelefone().setText("");
         atualizarView.getTxaObservacao().setText("");
+        apagarCamposEnderecoAtualizar();
+    }
+    
+    public void apagarCamposEnderecoAtualizar(){
         atualizarView.getCheckEndereco().setSelected(false);
         atualizarView.getTxCEP().setText("");
+        atualizarView.getCbEstado().setSelectedIndex(-1);
         atualizarView.getCbUF().setSelectedIndex(-1);
         atualizarView.getCbCidade().setSelectedIndex(-1);
         atualizarView.getCbBairro().setSelectedIndex(-1);
@@ -374,5 +392,111 @@ public class ClienteController extends EnderecoController {
         atualizarView.getTxNumero().setText("");
         atualizarView.getTxComplemento().setText("");
     }
-
+    
+    public void desfazerAlteracao(){
+        atualizarView.getTxNome().setText(atualizarView.getCliente().getNome());
+        atualizarView.getTxCPF().setText(atualizarView.getCliente().getCpf());
+        atualizarView.getTxTelefone().setText(atualizarView.getCliente().getTelefone());
+        atualizarView.getTxaObservacao().setText(atualizarView.getCliente().getObservacao());
+        atualizarView.getCheckEndereco().setSelected(atualizarView.getCliente().getId_endereco()>0);
+        habilitarEnderecoAtualizar(atualizarView.getCliente().getId_endereco()>0);
+        if(atualizarView.getCliente().getId_endereco()>0){
+            atualizarView.getTxCEP().setText(atualizarView.getCliente().getCep());
+            atualizarView.getCbUF().setSelectedItem(atualizarView.getCliente().getUf());
+            atualizarView.getCbCidade().setSelectedItem(atualizarView.getCliente().getCidade());
+            atualizarView.getCbBairro().setSelectedItem(atualizarView.getCliente().getBairro());
+            atualizarView.getCbLogradouro().setSelectedItem(atualizarView.getCliente().getLogradouro());
+            atualizarView.getTxNumero().setText(atualizarView.getCliente().getNumero());
+            atualizarView.getTxComplemento().setText(atualizarView.getCliente().getComplemento());
+        }else{
+            apagarCamposEnderecoAtualizar();
+        }
+    }
+    
+    public boolean campoNuloAtualizar(){
+        String telefone = atualizarView.getTxTelefone().getText();
+        boolean enderecoNulo = false;
+        
+        if(atualizarView.getCheckEndereco().isSelected()){
+            String cep = atualizarView.getTxCEP().getText();
+            String estado = (String) atualizarView.getCbEstado().getSelectedItem();
+            String uf = (String) atualizarView.getCbUF().getSelectedItem();
+            String cidade = (String) atualizarView.getCbCidade().getSelectedItem();
+            String bairro = (String) atualizarView.getCbBairro().getSelectedItem();
+            String logradouro = (String) atualizarView.getCbLogradouro().getSelectedItem();
+            String numero = atualizarView.getTxNumero().getText();
+        
+            enderecoNulo = cep.isEmpty() || estado.isEmpty() || uf.isEmpty() || cidade.isEmpty() || bairro.isEmpty() || logradouro.isEmpty() || numero.isEmpty();
+        }
+        return telefone.isEmpty() || enderecoNulo;
+    
+    }
+    
+    public void salvarAlteracao(Cliente cliente) throws SQLException{
+        boolean jaPossuiEndereco, enderecoHabilitado, campoEmBranco, telefoneValido;
+        
+        //Verificações
+        jaPossuiEndereco = atualizarView.getCliente().getId_endereco()>0;
+        enderecoHabilitado = atualizarView.getCheckEndereco().isSelected();
+        campoEmBranco = campoNuloAtualizar();
+        telefoneValido = verificaTelefoneValido(atualizarView.getTxTelefone().getText());
+        
+        //Se algum campo está fora das conformidades ele entra 
+        if(campoEmBranco || !telefoneValido){
+            avisosErro(campoEmBranco, false, false, !telefoneValido);
+        }
+        else{
+            realizarUpdate(enderecoHabilitado, cliente);
+            readTabelaCliente();
+            JOptionPane.showMessageDialog(null, "Informações modificadas", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            atualizarView.dispose();
+        }
+    }
+    
+    public void realizarUpdate(Boolean enderecoHabilitado, Cliente clienteComInfoDesatualizadas) throws SQLException{
+        
+        //Realizar Conexão
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+        
+        Cliente clienteAtualizado = informacaoDosCamposPessoaisCliente();
+        clienteAtualizado.setId(clienteComInfoDesatualizadas.getId());
+        clienteDao.update(clienteAtualizado);
+        
+        //Se ele já tem um endereço e teraEndereco = false;
+        if(clienteComInfoDesatualizadas.getId_endereco()>0 && !enderecoHabilitado){
+            clienteDao.deleteEndereco(clienteComInfoDesatualizadas.getId());//Desvincula o endereco do cliente
+            removerEnderecoComId(clienteComInfoDesatualizadas.getId_endereco());//Remover o endereco do banco de dados
+        }else if(clienteComInfoDesatualizadas.getId_endereco()==0 && enderecoHabilitado){//Se ele não possui um endereco cadastrado e teraEndereco = true;
+           Endereco endereco = informacaoDosCamposEnderecoAtualizar();//Pega as informações do endereco dos campos
+           int id_endereco = cadastroEndereco(endereco, false);//Inserir novo endereço no banco de dados
+           clienteDao.updateEndereco(id_endereco, clienteComInfoDesatualizadas.getId());//Vincular o usuario com o endereço
+        } else if(enderecoHabilitado){//Caso contrário apenas realizar o update
+            Endereco endereco = informacaoDosCamposEnderecoAtualizar();//Pega as informações do endereco dos campos
+            endereco.setId_endereco(clienteComInfoDesatualizadas.getId_endereco());
+            atualizarEndereco(endereco);
+        }   
+    }
+    
+    public Endereco informacaoDosCamposEnderecoAtualizar(){
+        String cep = atualizarView.getTxCEP().getText();
+        String uf = (String) atualizarView.getCbUF().getSelectedItem();
+        String cidade = (String) atualizarView.getCbCidade().getSelectedItem();;
+        String bairro = (String) atualizarView.getCbBairro().getSelectedItem();;
+        String logradouro = (String) atualizarView.getCbLogradouro().getSelectedItem();;
+        String numero = atualizarView.getTxNumero().getText();
+        String complemento = atualizarView.getTxComplemento().getText();
+        
+        Endereco endereco = new Endereco(logradouro, bairro, cidade, cep, numero, uf, complemento);
+        return endereco;
+    }
+    
+    public Cliente informacaoDosCamposPessoaisCliente(){
+        String nome = atualizarView.getTxNome().getText();
+        String cpf = atualizarView.getTxCPF().getText();
+        String telefone = atualizarView.getTxTelefone().getText();
+        String observacao = atualizarView.getTxaObservacao().getText();
+        Cliente cliente = new Cliente(nome, cpf, telefone, observacao);
+        return cliente;   
+    }
 }

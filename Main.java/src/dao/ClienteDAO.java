@@ -73,7 +73,22 @@ public class ClienteDAO {
         statement.setString(4, cliente.getObservacao());
         statement.execute();
         statement.close();
+    }
 
+    public void update(Cliente cliente) throws SQLException{
+        String sql = "UPDATE cliente SET nome = ?, cpf = ?, telefone = ?, observacao = ? WHERE id_cliente = ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        //Evita SQL Injection 
+        statement.setString(1, cliente.getNome());
+        statement.setString(2, cliente.getCpf());
+        statement.setString(3, cliente.getTelefone());
+        statement.setString(4, cliente.getObservacao());
+        statement.setInt(5, cliente.getId());
+
+        statement.execute();
+        statement.close();
     }
 
     public int buscarIdClienteCPF(String cpf) throws SQLException {
@@ -159,5 +174,24 @@ public class ClienteDAO {
         }
         statement.close();
         return clienteComDados;         
+    }
+    
+    public void deleteEndereco(int id_cliente) throws SQLException{
+         String sql = "UPDATE cliente SET fk_id_endereco = null WHERE id_cliente = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_cliente);
+        statement.execute();
+        statement.close();
+    }
+    
+    public void updateEndereco (int id_endereco, int id_cliente) throws SQLException{
+        String sql = "UPDATE cliente SET fk_id_endereco = ? WHERE id_cliente = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_endereco);
+        statement.setInt(2, id_cliente);
+        statement.execute();
+        statement.close();
     }
 }

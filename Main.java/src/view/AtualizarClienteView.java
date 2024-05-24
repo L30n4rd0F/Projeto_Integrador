@@ -5,9 +5,11 @@
 package view;
 
 import controller.ClienteController;
+import controller.TextoController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -23,6 +25,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class AtualizarClienteView extends javax.swing.JFrame {
 
     ClienteController controller;
+    TextoController textoController = new TextoController();
     Cliente cliente;
     int estadoSelecionado = -1;
     int cidadeSelecionada = -1;
@@ -60,7 +63,7 @@ public class AtualizarClienteView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txCEP = new javax.swing.JTextPane();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btPesquisarEndereco = new javax.swing.JButton();
         cbEstado = new javax.swing.JComboBox();
         cbUF = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -87,11 +90,23 @@ public class AtualizarClienteView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Dados de identificação");
 
+        txNome.setEditable(false);
+        txNome.setEnabled(false);
+
         jLabel2.setText("Nome Completo");
 
         jLabel3.setText("CPF");
 
+        txCPF.setEditable(false);
+        txCPF.setEnabled(false);
+
         jLabel4.setText("Telefone");
+
+        txTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txTelefoneKeyTyped(evt);
+            }
+        });
 
         txaObservacao.setColumns(20);
         txaObservacao.setRows(5);
@@ -99,11 +114,16 @@ public class AtualizarClienteView extends javax.swing.JFrame {
 
         jLabel5.setText("Observação");
 
+        txCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txCEPKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(txCEP);
 
         jLabel7.setText("CEP");
 
-        jButton1.setText("jButton1");
+        btPesquisarEndereco.setText("jButton1");
 
         cbEstado.setEditable(true);
         cbEstado.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -165,8 +185,18 @@ public class AtualizarClienteView extends javax.swing.JFrame {
         jLabel14.setText("Complemento");
 
         btSalvarAlteracao.setText("Salvar");
+        btSalvarAlteracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarAlteracaoActionPerformed(evt);
+            }
+        });
 
         btDesfazerAlteracao.setText("Desfazer Alterações");
+        btDesfazerAlteracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDesfazerAlteracaoActionPerformed(evt);
+            }
+        });
 
         checkEndereco.setText("Endereço");
         checkEndereco.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +226,7 @@ public class AtualizarClienteView extends javax.swing.JFrame {
                                                     .addGroup(layout.createSequentialGroup()
                                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(btPesquisarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addComponent(jLabel7))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +325,7 @@ public class AtualizarClienteView extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(btPesquisarEndereco)
                             .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,8 +407,38 @@ public class AtualizarClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_cbBairroActionPerformed
 
     private void checkEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEnderecoActionPerformed
-        // TODO add your handling code here:
+        controller.habilitarEnderecoAtualizar(getCheckEndereco().isSelected());
     }//GEN-LAST:event_checkEnderecoActionPerformed
+
+    private void btDesfazerAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesfazerAlteracaoActionPerformed
+        controller.desfazerAlteracao();
+    }//GEN-LAST:event_btDesfazerAlteracaoActionPerformed
+
+    private void btSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAlteracaoActionPerformed
+        try {
+            controller.salvarAlteracao(cliente);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtualizarClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btSalvarAlteracaoActionPerformed
+
+    private void txTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txTelefoneKeyTyped
+       if(textoController.formatacaoTelefone(evt, getTxTelefone().getText())){
+           getTxTelefone().setText(textoController.mascaraTelefone(getTxTelefone().getText()));
+       }
+       else{
+           evt.consume();
+       }
+    }//GEN-LAST:event_txTelefoneKeyTyped
+
+    private void txCEPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txCEPKeyTyped
+        if(textoController.formatacaoCEP(evt, getTxCEP().getText())){
+            getTxCEP().setText(textoController.mascaraCEP(getTxCEP().getText()));
+        }
+        else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_txCEPKeyTyped
 
     /**
      * @param args the command line arguments
@@ -541,9 +601,18 @@ public class AtualizarClienteView extends javax.swing.JFrame {
     public void setCheckEndereco(JCheckBox checkEndereco) {
         this.checkEndereco = checkEndereco;
     }
+
+    public JButton getBtPesquisarEndereco() {
+        return btPesquisarEndereco;
+    }
+
+    public void setBtPesquisarEndereco(JButton btPesquisarEndereco) {
+        this.btPesquisarEndereco = btPesquisarEndereco;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDesfazerAlteracao;
+    private javax.swing.JButton btPesquisarEndereco;
     private javax.swing.JButton btSalvarAlteracao;
     private javax.swing.JComboBox cbBairro;
     private javax.swing.JComboBox cbCidade;
@@ -551,7 +620,6 @@ public class AtualizarClienteView extends javax.swing.JFrame {
     private javax.swing.JComboBox cbLogradouro;
     private javax.swing.JComboBox cbUF;
     private javax.swing.JCheckBox checkEndereco;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabe1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

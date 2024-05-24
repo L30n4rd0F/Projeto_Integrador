@@ -247,6 +247,7 @@ public class ClientePane extends javax.swing.JPanel {
                 controller.apagarCamposAtualizar();
                 viewAtualizar.setController(this.controller);
                 viewAtualizar.setLocationRelativeTo(null);
+                viewAtualizar.estadoSelecionado = viewAtualizar.cidadeSelecionada = viewAtualizar.bairroSelecionado = -1;
                 controller.comboBoxEstados(viewAtualizar.getCbEstado(), viewAtualizar.getCbUF());
                 controller.preencherInfoClienteAtualizar();
                 viewAtualizar.setVisible(true);
@@ -290,6 +291,7 @@ public class ClientePane extends javax.swing.JPanel {
         this.TabelaCliente = TabelaCliente;
     }
 
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
