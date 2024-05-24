@@ -28,15 +28,52 @@ public class HistoricoController {
                 historico.getPrecoTotal(),
                 historico.getMetodo_pagamento(),
                 historico.getNome_cliente(),
-                historico.getNome_funcionario(),
-            });
+                historico.getNome_funcionario(),});
         }
-        
+
     }
-    
+
     public int getHistoricoId(String data, String tempo) throws SQLException {
         HistoricoDAO historicoDAO = new HistoricoDAO();
         int idHistorico = historicoDAO.getHistoricoId(data, tempo);
         return idHistorico;
+    }
+
+    public void buscarFuncionario(String nomeFuncionario) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaHistorico().getModel();
+        modelo.setNumRows(0);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        view.getTabelaHistorico().setRowSorter(sorter);
+
+        // Chama o método buscarProduto em ProdutoDAO
+        HistoricoDAO HistoricoDAO = new HistoricoDAO();
+        for (Historico historico : HistoricoDAO.buscarFuncionario(nomeFuncionario)) {
+            modelo.addRow(new Object[]{
+                historico.getDate(),
+                historico.getTime(),
+                historico.getPrecoTotal(),
+                historico.getMetodo_pagamento(),
+                historico.getNome_cliente(),
+                historico.getNome_funcionario(),});
+        }
+    }
+    
+    public void buscarCliente(String nomeFuncionario) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaHistorico().getModel();
+        modelo.setNumRows(0);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        view.getTabelaHistorico().setRowSorter(sorter);
+
+        // Chama o método buscarProduto em ProdutoDAO
+        HistoricoDAO HistoricoDAO = new HistoricoDAO();
+        for (Historico historico : HistoricoDAO.buscarCliente(nomeFuncionario)) {
+            modelo.addRow(new Object[]{
+                historico.getDate(),
+                historico.getTime(),
+                historico.getPrecoTotal(),
+                historico.getMetodo_pagamento(),
+                historico.getNome_cliente(),
+                historico.getNome_funcionario(),});
+        }
     }
 }

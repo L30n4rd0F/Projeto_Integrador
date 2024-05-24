@@ -114,4 +114,72 @@ public class HistoricoDAO {
         return idHistorico;
     }
 
+    public ArrayList<Historico> buscarFuncionario(String nomeFuncionario) throws SQLException {
+        String sql = "SELECT h.id_historico, h.data, h.tempo, h.preco_total, c.nome AS nome_cliente, u.nome AS nome_usuario, h.metodo_pagamento "
+                + "FROM historico h "
+                + "LEFT JOIN cliente c ON h.fk_id_cliente = c.id_cliente "
+                + "INNER JOIN usuario u ON h.fk_id_usuario = u.id_usuario "
+                + "WHERE LOWER(u.nome) LIKE ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + nomeFuncionario.toLowerCase() + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Historico> historico = new ArrayList<>();
+
+
+        while (resultSet.next()) {
+            int id_historico = resultSet.getInt("id_historico");
+            String data = resultSet.getString("data");
+            String tempo = resultSet.getString("tempo");
+            float preco_total = resultSet.getFloat("preco_total");
+            String nome_cliente = resultSet.getString("nome_cliente");
+            String nome_usuario = resultSet.getString("nome_usuario");
+            String metodo_pagamento = resultSet.getString("metodo_pagamento");
+            
+            Historico historicoDados = new Historico(id_historico, preco_total, nome_cliente, nome_usuario, data, tempo, metodo_pagamento);
+
+            historico.add(historicoDados);
+        }
+
+        resultSet.close();
+        statement.close();
+
+        return historico;
+    }
+    
+    public ArrayList<Historico> buscarCliente(String nomeCliente) throws SQLException {
+        String sql = "SELECT h.id_historico, h.data, h.tempo, h.preco_total, c.nome AS nome_cliente, u.nome AS nome_usuario, h.metodo_pagamento "
+                + "FROM historico h "
+                + "LEFT JOIN cliente c ON h.fk_id_cliente = c.id_cliente "
+                + "INNER JOIN usuario u ON h.fk_id_usuario = u.id_usuario "
+                + "WHERE LOWER(c.nome) LIKE ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, "%" + nomeCliente.toLowerCase() + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        ArrayList<Historico> historico = new ArrayList<>();
+
+
+        while (resultSet.next()) {
+            int id_historico = resultSet.getInt("id_historico");
+            String data = resultSet.getString("data");
+            String tempo = resultSet.getString("tempo");
+            float preco_total = resultSet.getFloat("preco_total");
+            String nome_cliente = resultSet.getString("nome_cliente");
+            String nome_usuario = resultSet.getString("nome_usuario");
+            String metodo_pagamento = resultSet.getString("metodo_pagamento");
+            
+            Historico historicoDados = new Historico(id_historico, preco_total, nome_cliente, nome_usuario, data, tempo, metodo_pagamento);
+
+            historico.add(historicoDados);
+        }
+
+        resultSet.close();
+        statement.close();
+
+        return historico;
+    }
+
 }

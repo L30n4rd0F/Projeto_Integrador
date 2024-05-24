@@ -141,7 +141,24 @@ public class HistoricoPane extends javax.swing.JPanel {
             }
         });
 
+        CampoTextoPesquisaVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CampoTextoPesquisaVendedorActionPerformed(evt);
+            }
+        });
+        CampoTextoPesquisaVendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CampoTextoPesquisaVendedorKeyReleased(evt);
+            }
+        });
+
         jLabel1.setText("Vendedor");
+
+        CampoTextoPesquisaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CampoTextoPesquisaClienteKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Cliente");
 
@@ -220,6 +237,30 @@ public class HistoricoPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Selecione um item da lista primeiro.");
         }
     }//GEN-LAST:event_BotaoVerInformacaoActionPerformed
+
+    private void CampoTextoPesquisaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoTextoPesquisaVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoTextoPesquisaVendedorActionPerformed
+
+    private void CampoTextoPesquisaVendedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoPesquisaVendedorKeyReleased
+        if (CampoTextoPesquisaVendedor != null) {
+            try {
+                controller.buscarFuncionario(CampoTextoPesquisaVendedor.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_CampoTextoPesquisaVendedorKeyReleased
+
+    private void CampoTextoPesquisaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoPesquisaClienteKeyReleased
+        if (CampoTextoPesquisaCliente != null) {
+            try {
+                controller.buscarCliente(CampoTextoPesquisaCliente.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_CampoTextoPesquisaClienteKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
