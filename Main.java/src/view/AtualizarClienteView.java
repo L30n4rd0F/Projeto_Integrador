@@ -124,6 +124,11 @@ public class AtualizarClienteView extends javax.swing.JFrame {
         jLabel7.setText("CEP");
 
         btPesquisarEndereco.setText("jButton1");
+        btPesquisarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarEnderecoActionPerformed(evt);
+            }
+        });
 
         cbEstado.setEditable(true);
         cbEstado.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -439,6 +444,28 @@ public class AtualizarClienteView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txCEPKeyTyped
+
+    private void btPesquisarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarEnderecoActionPerformed
+        String cep = getTxCEP().getText();
+        
+        String logradouro = (String) getCbLogradouro().getSelectedItem();
+        String cidade = (String) getCbCidade().getSelectedItem();
+        String uf = (String) getCbUF().getSelectedItem();
+        
+        if(!cep.isEmpty()){
+            try {
+                controller.preencherCamposEnderecoAtualizar(cep);
+            } catch (SQLException ex) {
+                Logger.getLogger(AtualizarUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            if(!logradouro.isEmpty() && !cidade.isEmpty() && !uf.isEmpty()){
+                controller.preencherCEPAtualizar();
+                
+            }
+        }
+    }//GEN-LAST:event_btPesquisarEnderecoActionPerformed
 
     /**
      * @param args the command line arguments

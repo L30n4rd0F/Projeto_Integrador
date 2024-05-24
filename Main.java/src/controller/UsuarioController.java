@@ -276,13 +276,16 @@ public class UsuarioController extends EnderecoController {
 
     //Verifica se tem campo nulo em endereço -- retorna true or false
     public boolean campoNuloEndereco() {
+        
         String cep = viewCadastro.getCampoCadastroCEP().getText();
         String numero = viewCadastro.getCampoCadastroNumero().getText();
         String estado = (String) viewCadastro.getComboBoxEstado().getSelectedItem();
+        String cidade = (String) viewCadastro.getComboBoxCidade().getSelectedItem();
         String bairro = (String) viewCadastro.getComboBoxBairro().getSelectedItem();
         String logradouro = (String) viewCadastro.getComboBoxLogradouro().getSelectedItem();
-
-        return cep.isEmpty() || numero.isEmpty() || estado.isEmpty() || bairro.isEmpty() || logradouro.isEmpty();//Caso algum campos está nulo ele retorna true    
+        
+        if(cep == null || numero == null || estado == null || bairro == null || logradouro == null) return true;
+        return cep.isEmpty() || numero.isEmpty() || estado.isEmpty() || bairro.isEmpty()|| logradouro.isEmpty() || cidade.isEmpty();//Caso algum campos está nulo ele retorna true    
     }
 
     //Função para realização do cadastro do cliente, ela recebe um true or false do Radio Button para habilitar ou não o endereço
@@ -292,7 +295,7 @@ public class UsuarioController extends EnderecoController {
         char[] senhaCharConfirma = viewCadastro.getCampoTextoConfirmaSenhaUsuario().getPassword();//Pega o que foi escrito de senha confirma
         String senhaConfirma = new String(senhaCharConfirma);//Transforma a senha character em string
         int id_endereco = -1;//id do endereço é setado como -1
-        boolean campoEmBranco, existe, senhaCorreta, cpfValido, telefoneValido; //Variáveis para armazenar as verificações
+        boolean campoEmBranco, existe, senhaCorreta, cpfValido, telefoneValido, cepValido=true; //Variáveis para armazenar as verificações
 
         //Realiza a conexão
         Connection conexao = new Conexao().getConnection();
@@ -303,10 +306,11 @@ public class UsuarioController extends EnderecoController {
         senhaCorreta = comparacaoStrings(usuarioCadastrar.getSenha(), senhaConfirma); //Verifica se a senha esta compativel nos dois bancos
         cpfValido = verificaCPFvalido(usuarioCadastrar.getCpf());// Verifica se o CPF é valido
         telefoneValido = verificaTelefoneValido(usuarioCadastrar.getTelefone());
+        cepValido = verificaCEPisValido(viewCadastro.getCampoCadastroCEP().getText());
 
         //Se os campos não estiverem de acordo com as validações ele entra e avisa o erro
-        if (campoEmBranco || existe || !senhaCorreta || !cpfValido || !telefoneValido) {
-            avisosErro(campoEmBranco, existe, !senhaCorreta, !cpfValido, !telefoneValido);
+        if (campoEmBranco || existe || !senhaCorreta || !cpfValido || !telefoneValido || !cepValido) {
+            avisosErro(campoEmBranco, existe, !senhaCorreta, !cpfValido, !telefoneValido, !cepValido);
         } else {
             //Se os campos de endereço estejam ativados ele entra
             if (ativado) {
@@ -394,9 +398,12 @@ public class UsuarioController extends EnderecoController {
     public boolean verificaTelefoneValido(String telefone) {
         return telefone.length() == 15;
     }
+    public boolean verificaCEPisValido(String cep){
+        return cep.length() == 9;
+    }
 
     //Função para mandar os avisos de erro de acordo com os erros
-    public void avisosErro(boolean campoEmBranco, boolean usuarioExiste, boolean senhaIncorreta, boolean cpfInvalido, boolean telefoneInvalido) {
+    public void avisosErro(boolean campoEmBranco, boolean usuarioExiste, boolean senhaIncorreta, boolean cpfInvalido, boolean telefoneInvalido, boolean cepInvalido) {
         if (campoEmBranco) {
             JOptionPane.showMessageDialog(null, "Campo(s) em branco!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else if (cpfInvalido) {
@@ -407,6 +414,8 @@ public class UsuarioController extends EnderecoController {
             JOptionPane.showMessageDialog(null, "Campos de senha discrepantes!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else if (telefoneInvalido) {
             JOptionPane.showMessageDialog(null, "Telefone incompleto!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (cepInvalido){
+            JOptionPane.showMessageDialog(null, "CEP inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -539,7 +548,7 @@ public class UsuarioController extends EnderecoController {
     //Função para salvar atualização do usuário -- Incompleta
     public void salvarAtualizacao(Usuario usuario) throws SQLException{
         //Váriaveis para verificação
-        boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais, cpfValido, telefoneValido;
+        boolean jaPossuiEndereco, editarSenhaHabilitado, enderecoHabilitado, campoEmBranco, senhasIguais, cpfValido, telefoneValido, cepValido=true;
         
         String senha = new String(viewAtualizar.getCampoTextoSenha().getPassword());
         String senhaConfirma = new String(viewAtualizar.getCampoTextoConfirmarSenha().getPassword());
@@ -551,10 +560,11 @@ public class UsuarioController extends EnderecoController {
         senhasIguais = comparacaoStrings(senha, senhaConfirma);
         cpfValido = verificaCPFvalido(viewAtualizar.getCampoTextoCPF().getText());
         telefoneValido = verificaTelefoneValido(viewAtualizar.getCampoTextoTelefone().getText());
+        if(viewAtualizar.getCheckBoxEndereco().isSelected()) cepValido = verificaCEPisValido(viewAtualizar.getCampoTextoCEP().getText());
         
         //Se algum campo está fora das conformidades ele entra 
-        if(campoEmBranco || !senhasIguais || !cpfValido || !telefoneValido){
-            avisosErro(campoEmBranco, false, !senhasIguais, !cpfValido, !telefoneValido);//Função para mostrar o aviso de erro conforme o caso
+        if(campoEmBranco || !senhasIguais || !cpfValido || !telefoneValido || !cepValido){
+            avisosErro(campoEmBranco, false, !senhasIguais, !cpfValido, !telefoneValido, !cepValido);//Função para mostrar o aviso de erro conforme o caso
         }
         
         //Caso contrário ele entra para realizar o update

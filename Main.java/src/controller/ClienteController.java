@@ -140,7 +140,7 @@ public class ClienteController extends EnderecoController {
     //Tem todas as verificações para o cadastro
     public void realizarCadastro(boolean ativado) throws SQLException {
         int id_endereco = -1;//id do endereço é setado como -1
-        boolean existe, campoEmBranco, cpfValido, telefoneValido;//Váriaveis para validações
+        boolean existe, campoEmBranco, cpfValido, telefoneValido, cepValido = true;//Váriaveis para validações
         Cliente clienteParaCadastro = informacaoDosCamposPessoais(); //Pega os campos pessoais preenchidos
 
         //Realiza a conexão
@@ -151,10 +151,12 @@ public class ClienteController extends EnderecoController {
         cpfValido = verificaCPFisValido(clienteParaCadastro.getCpf());//Verifica se o cpf é valido
         existe = clienteDao.existeClientePorCPF(clienteParaCadastro.getCpf());//Verifica se o cliente existe
         telefoneValido = verificaTelefoneValido(clienteParaCadastro.getTelefone());
+        if(ativado) cepValido = verificaCEPisValido(cadastroView.getCampoCep().getText());
+        
 
         //Se algo estiver invalido ele entra
-        if (campoEmBranco || !cpfValido || existe || !telefoneValido) {
-            avisosErro(campoEmBranco, !cpfValido, existe, !telefoneValido);
+        if (campoEmBranco || !cpfValido || existe || !telefoneValido || !cepValido) {
+            avisosErro(campoEmBranco, !cpfValido, existe, !telefoneValido, !cepValido);
         }
         //Caso contrário ele realiza o cadastro do cliente
         else {
@@ -246,6 +248,10 @@ public class ClienteController extends EnderecoController {
     public boolean verificaTelefoneValido(String telefone){
         return telefone.length()>=13;
     }
+    
+    public boolean verificaCEPisValido(String cep){
+        return cep.length()==9;
+    }
 
     //Verifica se tem campo nulo em endereço -- retorna true or false
     public boolean campoNuloEndereco() {
@@ -260,7 +266,7 @@ public class ClienteController extends EnderecoController {
     }
 
     //Função para mandar os avisos de erro de acordo com os erros
-    public void avisosErro(boolean campoEmBranco, boolean cpfInvalido, boolean clienteExiste, boolean telefoneInvalido) {
+    public void avisosErro(boolean campoEmBranco, boolean cpfInvalido, boolean clienteExiste, boolean telefoneInvalido, boolean cepInvalido) {
         if (campoEmBranco) {
             JOptionPane.showMessageDialog(null, "Campo(s) em branco!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else if (cpfInvalido) {
@@ -270,6 +276,9 @@ public class ClienteController extends EnderecoController {
         }
         else if(telefoneInvalido){
             JOptionPane.showMessageDialog(null, "Telefone está incompleto!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(cepInvalido){
+            JOptionPane.showMessageDialog(null, "CEP invalido!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -433,7 +442,7 @@ public class ClienteController extends EnderecoController {
     }
     
     public void salvarAlteracao(Cliente cliente) throws SQLException{
-        boolean jaPossuiEndereco, enderecoHabilitado, campoEmBranco, telefoneValido;
+        boolean jaPossuiEndereco, enderecoHabilitado, campoEmBranco, telefoneValido, cepValido = true;
         
         //Verificações
         jaPossuiEndereco = atualizarView.getCliente().getId_endereco()>0;
@@ -441,9 +450,11 @@ public class ClienteController extends EnderecoController {
         campoEmBranco = campoNuloAtualizar();
         telefoneValido = verificaTelefoneValido(atualizarView.getTxTelefone().getText());
         
+        if(atualizarView.getCheckEndereco().isSelected()) cepValido = verificaCEPisValido(atualizarView.getTxCEP().getText());
+        
         //Se algum campo está fora das conformidades ele entra 
-        if(campoEmBranco || !telefoneValido){
-            avisosErro(campoEmBranco, false, false, !telefoneValido);
+        if(campoEmBranco || !telefoneValido || !cepValido){
+            avisosErro(campoEmBranco, false, false, !telefoneValido, !cepValido);
         }
         else{
             realizarUpdate(enderecoHabilitado, cliente);
@@ -498,5 +509,34 @@ public class ClienteController extends EnderecoController {
         String observacao = atualizarView.getTxaObservacao().getText();
         Cliente cliente = new Cliente(nome, cpf, telefone, observacao);
         return cliente;   
+    }
+    
+    public void preencherCamposEnderecoAtualizar(String cep) throws SQLException{
+        Endereco endereco = buscarEndereco(cep);
+        
+        if (endereco != null) {
+            // Define os valores nos campos JTextField com os dados do endereço
+            atualizarView.getCbUF().setSelectedItem(endereco.getSigla());
+            atualizarView.getCbEstado().setSelectedIndex(atualizarView.getCbUF().getSelectedIndex());
+            atualizarView.getCbCidade().setSelectedItem(endereco.getCidade());
+            atualizarView.getCbBairro().setSelectedItem(endereco.getBairro());
+            atualizarView.getCbLogradouro().setSelectedItem(endereco.getLogradouro());
+            atualizarView.getTxNumero().setText(endereco.getNumero());
+        } else {
+            // Se o endereço não for encontrado, limpe os campos
+            atualizarView.getCbBairro().setSelectedIndex(-1);
+            atualizarView.getCbCidade().setSelectedIndex(-1);
+            atualizarView.getCbUF().setSelectedIndex(-1);
+            atualizarView.getCbEstado().setSelectedIndex(-1);
+            atualizarView.getCbLogradouro().setSelectedIndex(-1);
+            atualizarView.getTxNumero().setText("");
+        }
+    }
+    
+    public void preencherCEPAtualizar(){
+        Endereco endereco = buscarCEP(informacaoDosCamposEnderecoAtualizar());//Chama a função para buscar o CEP pelas informções do endereço
+        atualizarView.getTxCEP().setText(endereco.getCep());
+        atualizarView.getCbBairro().setSelectedItem(endereco.getBairro());
+        atualizarView.getTxNumero().setText(endereco.getNumero());
     }
 }
