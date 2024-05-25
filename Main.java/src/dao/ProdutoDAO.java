@@ -172,11 +172,11 @@ public class ProdutoDAO {
     }
 
     public void removerProduto(String nomeProduto) throws SQLException {
-        String sql = "DELETE FROM produtos WHERE nome LIKE ?";
+        String sql = "DELETE FROM produtos WHERE nome = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
-        statement.executeUpdate();
+        statement.execute();
         statement.close();
     }
 
@@ -216,13 +216,6 @@ public class ProdutoDAO {
         String sql = "UPDATE produtos SET nome = ?, descricao = ?, preco = ?, unidade = ?, quantidade = ?, fk_nome_categoria = ? WHERE id_produto = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
-        System.out.println(nomeProduto);
-        System.out.println(descricao);
-        System.out.println(preco);
-        System.out.println(unidade);
-        System.out.println(quantidade);
-        System.out.println(nomeCategoria);
-        System.out.println(idProduto);
         statement.setString(1, nomeProduto);
         statement.setString(2, descricao);
         statement.setFloat(3, preco);

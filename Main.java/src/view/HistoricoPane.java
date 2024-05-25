@@ -71,8 +71,12 @@ public class HistoricoPane extends javax.swing.JPanel {
         return TabelaHistorico;
     }
 
-    public void setTabelaHistorico(JTable TabelaHistorico) {
-        this.TabelaHistorico = TabelaHistorico;
+    public void setTabelaHistorico() {
+        try {
+            controller.readTabelaHistorico();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
@@ -158,6 +162,9 @@ public class HistoricoPane extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CampoTextoPesquisaClienteKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoTextoPesquisaClienteKeyTyped(evt);
+            }
         });
 
         jLabel3.setText("Cliente");
@@ -219,7 +226,12 @@ public class HistoricoPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoApagarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoApagarCamposActionPerformed
-        // TODO add your handling code here:
+        try {
+            controller.limparCamposPesquisa();
+            controller.readTabelaHistorico();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BotaoApagarCamposActionPerformed
 
     private void BotaoVerInformacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVerInformacaoActionPerformed
@@ -253,14 +265,24 @@ public class HistoricoPane extends javax.swing.JPanel {
     }//GEN-LAST:event_CampoTextoPesquisaVendedorKeyReleased
 
     private void CampoTextoPesquisaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoPesquisaClienteKeyReleased
-        if (CampoTextoPesquisaCliente != null) {
+        if (!"".equals(getCampoTextoPesquisaCliente().getText())) {
             try {
                 controller.buscarCliente(CampoTextoPesquisaCliente.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            try {
+                controller.readTabelaHistorico();
+            } catch (SQLException ex) {
+                Logger.getLogger(HistoricoPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_CampoTextoPesquisaClienteKeyReleased
+
+    private void CampoTextoPesquisaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoTextoPesquisaClienteKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoTextoPesquisaClienteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

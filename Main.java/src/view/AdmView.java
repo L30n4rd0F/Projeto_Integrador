@@ -5,7 +5,6 @@
 package view;
 
 import controller.MenuAdmController;
-import java.awt.Toolkit;
 import model.Usuario;
 import model.Utilitarios;
 
@@ -149,6 +148,7 @@ public class AdmView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     public String getCpf() {
         return cpf;
     }

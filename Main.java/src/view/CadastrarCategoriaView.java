@@ -11,24 +11,21 @@ import javax.swing.JTextField;
 
 public class CadastrarCategoriaView extends javax.swing.JFrame {
     
-    private final ProdutoController controller;
+    private ProdutoController controller;
 
     public CadastrarCategoriaView() {
         initComponents();
-        
-        this.controller = new ProdutoController(this);
-        
-        
-        controller.apagarTodosCamposCategoria();
-        
-        try {
-            controller.readCategoriasCadastroCategoria();
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 
+    public ProdutoController getController() {
+        return controller;
+    }
+
+    public void setController(ProdutoController controller) {
+        this.controller = controller;
+    }
+    
     public JButton getBotaoRemoverCategoria() {
         return BotaoRemoverCategoria;
     }
@@ -114,6 +111,15 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
         jLabel2.setText("Remover Categoria para Produto(s)");
 
         ComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxCategoria.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ComboBoxCategoriaAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         BotaoConcluido.setText("Concluido");
         BotaoConcluido.addActionListener(new java.awt.event.ActionListener() {
@@ -209,11 +215,20 @@ public class CadastrarCategoriaView extends javax.swing.JFrame {
         try {
             controller.cadastrarCategoria(getCampoCategoria().getText());
             controller.readTabelaProdutoPane();
+            controller.readCategoriasCadastroCategoria();
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
         }
         controller.apagarTodosCamposCategoria();
     }//GEN-LAST:event_BotaoCadastrarCategoriaActionPerformed
+
+    private void ComboBoxCategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaAncestorAdded
+        try {
+            controller.readCategoriasCadastroCategoria();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarCategoriaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ComboBoxCategoriaAncestorAdded
 
 
     public static void main(String args[]) {

@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import org.jdesktop.swingx.sort.SortUtils;
 
 public class EnderecoController {
 

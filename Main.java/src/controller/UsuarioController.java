@@ -306,7 +306,7 @@ public class UsuarioController extends EnderecoController {
         senhaCorreta = comparacaoStrings(usuarioCadastrar.getSenha(), senhaConfirma); //Verifica se a senha esta compativel nos dois bancos
         cpfValido = verificaCPFvalido(usuarioCadastrar.getCpf());// Verifica se o CPF é valido
         telefoneValido = verificaTelefoneValido(usuarioCadastrar.getTelefone());
-        cepValido = verificaCEPisValido(viewCadastro.getCampoCadastroCEP().getText());
+        if(viewCadastro.getBotaoRadioEndereco().isSelected()) cepValido = verificaCEPisValido(viewCadastro.getCampoCadastroCEP().getText());
 
         //Se os campos não estiverem de acordo com as validações ele entra e avisa o erro
         if (campoEmBranco || existe || !senhaCorreta || !cpfValido || !telefoneValido || !cepValido) {

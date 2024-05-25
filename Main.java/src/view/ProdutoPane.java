@@ -23,7 +23,7 @@ public class ProdutoPane extends javax.swing.JPanel {
         initComponents();
         AutoCompleteDecorator.decorate(ComboBoxCategoria);
         
-        this.controller = new ProdutoController(this);
+       this.controller = new ProdutoController(this, viewCadastro, viewCadastroCategoria, viewAtualizarProduto);
         try {
             controller.readCategorias();
             controller.readTabelaProdutoPane();
@@ -251,6 +251,8 @@ public class ProdutoPane extends javax.swing.JPanel {
     }//GEN-LAST:event_ComboBoxCategoriaActionPerformed
 
     private void BotaoNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoProdutoActionPerformed
+        viewCadastro.setController(this.controller);
+        controller.apagarTodosCampos();
         viewCadastro.setLocationRelativeTo(null);
         viewCadastro.setVisible(true);
     }//GEN-LAST:event_BotaoNovoProdutoActionPerformed
@@ -279,13 +281,15 @@ public class ProdutoPane extends javax.swing.JPanel {
     }//GEN-LAST:event_CampoPesquisaNomeActionPerformed
 
     private void BotaoCadastrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarCategoriaActionPerformed
+        viewCadastroCategoria.setController(this.controller);
+        controller.apagarTodosCamposCategoria();
         viewCadastroCategoria.setLocationRelativeTo(null);
         viewCadastroCategoria.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarCategoriaActionPerformed
 
     private void BotaoRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverProdutoActionPerformed
         try {
-            controller.removerProduto(getTabelaProduto().getValueAt(getTabelaProduto().getSelectedRow(),1).toString());
+            controller.removerProduto(getTabelaProduto().getValueAt(getTabelaProduto().getSelectedRow(),0).toString());
             controller.readTabelaProdutoPane();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoPane.class.getName()).log(Level.SEVERE, null, ex);

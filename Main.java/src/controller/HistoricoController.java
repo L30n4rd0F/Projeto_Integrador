@@ -76,4 +76,10 @@ public class HistoricoController {
                 historico.getNome_funcionario(),});
         }
     }
+    
+    public void limparCamposPesquisa(){
+        view.getCampoId().setText("");
+        view.getCampoTextoPesquisaCliente().setText("");
+        view.getCampoTextoPesquisaVendedor().setText("");
+    }
 }

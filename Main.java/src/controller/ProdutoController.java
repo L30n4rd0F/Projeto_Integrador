@@ -29,6 +29,13 @@ public class ProdutoController {
     private CadastrarCategoriaView viewCadastroCategoria;
     private AtualizarProdutoView viewAtualizarProduto;
 
+    public ProdutoController(ProdutoPane viewProdutoPane, CadastrarProdutoView viewCadastroProduto, CadastrarCategoriaView viewCadastroCategoria, AtualizarProdutoView viewAtualizarProduto) {
+        this.viewProdutoPane = viewProdutoPane;
+        this.viewCadastroProduto = viewCadastroProduto;
+        this.viewCadastroCategoria = viewCadastroCategoria;
+        this.viewAtualizarProduto = viewAtualizarProduto;
+    }
+    
     public ProdutoController(VendaPane view) {
         this.view = view;
     }

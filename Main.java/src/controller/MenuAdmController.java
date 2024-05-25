@@ -62,6 +62,7 @@ public class MenuAdmController {
         view.getUsuarioPane().setVisible(false);
         view.getMenuPrincipal().setVisible(false);
         view.getVendaPane().setVisible(false);
+        view.getHistoricoPane().setTabelaHistorico();
     }
     
     public void vendaPane(){
@@ -71,6 +72,7 @@ public class MenuAdmController {
         view.getUsuarioPane().setVisible(false);
         view.getMenuPrincipal().setVisible(false);
         view.getVendaPane().setVisible(true);
+        view.getVendaPane().setTabelaProduto();
     }
         
 }

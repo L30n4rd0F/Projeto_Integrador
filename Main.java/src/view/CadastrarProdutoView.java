@@ -13,21 +13,10 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class CadastrarProdutoView extends javax.swing.JFrame {
     
-    private final ProdutoController controller;
+    protected ProdutoController controller;
 
     public CadastrarProdutoView() {
         initComponents();
-        
-        this.controller = new ProdutoController(this);
-        
-        
-        controller.apagarTodosCampos();
-        
-        try {
-            controller.readCategoriasCadastroProduto();
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         this.setLocationRelativeTo(null); //Centraliza o frame na tela
         //this.controllerEndereco = new EnderecoController(this);
@@ -35,6 +24,13 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(ComboBoxUnidade);
     }
 
+    public ProdutoController getController() {
+        return controller;
+    }
+
+    public void setController(ProdutoController controller) {
+        this.controller = controller;
+    }
 
     public JButton getBotaoCadastrarProduto() {
         return BotaoCadastrarProduto;
@@ -100,8 +96,7 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
         this.ComboBoxUnidade = ComboBoxUnidade;
     }
 
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,6 +256,7 @@ public class CadastrarProdutoView extends javax.swing.JFrame {
     private void BotaoCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarProdutoActionPerformed
         try {
             controller.cadastrarProduto();
+            controller.readTabelaProdutoPane();
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
         }

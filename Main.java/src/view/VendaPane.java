@@ -59,8 +59,12 @@ public class VendaPane extends javax.swing.JPanel {
         return TabelaProduto;
     }
 
-    public void setTabelaProduto(JTable TabelaProduto) {
-        this.TabelaProduto = TabelaProduto;
+    public void setTabelaProduto() {
+        try {
+            controller.readTabelaProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public JTable getTabelaCarrinho() {
