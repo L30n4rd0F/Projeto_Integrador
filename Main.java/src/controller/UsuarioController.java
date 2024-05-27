@@ -5,16 +5,11 @@ import dao.EnderecoDAO;
 import dao.UsuarioDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Endereco;
 import model.Usuario;
-import org.jdesktop.swingx.sort.SortUtils;
 import view.AtualizarUsuarioView;
 import view.CadastroUsuarioView;
 import view.UsuarioPanel;
@@ -39,7 +34,7 @@ public class UsuarioController extends EnderecoController {
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o usuario " + view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 1), "Alerta", JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
-            int id = Integer.parseInt(view.getCampoPesquisaId().getText());//Pega o id do usuario que esta no campo de pesquisa bloqueado
+            int id = (int) view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 0);//Pega o id do usuario que esta no campo de pesquisa bloqueado
             
             Usuario usuarioParaRemover = new Usuario(id);
 

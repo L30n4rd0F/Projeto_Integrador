@@ -246,7 +246,7 @@ public class ClienteController extends EnderecoController {
     }
     
     public boolean verificaTelefoneValido(String telefone){
-        return telefone.length()>=13;
+        return telefone.length()==15;
     }
     
     public boolean verificaCEPisValido(String cep){

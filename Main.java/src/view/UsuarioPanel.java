@@ -342,7 +342,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
             try {
                 controller.removerUsuario();
             } catch (SQLException ex) {
-                Logger.getLogger(UsuarioPanel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "O usuário não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
