@@ -27,28 +27,22 @@ public class PrincipalMenuPane extends javax.swing.JPanel {
     private void initComponents() {
 
         LabelNomeUsuarioLogado = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LabelNomeUsuarioLogado.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        LabelNomeUsuarioLogado.setForeground(new java.awt.Color(255, 255, 255));
         LabelNomeUsuarioLogado.setText("nulo");
+        add(LabelNomeUsuarioLogado, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 31, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(LabelNomeUsuarioLogado)
-                .addContainerGap(1539, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(LabelNomeUsuarioLogado)
-                .addContainerGap(1007, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/img2.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        jLabel1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1651, 1086));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -13, -1, 1100));
     }// </editor-fold>//GEN-END:initComponents
 
     public JLabel getLabelNomeUsuarioLogado() {
@@ -61,5 +55,6 @@ public class PrincipalMenuPane extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelNomeUsuarioLogado;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

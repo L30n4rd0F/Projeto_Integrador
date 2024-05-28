@@ -85,9 +85,9 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="RadioButtonDebito" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BotaoConfirmarVenda" min="-2" max="-2" attributes="0"/>
                                   <Component id="RadioButtonPix" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BotaoConfirmarVenda" min="-2" max="-2" attributes="0"/>
+                                  <Component id="RadioButtonDebito" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -113,15 +113,15 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="RadioButtonDinheiro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="RadioButtonCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="RadioButtonPix" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RadioButtonDebito" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CampoDinherio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="RadioButtonDebito" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxParcela" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RadioButtonPix" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

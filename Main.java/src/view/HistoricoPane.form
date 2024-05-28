@@ -24,31 +24,38 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="713" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="BotaoVerInformacao" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="CampoId" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="CampoTextoPesquisaVendedor" max="32767" attributes="0"/>
-                          <Component id="BotaoApagarCampos" alignment="0" pref="150" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="CampoTextoPesquisaCliente" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="BotaoVerInformacao" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="713" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="CampoId" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="CampoTextoPesquisaVendedor" min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="CampoTextoPesquisaCliente" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="BotaoApagarCampos" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,12 +73,12 @@
                   <Component id="CampoId" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CampoTextoPesquisaVendedor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CampoTextoPesquisaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BotaoVerInformacao" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="BotaoApagarCampos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="BotaoApagarCampos" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="92" max="32767" attributes="0"/>
+              <Component id="BotaoVerInformacao" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="101" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
           </Group>
       </Group>
