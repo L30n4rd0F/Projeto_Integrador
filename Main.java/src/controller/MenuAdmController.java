@@ -47,7 +47,8 @@ public class MenuAdmController {
     }
     
     public void clientePane(){
-        view.getClientePane().setVisible(true);  
+        view.getClientePane().setVisible(true);
+        view.getClientePane().refresh();
         view.getProdutoPane().setVisible(false);
         view.getUsuarioPane().setVisible(false);
         view.getMenuPrincipal().setVisible(false);

@@ -20,6 +20,18 @@ public class ClienteController extends EnderecoController {
     private CadastroClienteView cadastroView;
     private ClientePane view;
 
+    public ClientePane getView() {
+        return view;
+    }
+
+    public void setView(ClientePane view) {
+        this.view = view;
+    }
+
+    public ClienteController(CadastroClienteView cadastroView) {
+        this.cadastroView = cadastroView;
+    }
+    
     public ClienteController(AtualizarClienteView atualizarView, CadastroClienteView cadastroView, ClientePane view) {
         this.atualizarView = atualizarView;
         this.cadastroView = cadastroView;
@@ -538,5 +550,23 @@ public class ClienteController extends EnderecoController {
         atualizarView.getTxCEP().setText(endereco.getCep());
         atualizarView.getCbBairro().setSelectedItem(endereco.getBairro());
         atualizarView.getTxNumero().setText(endereco.getNumero());
+    }
+    
+    public void removerCliente(){
+        int id_cliente = (int) view.getTabelaCliente().getValueAt(view.getTabelaCliente().getSelectedRow(), 0);
+        
+        try{
+            //Realizar Conexão
+            Connection conexao = new Conexao().getConnection();
+            ClienteDAO clienteDao = new ClienteDAO(conexao);
+            try{
+                clienteDao.delete(id_cliente);
+                readTabelaCliente();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Este cliente não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

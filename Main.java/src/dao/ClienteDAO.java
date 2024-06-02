@@ -194,4 +194,14 @@ public class ClienteDAO {
         statement.execute();
         statement.close();
     }
+    
+    public void delete(int id) throws SQLException{
+        String sql = "DELETE FROM cliente WHERE id_cliente = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
+        statement.close();
+    }
+
 }

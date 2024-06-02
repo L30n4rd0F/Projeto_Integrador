@@ -28,6 +28,10 @@ public class ClientePane extends javax.swing.JPanel {
         initComponents();
         controller = new ClienteController(viewAtualizar, viewCadastro, this);
         
+        refresh();
+    }
+    
+    public void refresh(){
         try {
             controller.readTabelaCliente();
         } catch (SQLException ex) {
@@ -53,8 +57,9 @@ public class ClientePane extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaCliente = new javax.swing.JTable();
         BotaoCadastrarCliente = new javax.swing.JButton();
-        BotaoAtualizarCliente = new javax.swing.JButton();
         BotaoLimparCamposCliente = new javax.swing.JButton();
+        BotaoAtualizarCliente1 = new javax.swing.JButton();
+        BotaoRemoverCliente = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -118,17 +123,24 @@ public class ClientePane extends javax.swing.JPanel {
             }
         });
 
-        BotaoAtualizarCliente.setText("Alterar");
-        BotaoAtualizarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoAtualizarClienteActionPerformed(evt);
-            }
-        });
-
         BotaoLimparCamposCliente.setText("Limpar Campos");
         BotaoLimparCamposCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoLimparCamposClienteActionPerformed(evt);
+            }
+        });
+
+        BotaoAtualizarCliente1.setText("Alterar");
+        BotaoAtualizarCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoAtualizarCliente1ActionPerformed(evt);
+            }
+        });
+
+        BotaoRemoverCliente.setText("Remover");
+        BotaoRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRemoverClienteActionPerformed(evt);
             }
         });
 
@@ -139,27 +151,31 @@ public class ClientePane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(CampoPesquisaId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(CampoPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(CampoPesquisaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(BotaoLimparCamposCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotaoAtualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(CampoPesquisaId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CampoPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CampoPesquisaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BotaoLimparCamposCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoAtualizarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -179,9 +195,10 @@ public class ClientePane extends javax.swing.JPanel {
                 .addGap(71, 71, 71)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(BotaoAtualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoAtualizarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(95, 95, 95))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -235,25 +252,17 @@ public class ClientePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BotaoLimparCamposClienteActionPerformed
 
-    @SuppressWarnings("unchecked")
-    private void BotaoAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarClienteActionPerformed
-       
-        if(getTabelaCliente().getSelectedRow()!=-1){ 
-            try{
-                controller.apagarCamposAtualizar();
-                viewAtualizar.setController(this.controller);
-                viewAtualizar.setLocationRelativeTo(null);
-                viewAtualizar.estadoSelecionado = viewAtualizar.cidadeSelecionada = viewAtualizar.bairroSelecionado = -1;
-                controller.comboBoxEstados(viewAtualizar.getCbEstado(), viewAtualizar.getCbUF());
-                controller.preencherInfoClienteAtualizar();
-                viewAtualizar.setVisible(true);
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
+    private void BotaoAtualizarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCliente1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotaoAtualizarCliente1ActionPerformed
+
+    private void BotaoRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverClienteActionPerformed
+        if(getTabelaCliente().getSelectedRow()!=-1){
+            controller.removerCliente();
         }else{
             JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_BotaoAtualizarClienteActionPerformed
+    }//GEN-LAST:event_BotaoRemoverClienteActionPerformed
 
     public JTextField getCampoPesquisaCPF() {
         return CampoPesquisaCPF;
@@ -291,9 +300,10 @@ public class ClientePane extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoAtualizarCliente;
+    private javax.swing.JButton BotaoAtualizarCliente1;
     private javax.swing.JButton BotaoCadastrarCliente;
     private javax.swing.JButton BotaoLimparCamposCliente;
+    private javax.swing.JButton BotaoRemoverCliente;
     private javax.swing.JTextField CampoPesquisaCPF;
     private javax.swing.JTextField CampoPesquisaId;
     private javax.swing.JTextField CampoPesquisaNome;

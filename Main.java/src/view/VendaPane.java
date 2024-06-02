@@ -1,5 +1,6 @@
 package view;
 
+import controller.ClienteController;
 import controller.ProdutoController;
 import controller.TextoController;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ public class VendaPane extends javax.swing.JPanel {
     private String cpf;
     private String metodoPagamento;
     MetodoPagamentoView viewMetodoPagamento = new MetodoPagamentoView();
+    CadastroClienteView viewCadastroCliente = new CadastroClienteView();
+    ClienteController clienteController = new ClienteController(viewCadastroCliente);
     TextoController textoController = new TextoController();
 
     public VendaPane() {
@@ -150,6 +153,7 @@ public class VendaPane extends javax.swing.JPanel {
         TabelaCarrinho = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         CampoCpfCliente = new javax.swing.JTextField();
+        BotaoCadastrarCliente = new javax.swing.JButton();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jFrame1.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -501,6 +505,13 @@ public class VendaPane extends javax.swing.JPanel {
             }
         });
 
+        BotaoCadastrarCliente.setText("Cadastrar Cliente");
+        BotaoCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastrarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -528,7 +539,10 @@ public class VendaPane extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BotaoConcluirVenda)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotaoCadastrarCliente)
+                                .addGap(87, 87, 87)
+                                .addComponent(BotaoConcluirVenda))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -541,12 +555,12 @@ public class VendaPane extends javax.swing.JPanel {
                         .addGap(197, 197, 197)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LabelTituloCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BotaoRemoverItem)
-                                    .addComponent(BotaoCancelarCompra))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1))))
+                                    .addComponent(BotaoCancelarCompra)
+                                    .addComponent(BotaoRemoverItem))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
@@ -586,8 +600,13 @@ public class VendaPane extends javax.swing.JPanel {
                                     .addComponent(CampoValorTotalCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(CampoCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(BotaoConcluirVenda))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BotaoConcluirVenda))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(BotaoCadastrarCliente))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(BotaoRemoverItem)
                                 .addGap(17, 17, 17)
@@ -723,9 +742,16 @@ public class VendaPane extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_CampoCpfClienteKeyTyped
 
+    private void BotaoCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarClienteActionPerformed
+        viewCadastroCliente.setController(clienteController);
+        viewCadastroCliente.getCampoCpfCliente().setText(getCampoCpfCliente().getText());
+        viewCadastroCliente.setVisible(true);
+    }//GEN-LAST:event_BotaoCadastrarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoAddCarrinho;
+    private javax.swing.JButton BotaoCadastrarCliente;
     private javax.swing.JButton BotaoCancelarCompra;
     private javax.swing.JButton BotaoConcluirVenda;
     private javax.swing.JButton BotaoRemoverItem;
