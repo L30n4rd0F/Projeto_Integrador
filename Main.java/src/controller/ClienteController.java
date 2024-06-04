@@ -562,6 +562,7 @@ public class ClienteController extends EnderecoController {
             try{
                 clienteDao.delete(id_cliente);
                 readTabelaCliente();
+                JOptionPane.showMessageDialog(null, "Cliente removido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null, "Este cliente não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
