@@ -26,7 +26,7 @@ public class EnderecoController {
         // Verifica se o CEP tem mais de 8 digitos
         if (cep.length() > 8) {
             try {
-                // Faz a conex�o com ViaCEP
+                // Faz a conexão com ViaCEP
                 String url = "https://viacep.com.br/ws/" + cep + "/json/";
                 @SuppressWarnings("deprecation")
                 HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

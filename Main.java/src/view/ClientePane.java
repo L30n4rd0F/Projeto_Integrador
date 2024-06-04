@@ -114,6 +114,11 @@ public class ClientePane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        TabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelaCliente);
 
         BotaoCadastrarCliente.setText("Cadastrar");
@@ -252,8 +257,25 @@ public class ClientePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BotaoLimparCamposClienteActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void BotaoAtualizarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarCliente1ActionPerformed
-        // TODO add your handling code here:
+        if(getTabelaCliente().getSelectedRow()!=-1){
+            try {
+                viewAtualizar.setController(this.controller);
+                controller.apagarCamposAtualizar();
+                viewAtualizar.setEstadoSelecionado(-1);
+                viewAtualizar.setCidadeSelecionada(-1);
+                viewAtualizar.setBairroSelecionado(-1);
+                controller.comboBoxEstados(viewAtualizar.getCbEstado(), viewAtualizar.getCbUF());
+                controller.preencherInfoClienteAtualizar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            viewAtualizar.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BotaoAtualizarCliente1ActionPerformed
 
     private void BotaoRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverClienteActionPerformed
@@ -263,6 +285,12 @@ public class ClientePane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotaoRemoverClienteActionPerformed
+
+    private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
+        if(getTabelaCliente().getSelectedRow()!=-1){
+            getCampoPesquisaId().setText( getTabelaCliente().getValueAt(getTabelaCliente().getSelectedRow(), 0).toString());
+        }
+    }//GEN-LAST:event_TabelaClienteMouseClicked
 
     public JTextField getCampoPesquisaCPF() {
         return CampoPesquisaCPF;

@@ -200,7 +200,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        BotaoAtualizarCEP.setText("jButton1");
+        BotaoAtualizarCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lupa.png"))); // NOI18N
         BotaoAtualizarCEP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAtualizarCEPActionPerformed(evt);
@@ -284,11 +284,11 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
+                                    .addComponent(BotaoRadioEndereco)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(CampoCadastroCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(BotaoAtualizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(BotaoRadioEndereco))
+                                        .addComponent(BotaoAtualizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -366,7 +366,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
@@ -407,7 +407,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
                     .addComponent(ComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoAtualizarCEP)
+                    .addComponent(BotaoAtualizarCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(ComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +426,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoCadastro)
                     .addComponent(BotaoCancelarCadastro))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
