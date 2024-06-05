@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import model.Utilitarios;
 
 
 
@@ -21,7 +22,9 @@ public class LoginView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);  //centraliza tela do login
         
         controller = new LoginController(this); //variável controller para LoginController, ela envia a classe LoginView
-       
+        Utilitarios u = new Utilitarios();
+        u.InserirIcone(this);
+        
     }
 
     public JPasswordField getCampoSenhaLogin() {
