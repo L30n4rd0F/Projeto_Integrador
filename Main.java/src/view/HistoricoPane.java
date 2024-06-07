@@ -133,7 +133,7 @@ public class HistoricoPane extends javax.swing.JPanel {
             TabelaHistorico.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jLabel2.setText("Id");
+        jLabel2.setText("ID");
 
         CampoId.setEditable(false);
         CampoId.setEnabled(false);

@@ -744,6 +744,7 @@ public class VendaPane extends javax.swing.JPanel {
 
     private void BotaoCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarClienteActionPerformed
         viewCadastroCliente.setController(clienteController);
+        viewCadastroCliente.getController().apagarTodosCampos();
         viewCadastroCliente.getCampoCpfCliente().setText(getCampoCpfCliente().getText());
         viewCadastroCliente.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarClienteActionPerformed
