@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import model.Utilitarios;
 
 

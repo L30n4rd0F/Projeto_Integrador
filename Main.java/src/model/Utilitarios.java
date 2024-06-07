@@ -11,13 +11,11 @@ public class Utilitarios {
     
    public void InserirIcone(JFrame frm){
        try{
-         frm.setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagens/icon.png"));
+         frm.setIconImage(Toolkit.getDefaultToolkit().getImage("src/Imagens/icon.png"));
        }catch(Exception ex){
            System.out.println(ex.toString());
        }
            
        
    }
-    
-    
 }
