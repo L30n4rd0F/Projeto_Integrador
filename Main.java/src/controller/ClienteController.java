@@ -554,20 +554,22 @@ public class ClienteController extends EnderecoController {
     
     public void removerCliente(){
         int id_cliente = (int) view.getTabelaCliente().getValueAt(view.getTabelaCliente().getSelectedRow(), 0);
-        
-        try{
-            //Realizar Conexão
-            Connection conexao = new Conexao().getConnection();
-            ClienteDAO clienteDao = new ClienteDAO(conexao);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o cliente " + view.getTabelaCliente().getValueAt(view.getTabelaCliente().getSelectedRow(), 1), "Alerta", JOptionPane.YES_NO_OPTION);
+        if(resposta == JOptionPane.YES_OPTION){
             try{
-                clienteDao.delete(id_cliente);
-                readTabelaCliente();
-                JOptionPane.showMessageDialog(null, "Cliente removido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(null, "Este cliente não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                //Realizar Conexão
+                Connection conexao = new Conexao().getConnection();
+                ClienteDAO clienteDao = new ClienteDAO(conexao);
+                try{
+                    clienteDao.delete(id_cliente);
+                    readTabelaCliente();
+                    JOptionPane.showMessageDialog(null, "Cliente removido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(null, "Este cliente não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }    
 }

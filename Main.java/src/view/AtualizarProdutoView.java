@@ -162,6 +162,11 @@ public final class AtualizarProdutoView extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        ComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxCategoriaActionPerformed(evt);
+            }
+        });
 
         BotaoAtualizarProduto.setText("Atualizar Produto");
         BotaoAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -284,11 +289,7 @@ public final class AtualizarProdutoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ComboBoxCategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaAncestorAdded
-        try {
-            controller.readCategoriasAtualizarProduto();
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastrarProdutoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_ComboBoxCategoriaAncestorAdded
 
     private void BotaoAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAtualizarProdutoActionPerformed
@@ -315,6 +316,10 @@ public final class AtualizarProdutoView extends javax.swing.JFrame {
     private void CampoIdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoIdProdutoActionPerformed
+
+    private void ComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
