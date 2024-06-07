@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -644,7 +645,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             controller.realizarCadastro(BotaoRadioEndereco.isSelected());
             controller.readTabelaUsuario();
         } catch (SQLException ex) {
-            Logger.getLogger(CadastroUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro!", "erro", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_BotaoCadastroActionPerformed

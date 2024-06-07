@@ -21,20 +21,24 @@ public class UsuarioDAO {
         this.connection = connection;
     }
 
-    //Esta comentada para evitar ficar inserindo usuario atoa
+    //Função para inserir usuário
     public void insert(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO usuario(nome, cpf, senha, telefone, admin, observacao) VALUES(?, ?, ?, ?, ?, ?);";
 
+        //Utiliza a conexão recebida e a String de sql para criar um um objeto de PreparedStatement
         PreparedStatement statement = connection.prepareStatement(sql);
+        
+        //Define os valores dos '?'
         statement.setString(1, usuario.getNome());
         statement.setString(2, usuario.getCpf());
         statement.setString(3, usuario.getSenha());
         statement.setString(4, usuario.getTelefone());
         statement.setBoolean(5, usuario.isAdmin());
         statement.setString(6, usuario.getObservacao());
+        
+        //Executa e fecha 
         statement.execute();
         statement.close();
-
     }
     
     public void insertComEndereco(Usuario usuario, int id_endereco) throws SQLException{

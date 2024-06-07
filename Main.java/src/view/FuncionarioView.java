@@ -27,8 +27,8 @@ public class FuncionarioView extends javax.swing.JFrame {
     public FuncionarioView() {
         
         initComponents();
+        this.setSize(1920,1080);//resolução do monitor
         this.setLocationRelativeTo(null);
-        //this.setExtendedState(AdmView.MAXIMIZED_BOTH);//resolução do monitor
         
         MainPane.add(usuarioPane);
         MainPane.add(menuPrincipal);
@@ -56,13 +56,11 @@ public class FuncionarioView extends javax.swing.JFrame {
 
         BotaoAbrirPaneVenda = new javax.swing.JButton();
         BotaoAbrirPaneProdutos = new javax.swing.JButton();
-        BotaoAbrirPaneSuasVendas = new javax.swing.JButton();
         BotaoAbrirPaneHome = new javax.swing.JButton();
         MainPane = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(null);
 
@@ -87,17 +85,6 @@ public class FuncionarioView extends javax.swing.JFrame {
         });
         getContentPane().add(BotaoAbrirPaneProdutos);
         BotaoAbrirPaneProdutos.setBounds(80, 110, 150, 36);
-
-        BotaoAbrirPaneSuasVendas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        BotaoAbrirPaneSuasVendas.setText("Suas Vendas");
-        BotaoAbrirPaneSuasVendas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        BotaoAbrirPaneSuasVendas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoAbrirPaneSuasVendasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BotaoAbrirPaneSuasVendas);
-        BotaoAbrirPaneSuasVendas.setBounds(80, 150, 150, 37);
 
         BotaoAbrirPaneHome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         BotaoAbrirPaneHome.setText("Home");
@@ -196,10 +183,6 @@ public class FuncionarioView extends javax.swing.JFrame {
         controller.vendaPane();
     }//GEN-LAST:event_BotaoAbrirPaneVendaActionPerformed
 
-    private void BotaoAbrirPaneSuasVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAbrirPaneSuasVendasActionPerformed
-        controller.historicoPane();
-    }//GEN-LAST:event_BotaoAbrirPaneSuasVendasActionPerformed
-
     private void BotaoAbrirPaneProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAbrirPaneProdutosActionPerformed
         controller.produtoPane();
     }//GEN-LAST:event_BotaoAbrirPaneProdutosActionPerformed
@@ -242,7 +225,6 @@ public class FuncionarioView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoAbrirPaneHome;
     private javax.swing.JButton BotaoAbrirPaneProdutos;
-    private javax.swing.JButton BotaoAbrirPaneSuasVendas;
     private javax.swing.JButton BotaoAbrirPaneVenda;
     private javax.swing.JLayeredPane MainPane;
     private javax.swing.JLabel jLabel2;

@@ -4,6 +4,10 @@
  */
 package controller;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import view.FuncionarioView;
 
 /**
@@ -36,15 +40,11 @@ public class MenuUsuarioController {
         view.getClientePane().setVisible(false); 
         view.getHistoricoPane().setVisible(false);
         view.getVendaPane().setVisible(false);
-    }
-    
-    public void historicoPane(){
-        view.getHistoricoPane().setVisible(true);
-        view.getClientePane().setVisible(false);  
-        view.getProdutoPane().setVisible(false);
-        view.getUsuarioPane().setVisible(false);
-        view.getMenuPrincipal().setVisible(false);
-        view.getVendaPane().setVisible(false);
+         try {
+             view.getProdutoPane().getController().readTabelaProdutoPane();
+         } catch (SQLException ex) {
+              JOptionPane.showMessageDialog(null, "Erro na leitura da tabela do Banco de Dados", "Erro", JOptionPane.ERROR_MESSAGE);
+         }
     }
     
     public void vendaPane(){

@@ -18,8 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class EnderecoController {
-
-
     
     public Endereco buscarEndereco(String cep) throws SQLException {
         Endereco endereco = new Endereco();
@@ -49,9 +47,10 @@ public class EnderecoController {
                     // Processar a resposta JSON manualmente
                     endereco = parseJsonToAddress(response.toString());  
                 } else {
-                    System.out.println("Erro na requisicao: " + responseCode);
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro na pesquisa com o ViaCEP", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -60,6 +59,7 @@ public class EnderecoController {
         return endereco;
     }
     
+    //Passa a informação de Jason para um Endereco
     private Endereco parseJsonToAddress(String json) {
         Endereco endereco = null;
         try {
@@ -94,8 +94,7 @@ public class EnderecoController {
 
             endereco = new Endereco(logradouro, bairro, cidade, uf, cep, numero);
         } catch (NumberFormatException e) {
-            // Trate a exceção adequadamente
-
+            JOptionPane.showMessageDialog(null, "Erro ao receber os dados de endereço!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return endereco;
     }
@@ -131,12 +130,9 @@ public class EnderecoController {
         url = tratamentoString(url);
             
         @SuppressWarnings("deprecation")
-        // Cria um objeto URL com a URL construida
-        URL apiUrl;
-        apiUrl = new URL(url);
             
         // Abre uma conexão HTTP com a URL
-        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 
         // Configura o método de requisição
         connection.setRequestMethod("GET");
@@ -161,10 +157,9 @@ public class EnderecoController {
         } else {
             // Se a conexão não foi bem-sucedida, mostra o código de erro
             JOptionPane.showMessageDialog(null, "Ocorreu um erro na pesquisa com o ViaCEP", "Erro", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Erro na requisicao: " + responseCode);
         }
         }catch (IOException e) {
-            System.out.println("Erro!");
+            JOptionPane.showMessageDialog(null, "Erro de xonexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return endereco;
 }

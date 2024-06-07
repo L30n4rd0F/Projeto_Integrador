@@ -14,7 +14,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class ProdutoPane extends javax.swing.JPanel {
 
-    private final ProdutoController controller;
+    private ProdutoController controller;
     CadastrarProdutoView viewCadastro = new CadastrarProdutoView();
     CadastrarCategoriaView viewCadastroCategoria = new CadastrarCategoriaView();
     AtualizarProdutoView viewAtualizarProduto = new AtualizarProdutoView();
@@ -80,6 +80,13 @@ public class ProdutoPane extends javax.swing.JPanel {
         this.TabelaProduto = TabelaProduto;
     }
 
+    public ProdutoController getController() {
+        return controller;
+    }
+
+    public void setController(ProdutoController controller) {
+        this.controller = controller;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

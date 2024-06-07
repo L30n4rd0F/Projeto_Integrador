@@ -31,7 +31,7 @@ public class UsuarioController extends EnderecoController {
     //Remove o usuário selecionado na tabela
     public void removerUsuario() throws SQLException {
 
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o usuario " + view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 1), "Alerta", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o usuário " + view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 1), "Alerta", JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
             int id = (int) view.getTabelaUsuario().getValueAt(view.getTabelaUsuario().getSelectedRow(), 0);//Pega o id do usuario que esta no campo de pesquisa bloqueado
@@ -300,8 +300,8 @@ public class UsuarioController extends EnderecoController {
         existe = usuarioDao.verificaExistencia(usuarioCadastrar); //Verifica a existencia do usuario
         senhaCorreta = comparacaoStrings(usuarioCadastrar.getSenha(), senhaConfirma); //Verifica se a senha esta compativel nos dois bancos
         cpfValido = verificaCPFvalido(usuarioCadastrar.getCpf());// Verifica se o CPF é valido
-        telefoneValido = verificaTelefoneValido(usuarioCadastrar.getTelefone());
-        if(viewCadastro.getBotaoRadioEndereco().isSelected()) cepValido = verificaCEPisValido(viewCadastro.getCampoCadastroCEP().getText());
+        telefoneValido = verificaTelefoneValido(usuarioCadastrar.getTelefone()); // Verifica se o telefone é válido
+        if(viewCadastro.getBotaoRadioEndereco().isSelected()) cepValido = verificaCEPisValido(viewCadastro.getCampoCadastroCEP().getText()); //Verifica se o CEP é válido
 
         //Se os campos não estiverem de acordo com as validações ele entra e avisa o erro
         if (campoEmBranco || existe || !senhaCorreta || !cpfValido || !telefoneValido || !cepValido) {
