@@ -335,11 +335,17 @@ public class MetodoPagamentoView extends javax.swing.JFrame {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
                 try {
+                    if(RadioButtonCredito.isSelected()){
+                    concluirVenda(button.getText()+", Parcelado em "+ComboBoxParcela.getSelectedItem(), controller);
+                    } else {
                     concluirVenda(button.getText(), controller);
+                    }
                     getCampoValorTotal().setText("");
                     getCampoTroco().setText("");
                     getCampoDinherio().setText("");
                     this.dispose();
+                    JOptionPane.showMessageDialog(null, "Venda Concluída com Sucesso!");
+                    
                     return;
                 } catch (SQLException ex) {
                     Logger.getLogger(MetodoPagamentoView.class.getName()).log(Level.SEVERE, null, ex);
