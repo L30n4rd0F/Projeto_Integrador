@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.Usuario;
 
 /**
  *
@@ -26,12 +27,12 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private final TextoController controllerTexto;
     CadastroUsuarioView viewCadastrarUsuario = new CadastroUsuarioView();
     AtualizarUsuarioView viewAtualizarUsuario = new AtualizarUsuarioView();
+    private Usuario usuarioLogado;
     
     public UsuarioPanel() {
         initComponents();
         controller = new UsuarioController(this, viewCadastrarUsuario, viewAtualizarUsuario);//Construtor envia duas views, (UsuarioPanel e CadastroUsuarioView)
         controllerTexto = new TextoController();
-        
         
         try { //Realiza a leitura da tabela
         controller.readTabelaUsuario();
@@ -289,6 +290,14 @@ public class UsuarioPanel extends javax.swing.JPanel {
         this.ComboBoxPesquisa = ComboBoxPesquisa;
     }
 
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+
     private void CampoPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoPesquisaCPFActionPerformed
     
     }//GEN-LAST:event_CampoPesquisaCPFActionPerformed
@@ -327,10 +336,14 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private void BotaoRemoverUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverUsuarioActionPerformed
          
         if(getTabelaUsuario().getSelectedRow()!=-1 && !getCampoPesquisaId().getText().isEmpty()){
+            if(usuarioLogado.getId()== (int) getTabelaUsuario().getValueAt(getTabelaUsuario().getSelectedRow(), 0)){
+                JOptionPane.showMessageDialog(null, "Não é possível se remover!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }else{
             try {
                 controller.removerUsuario();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "O usuário não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
             }
         }else{
             JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);

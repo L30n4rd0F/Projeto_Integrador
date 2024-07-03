@@ -212,6 +212,7 @@ public class AdmView extends javax.swing.JFrame {
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
         getMenuPrincipal().getLabelNomeUsuarioLogado().setText("Olá! " + usuarioLogado.getNome());
+        getUsuarioPane().setUsuarioLogado(usuarioLogado);
     }
 
     private void BotaoAbrirPaneUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAbrirPaneUsuarioActionPerformed
