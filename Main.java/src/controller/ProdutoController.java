@@ -35,7 +35,7 @@ public class ProdutoController {
         this.viewCadastroCategoria = viewCadastroCategoria;
         this.viewAtualizarProduto = viewAtualizarProduto;
     }
-    
+
     public ProdutoController(VendaPane view) {
         this.view = view;
     }
@@ -43,15 +43,15 @@ public class ProdutoController {
     public ProdutoController(ProdutoPane viewProdutoPane) {
         this.viewProdutoPane = viewProdutoPane;
     }
-    
+
     public ProdutoController(CadastrarProdutoView viewCadastroProduto) {
         this.viewCadastroProduto = viewCadastroProduto;
     }
-    
+
     public ProdutoController(CadastrarCategoriaView viewCadastroCategoria) {
         this.viewCadastroCategoria = viewCadastroCategoria;
     }
-    
+
     public ProdutoController(AtualizarProdutoView viewAtualizarProduto) {
         this.viewAtualizarProduto = viewAtualizarProduto;
     }
@@ -186,14 +186,25 @@ public class ProdutoController {
             if (Integer.parseInt((modeloProduto.getValueAt(view.getTabelaProduto().getSelectedRow(), 3)).toString()) - quantidade >= 0) {
                 // Adiciona os dados do produto à tabela de carrinho
 
-                modeloCarrinho.addRow(new Object[]{
-                    produtoSelecionado.getNome(),
-                    produtoSelecionado.getCategoria(),
-                    produtoSelecionado.getDescricao(),
-                    quantidade,
-                    produtoSelecionado.getUnidade(),
-                    produtoSelecionado.getPreco()
-                });
+                boolean produtoExistente = false;
+                for (int i = 0; i < modeloCarrinho.getRowCount(); i++) {
+                    if (modeloCarrinho.getValueAt(i, 0).equals(produtoSelecionado.getNome())) {
+                        int quantidadeAtual = Integer.parseInt(modeloCarrinho.getValueAt(i, 3).toString());
+                        modeloCarrinho.setValueAt(quantidadeAtual + quantidade, i, 3);
+                        produtoExistente = true;
+                        break;
+                    }
+                }
+                if (!produtoExistente) {
+                    modeloCarrinho.addRow(new Object[]{
+                        produtoSelecionado.getNome(),
+                        produtoSelecionado.getCategoria(),
+                        produtoSelecionado.getDescricao(),
+                        quantidade,
+                        produtoSelecionado.getUnidade(),
+                        produtoSelecionado.getPreco()
+                    });
+                };
 
                 //isso serve para atualizar o valor total dos itens do carrinho
                 view.getCampoValorTotalCarrinho().setText(calcularValorTotalCarrinho());
@@ -423,7 +434,7 @@ public class ProdutoController {
             viewProdutoPane.getComboBoxCategoria().addItem(categoria);
         }
     }
-    
+
     public void apagarTodosCampos() {
         viewCadastroProduto.getCampoNomeProduto().setText("");
         viewCadastroProduto.getComboBoxCategoria().setSelectedIndex(-1);
@@ -432,7 +443,7 @@ public class ProdutoController {
         viewCadastroProduto.getCampoPreco().setText("");
         viewCadastroProduto.getCampoDescricao().setText("");
     }
-    
+
     public void cadastrarProduto() throws SQLException {
         String nomeProduto = viewCadastroProduto.getCampoNomeProduto().getText();
         String nomeCategoria = viewCadastroProduto.getComboBoxCategoria().getSelectedItem().toString();
@@ -443,7 +454,7 @@ public class ProdutoController {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.cadastrarProduto(nomeProduto, nomeCategoria, quantidade, unidade, preco, descricao);
     }
-    
+
     public void readCategoriasCadastroProduto() throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         List<String> categorias = produtoDAO.readCategorias();;
@@ -452,16 +463,16 @@ public class ProdutoController {
             viewCadastroProduto.getComboBoxCategoria().addItem(categoria);
         }
     }
-    
+
     public void removerProduto(String nomeProduto) throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.removerProduto(nomeProduto);
     }
-    
+
     public void apagarTodosCamposCategoria() {
         viewCadastroCategoria.getCampoCategoria().setText("");
     }
-    
+
     public void readCategoriasCadastroCategoria() throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         List<String> categorias = produtoDAO.readCategorias();
@@ -475,12 +486,12 @@ public class ProdutoController {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.removerCategoria(nomeCategoria);
     }
-    
+
     public void cadastrarCategoria(String categoria) throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.cadastrarCategoria(categoria);
     }
-    
+
     public void readCategoriasAtualizarProduto() throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         List<String> categorias = produtoDAO.readCategorias();;
@@ -489,7 +500,7 @@ public class ProdutoController {
             viewAtualizarProduto.getComboBoxCategoria().addItem(categoria);
         }
     }
-    
+
     public void apagarTodosCamposAtualizar() {
         viewAtualizarProduto.getCampoNomeProduto().setText("");
         viewAtualizarProduto.getComboBoxCategoria().setSelectedIndex(-1);
@@ -498,7 +509,7 @@ public class ProdutoController {
         viewAtualizarProduto.getCampoPreco().setText("");
         viewAtualizarProduto.getCampoDescricao().setText("");
     }
-    
+
     public void atualizarProduto() throws SQLException {
         String nomeProduto = viewAtualizarProduto.getCampoNomeProduto().getText();
         String nomeCategoria = viewAtualizarProduto.getComboBoxCategoria().getSelectedItem().toString();
@@ -507,9 +518,9 @@ public class ProdutoController {
         float preco = Float.parseFloat(viewAtualizarProduto.getCampoPreco().getText());
         String descricao = viewAtualizarProduto.getCampoDescricao().getText();
         int idProduto = Integer.parseInt(viewAtualizarProduto.getCampoIdProduto().getText());
-        
+
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.atualizarProduto(idProduto, nomeProduto, nomeCategoria, quantidade, unidade, preco, descricao);
     }
-    
+
 }
