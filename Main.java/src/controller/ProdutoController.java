@@ -522,5 +522,8 @@ public class ProdutoController {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.atualizarProduto(idProduto, nomeProduto, nomeCategoria, quantidade, unidade, preco, descricao);
     }
-
+    
+    public void preencherCampoCPFemVendaPane(String cpf){
+        view.getCampoCpfCliente().setText(cpf);
+    }
 }

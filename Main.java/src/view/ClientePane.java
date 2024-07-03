@@ -33,7 +33,7 @@ public class ClientePane extends javax.swing.JPanel {
     
     public void refresh(){
         try {
-            controller.readTabelaCliente();
+            controller.readTabelaCliente(getTabelaCliente());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -225,7 +225,7 @@ public class ClientePane extends javax.swing.JPanel {
 
     private void CampoPesquisaCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaCPFKeyReleased
         try {
-            controller.buscarCliente();
+            controller.buscarCliente(getCampoPesquisaNome(), getCampoPesquisaCPF(), getTabelaCliente());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro de conexão!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -242,7 +242,7 @@ public class ClientePane extends javax.swing.JPanel {
 
     private void CampoPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoPesquisaNomeKeyReleased
         try {
-            controller.buscarCliente();
+            controller.buscarCliente(getCampoPesquisaNome(), getCampoPesquisaCPF(), getTabelaCliente());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -251,7 +251,7 @@ public class ClientePane extends javax.swing.JPanel {
     private void BotaoLimparCamposClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparCamposClienteActionPerformed
         try {
             controller.limparCamposPesquisa();
-            controller.readTabelaCliente();
+            controller.readTabelaCliente(getTabelaCliente());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
         }

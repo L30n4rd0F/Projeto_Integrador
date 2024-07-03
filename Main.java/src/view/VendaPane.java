@@ -154,6 +154,7 @@ public class VendaPane extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         CampoCpfCliente = new javax.swing.JTextField();
         BotaoCadastrarCliente = new javax.swing.JButton();
+        BotaoPesquisarCliente = new javax.swing.JButton();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jFrame1.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -512,6 +513,13 @@ public class VendaPane extends javax.swing.JPanel {
             }
         });
 
+        BotaoPesquisarCliente.setText("Pesquisar Cliente");
+        BotaoPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoPesquisarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -540,17 +548,19 @@ public class VendaPane extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(BotaoCadastrarCliente)
-                                .addGap(87, 87, 87)
-                                .addComponent(BotaoConcluirVenda))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CampoCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(81, 81, 81)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(CampoValorTotalCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(CampoValorTotalCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(BotaoPesquisarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(90, 90, 90)
+                                .addComponent(BotaoConcluirVenda))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(197, 197, 197)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,17 +610,16 @@ public class VendaPane extends javax.swing.JPanel {
                                     .addComponent(CampoValorTotalCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(CampoCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(BotaoConcluirVenda))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(BotaoCadastrarCliente))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BotaoConcluirVenda)
+                                    .addComponent(BotaoCadastrarCliente)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(BotaoRemoverItem)
                                 .addGap(17, 17, 17)
                                 .addComponent(BotaoCancelarCompra)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BotaoPesquisarCliente)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -749,12 +758,22 @@ public class VendaPane extends javax.swing.JPanel {
         viewCadastroCliente.setVisible(true);
     }//GEN-LAST:event_BotaoCadastrarClienteActionPerformed
 
+    private void BotaoPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoPesquisarClienteActionPerformed
+        PesquisaTabelaCliente viewPesquisaCliente = new PesquisaTabelaCliente();
+        viewPesquisaCliente.setController(clienteController);
+        viewPesquisaCliente.setProdutoController(controller);
+        viewPesquisaCliente.refreshTable();
+        viewPesquisaCliente.setLocationRelativeTo(null);//Centraliza
+        viewPesquisaCliente.setVisible(true);
+    }//GEN-LAST:event_BotaoPesquisarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoAddCarrinho;
     private javax.swing.JButton BotaoCadastrarCliente;
     private javax.swing.JButton BotaoCancelarCompra;
     private javax.swing.JButton BotaoConcluirVenda;
+    private javax.swing.JButton BotaoPesquisarCliente;
     private javax.swing.JButton BotaoRemoverItem;
     private javax.swing.JTextField CampoBuscarProdutos;
     private javax.swing.JTextField CampoCpfCliente;

@@ -6,6 +6,8 @@ import dao.EnderecoDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Cliente;
@@ -81,10 +83,10 @@ public class ClienteController extends EnderecoController {
     }
     
     @SuppressWarnings("unchecked")//Função para ler os dados do bd e colocar na tabela do cliente
-    public void readTabelaCliente() throws SQLException{
-        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaCliente().getModel(); //Pega o modelo da tabela 
+    public void readTabelaCliente(JTable tabela) throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel(); //Pega o modelo da tabela 
         modelo.setNumRows(0); //Seta o numero de linhas como 0, isso evita a tabela repetir informções quando atualizada
-        view.getTabelaCliente().setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+        tabela.setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
         
         //Realiza a conexao
         Connection conexao = new Conexao().getConnection();
@@ -295,12 +297,14 @@ public class ClienteController extends EnderecoController {
     }
     
     @SuppressWarnings("unchecked")
-    public void buscarCliente() throws SQLException{
-        view.getCampoPesquisaId().setText(""); //Campo do id vazio
+    public void buscarCliente(JTextField nome, JTextField cpf, JTable tabela) throws SQLException{
+        if(view!=null){
+            view.getCampoPesquisaId().setText(""); //Campo do id vazio
+        }
         
-        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaCliente().getModel(); //Pega o modelo da tabela 
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel(); //Pega o modelo da tabela 
         modelo.setNumRows(0);
-        view.getTabelaCliente().setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+        tabela.setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
     
         //Realiza a conexão
         Connection conexao = new Conexao().getConnection();
@@ -308,8 +312,8 @@ public class ClienteController extends EnderecoController {
         
         Cliente clientePesquisa =  new Cliente();
         
-        clientePesquisa.setNome(view.getCampoPesquisaNome().getText());
-        clientePesquisa.setCpf(view.getCampoPesquisaCPF().getText());
+        clientePesquisa.setNome(nome.getText());
+        clientePesquisa.setCpf(cpf.getText());
         
         for(Cliente cliente : clienteDao.buscarClienteCPFeNome(clientePesquisa)){
             //Se o cliente tem um id_endereço maior que 0 significa que ele possui um endereço cadastrado
@@ -470,7 +474,7 @@ public class ClienteController extends EnderecoController {
         }
         else{
             realizarUpdate(enderecoHabilitado, cliente);
-            readTabelaCliente();
+            readTabelaCliente(view.getTabelaCliente());
             JOptionPane.showMessageDialog(null, "Informações modificadas", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
             atualizarView.dispose();
         }
@@ -562,7 +566,7 @@ public class ClienteController extends EnderecoController {
                 ClienteDAO clienteDao = new ClienteDAO(conexao);
                 try{
                     clienteDao.delete(id_cliente);
-                    readTabelaCliente();
+                    readTabelaCliente(view.getTabelaCliente());
                     JOptionPane.showMessageDialog(null, "Cliente removido!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 }catch(SQLException e){
                     JOptionPane.showMessageDialog(null, "Este cliente não pode ser removido!", "Erro", JOptionPane.ERROR_MESSAGE);

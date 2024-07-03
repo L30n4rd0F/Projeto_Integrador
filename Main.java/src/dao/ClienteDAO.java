@@ -92,9 +92,9 @@ public class ClienteDAO {
     }
 
     public int buscarIdClienteCPF(String cpf) throws SQLException {
-        String sql = "SELECT * FROM cliente WHERE cpf LIKE ?";
+        String sql = "SELECT * FROM cliente WHERE cpf = ?";
 
-        // Conexao com o bd
+        // Conexao com o bds
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, cpf);
 
@@ -110,7 +110,7 @@ public class ClienteDAO {
     }
     
     public boolean existeClientePorCPF(String cpf) throws SQLException{
-        String sql = "SELECT * FROM cliente WHERE cpf like ?";
+        String sql = "SELECT * FROM cliente WHERE cpf = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, cpf);
@@ -127,8 +127,8 @@ public class ClienteDAO {
 
         // Conexao com o bd
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, "%" + cliente.getNome() + "%");
-        statement.setString(2, "%" + cliente.getCpf() + "%");
+        statement.setString(1, cliente.getNome() + "%");
+        statement.setString(2, cliente.getCpf() + "%");
 
         // Executando a consulta
         ResultSet resultSet = statement.executeQuery();
@@ -154,7 +154,7 @@ public class ClienteDAO {
     }
     
     public Cliente selectClientePorID(int id) throws SQLException{
-        String sql = "SELECT * FROM cliente WHERE id_cliente=?";
+        String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);

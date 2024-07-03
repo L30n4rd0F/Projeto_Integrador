@@ -221,8 +221,8 @@ public class UsuarioDAO {
 
         // Conexao com o bd
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, "%" + usuario.getNome() + "%");
-        statement.setString(2, "%" + usuario.getCpf() + "%");
+        statement.setString(1, usuario.getNome() + "%");
+        statement.setString(2, usuario.getCpf() + "%");
         statement.execute();
 
         // Executando a consulta
