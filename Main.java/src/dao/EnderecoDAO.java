@@ -73,7 +73,7 @@ public class EnderecoDAO {
     
     //Le a tabela de estados no BD
     public ArrayList<Endereco> readEstado() throws SQLException{
-        String sql = "SELECT * FROM estados";
+        String sql = "SELECT * FROM estado";
         
         //Realiza a conexao
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class EnderecoDAO {
     
     //Pega as informações do logradouro pelo seu id
     public Endereco selectLogradouroPorId(int id_logradouro) throws SQLException{
-        String sql = "SELECT * FROM logradouros WHERE id_logradouro = ?";
+        String sql = "SELECT * FROM logradouro WHERE id_logradouro = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_logradouro);
@@ -118,7 +118,7 @@ public class EnderecoDAO {
             String cep = resultSet.getString("cep");
             String nome = resultSet.getString("nome");
             String uf = resultSet.getString("uf");
-            int id_cidade = resultSet.getInt("fk_id_cidades");
+            int id_cidade = resultSet.getInt("fk_id_cidade");
             int id_bairro = resultSet.getInt("fk_id_bairro");
                    
             enderecoComDados.setLogradouro(nome);
@@ -158,7 +158,7 @@ public class EnderecoDAO {
     public String selectNomeCidadePorId(int id) throws SQLException{
         String cidade = "";
         
-        String sql = "SELECT * FROM cidades WHERE id_cidades = ?";
+        String sql = "SELECT * FROM cidade WHERE id_cidade = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
@@ -176,7 +176,7 @@ public class EnderecoDAO {
     public String selectNomeBairroPorId(int id) throws SQLException{
         String bairro = "";
         
-        String sql = "SELECT * FROM bairros WHERE id_bairro = ?";
+        String sql = "SELECT * FROM bairro WHERE id_bairro = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
@@ -227,7 +227,7 @@ public class EnderecoDAO {
     
     //Leitura das cidades -- Não está sendo utilizada!
     public ArrayList<Endereco> readCidade() throws SQLException{
-        String sql = "SELECT * FROM cidades";
+        String sql = "SELECT * FROM cidade";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -252,7 +252,7 @@ public class EnderecoDAO {
     
     //Leitura das cidades por estados
     public ArrayList<Endereco> readCidadePorEstado(String sigla) throws SQLException{
-        String sql = "SELECT * FROM cidades WHERE fk_sigla = ?";
+        String sql = "SELECT * FROM cidade WHERE fk_sigla = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, sigla);
@@ -277,7 +277,7 @@ public class EnderecoDAO {
     
     //Pegar o id da cidade pela sigla do estado e seu nome
     public int pegarIdCidade(String sigla, String nome_cidade) throws SQLException{
-        String sql = "SELECT * FROM cidades WHERE fk_sigla = ? AND nome = ?";
+        String sql = "SELECT * FROM cidade WHERE fk_sigla = ? AND nome = ?";
         int id_cidade = 0;
         
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -288,7 +288,7 @@ public class EnderecoDAO {
         ResultSet resultSet = statement.executeQuery();
 
         while(resultSet.next()){
-            id_cidade = resultSet.getInt("id_cidades");
+            id_cidade = resultSet.getInt("id_cidade");
         }
         
        return id_cidade;
@@ -296,7 +296,7 @@ public class EnderecoDAO {
     
     //Pegar id do logradouro pelo seu CEP
     public int pegerIdLogradouro(String cep) throws SQLException{
-        String sql = "SELECT * FROM logradouros WHERE cep = ?";
+        String sql = "SELECT * FROM logradouro WHERE cep = ?";
         int id_logradouro = 0;
         
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -315,7 +315,7 @@ public class EnderecoDAO {
     
     //Pegar id do bairro pelo seu nome
     public int pegarIdBairro(String nome, int id_cidade) throws SQLException{
-        String sql = "SELECT * FROM bairros WHERE nome = ? AND fk_id_cidades = ? ";
+        String sql = "SELECT * FROM bairro WHERE nome = ? AND fk_id_cidade = ? ";
         int id_bairro = 0;
         
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -336,7 +336,7 @@ public class EnderecoDAO {
     
     //Ler logradouro pelo id do bairro
     public ArrayList<Endereco> readLogradouroPorBairro(int id_bairro) throws SQLException{
-        String sql = "SELECT * FROM logradouros WHERE fk_id_bairro = ?";
+        String sql = "SELECT * FROM logradouro WHERE fk_id_bairro = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_bairro);
@@ -360,7 +360,7 @@ public class EnderecoDAO {
     
     //Leitura dos bairros por cidade
     public ArrayList<Endereco> readBairroPorCidade(int id_cidade) throws SQLException{
-        String sql = "SELECT * FROM bairros WHERE fk_id_cidades = ?";
+        String sql = "SELECT * FROM bairro WHERE fk_id_cidade = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_cidade);
@@ -381,7 +381,7 @@ public class EnderecoDAO {
     }
     
     public boolean existeCEP(String cep) throws SQLException{
-        String sql = "SELECT * FROM logradouros WHERE cep = ?";
+        String sql = "SELECT * FROM logradouro WHERE cep = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, cep);
@@ -392,7 +392,7 @@ public class EnderecoDAO {
     }
     
     public void novoLogradouro(Endereco endereco, int id_cidade, int id_bairro) throws SQLException{
-        String sql = "INSERT INTO logradouros(cep, nome, uf, fk_id_cidades, fk_id_bairro) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO logradouro(cep, nome, uf, fk_id_cidade, fk_id_bairro) VALUES(?,?,?,?,?)";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, endereco.getCep());
@@ -406,7 +406,7 @@ public class EnderecoDAO {
     }
     
     public boolean existeBairro(String bairro, int id_cidade) throws SQLException{
-        String sql = "SELECT * FROM bairros WHERE fk_id_cidades = ? AND nome = ?";
+        String sql = "SELECT * FROM bairro WHERE fk_id_cidade = ? AND nome = ?";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_cidade);
@@ -419,7 +419,7 @@ public class EnderecoDAO {
     }
     
     public void novoBairro(String bairro, int id_cidade) throws SQLException{
-        String sql = "INSERT INTO bairros(nome,fk_id_cidades) VALUES(?,?)";
+        String sql = "INSERT INTO bairro(nome,fk_id_cidade) VALUES(?,?)";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, bairro);

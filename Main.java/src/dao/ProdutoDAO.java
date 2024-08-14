@@ -19,7 +19,7 @@ public class ProdutoDAO {
 
     public ArrayList<Produto> readProduto() throws SQLException {
 
-        String sql = "select * from produtos";
+        String sql = "select * from produto";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -49,7 +49,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produto> buscarProduto(String nomeProduto) throws SQLException {
-        String sql = "select * from produtos where lower(nome) like ?";
+        String sql = "select * from produto where lower(nome) like ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -81,7 +81,7 @@ public class ProdutoDAO {
     }
 
     public void aumentarQuantidade(int quantidade, String nome) throws SQLException {
-        String sql = "update produtos set quantidade = quantidade + ? where nome = ?";
+        String sql = "update produto set quantidade = quantidade + ? where nome = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -93,7 +93,7 @@ public class ProdutoDAO {
     }
 
     public void diminuirQuantidade(int quantidade, String nome) throws SQLException {
-        String sql = "update produtos set quantidade = quantidade - ? where nome = ?";
+        String sql = "update produto set quantidade = quantidade - ? where nome = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -105,7 +105,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produto> buscarProdutoPorCategoria(String nomeProduto) throws SQLException {
-        String sql = "select * from produtos where lower(fk_nome_categoria) like ?";
+        String sql = "select * from produto where lower(fk_nome_categoria) like ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -157,7 +157,7 @@ public class ProdutoDAO {
     }
 
     public void cadastrarProduto(String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
-        String sql = "INSERT INTO produtos (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
@@ -172,7 +172,7 @@ public class ProdutoDAO {
     }
 
     public void removerProduto(String nomeProduto) throws SQLException {
-        String sql = "DELETE FROM produtos WHERE nome = ?";
+        String sql = "DELETE FROM produto WHERE nome = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
@@ -181,7 +181,7 @@ public class ProdutoDAO {
     }
 
     public void removerCategoria(String nomeCategoria) throws SQLException {
-        String sqlVerificarProdutos = "SELECT COUNT(*) FROM produtos WHERE fk_nome_categoria = ?";
+        String sqlVerificarProdutos = "SELECT COUNT(*) FROM produto WHERE fk_nome_categoria = ?";
         PreparedStatement statementVerificarProdutos = connection.prepareStatement(sqlVerificarProdutos);
         statementVerificarProdutos.setString(1, nomeCategoria);
         ResultSet resultSet = statementVerificarProdutos.executeQuery();
@@ -213,7 +213,7 @@ public class ProdutoDAO {
     }
 
     public void atualizarProduto(int idProduto, String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
-        String sql = "UPDATE produtos SET nome = ?, descricao = ?, preco = ?, unidade = ?, quantidade = ?, fk_nome_categoria = ? WHERE id_produto = ?";
+        String sql = "UPDATE produto SET nome = ?, descricao = ?, preco = ?, unidade = ?, quantidade = ?, fk_nome_categoria = ? WHERE id_produto = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
