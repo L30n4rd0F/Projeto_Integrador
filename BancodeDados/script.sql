@@ -109,3 +109,18 @@ CREATE TABLE Compra(
 );
 
 INSERT INTO Usuario (nome, cpf, senha, telefone, admin) VALUES('adm','000.000.000-00','123','(00) 00000-0000', true);
+
+--CRIAÇÃO DE PROCEDURE
+CREATE PROCEDURE InserirCliente (nome VARCHAR(50), cpf VARCHAR(14), telefone VARCHAR(20), observacao TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+INSERT INTO cliente (nome, cpf, telefone, observacao) VALUES (nome, cpf, telefone, observacao);
+END $$;
+
+CREATE PROCEDURE InserirClienteComEndereco (nome VARCHAR(50), cpf VARCHAR(14), telefone VARCHAR(20), observacao TEXT, id_endereco INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+INSERT INTO cliente (nome, cpf, telefone, observacao, fk_id_endereco) VALUES (nome, cpf, telefone, observacao, id_endereco);
+END $$;

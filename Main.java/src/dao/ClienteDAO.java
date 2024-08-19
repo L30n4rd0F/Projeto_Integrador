@@ -17,14 +17,14 @@ public class ClienteDAO {
 
     //Novo cliente com endereço
     public void insertComEndereco(Cliente cliente, int id_endereco) throws SQLException {
-        String sql = "INSERT INTO cliente (nome, cpf, telefone, fk_id_endereco, observacao) VALUES (?,?,?,?,?)";
+        String sql = "CALL InserirClienteComEndereco (?,?,?,?,?)";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, cliente.getNome());
         statement.setString(2, cliente.getCpf());
         statement.setString(3, cliente.getTelefone());
-        statement.setInt(4, id_endereco);
-        statement.setString(5, cliente.getObservacao());
+        statement.setString(4, cliente.getObservacao());
+        statement.setInt(5, id_endereco);
         statement.execute();
         statement.close();
         
@@ -64,7 +64,7 @@ public class ClienteDAO {
 
     //Novo cliente sem endereço
     public void insert(Cliente cliente) throws SQLException {
-        String sql = "INSERT INTO cliente (nome, cpf, telefone, observacao) VALUES (?,?,?,?)";
+        String sql = "CALL InserirCliente(?, ?, ?, ?)";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, cliente.getNome());
