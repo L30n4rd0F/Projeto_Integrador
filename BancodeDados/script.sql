@@ -124,3 +124,19 @@ AS $$
 BEGIN
 INSERT INTO cliente (nome, cpf, telefone, observacao, fk_id_endereco) VALUES (nome, cpf, telefone, observacao, id_endereco);
 END $$;
+
+CREATE PROCEDURE InserirProduto (nome VARCHAR(50), descricao VARCHAR(50), preco NUMERIC(10,2), unidade VARCHAR(20), quantidade INT, fk_nome_categoria VARCHAR(20))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+INSERT INTO Produto (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) 
+VALUES (nome, descricao, preco, unidade, quantidade, fk_nome_categoria)
+END $$;
+
+CREATE PROCEDURE UpdateProduto (nome VARCHAR(50), descricao VARCHAR(50), preco NUMERIC(10,2), unidade VARCHAR(20), quantidade INT, fk_nome_categoria VARCHAR(20), idProduto INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+UPDATE produto SET nome = nome, descricao = descricao, preco = preco, unidade = unidade, quantidade = quantidade, fk_nome_categoria = fk_nome_categoria
+WHERE id_produto = idProduto
+END $$;
