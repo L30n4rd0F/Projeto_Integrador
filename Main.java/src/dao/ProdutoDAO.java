@@ -157,7 +157,7 @@ public class ProdutoDAO {
     }
 
     public void cadastrarProduto(String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
-        String sql = "INSERT INTO produto (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "CALL InserirProduto (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
@@ -213,7 +213,7 @@ public class ProdutoDAO {
     }
 
     public void atualizarProduto(int idProduto, String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
-        String sql = "UPDATE produto SET nome = ?, descricao = ?, preco = ?, unidade = ?, quantidade = ?, fk_nome_categoria = ? WHERE id_produto = ?";
+        String sql = "CALL UpdateProduto (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, nomeProduto);
