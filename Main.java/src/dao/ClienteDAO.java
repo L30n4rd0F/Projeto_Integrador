@@ -32,7 +32,7 @@ public class ClienteDAO {
     
     //Realiza a leitura de todos os clientes da tabela e retorna um array
     public ArrayList<Cliente> readCliente() throws SQLException{
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT id_cliente, nome_cliente, cpf, telefone, cep FROM view_cliente";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -42,18 +42,18 @@ public class ClienteDAO {
         
         while(resultSet.next()){
             int id_cliente = resultSet.getInt("id_cliente");
-            String nome = resultSet.getString("nome");
+            String nome = resultSet.getString("nome_cliente");
             String cpf = resultSet.getString("cpf");
             String telefone = resultSet.getString("telefone");
-            String observacao = resultSet.getString("observacao");
-            int id_endereco = resultSet.getInt("fk_id_endereco");
-            boolean enderecoNulo = resultSet.wasNull();
+            String cep = resultSet.getString("cep");
             
-            Cliente clienteComDados = new Cliente(id_cliente, nome, cpf, telefone, observacao);
+            Cliente clienteComDados = new Cliente();
+            clienteComDados.setId(id_cliente);
+            clienteComDados.setNome(nome);
+            clienteComDados.setCpf(cpf);
+            clienteComDados.setTelefone(telefone);
+            clienteComDados.setCep(cep);
             
-            if(!enderecoNulo){
-                clienteComDados.setId_endereco(id_endereco);
-            }
             
            clientes.add(clienteComDados);
         }
@@ -123,7 +123,7 @@ public class ClienteDAO {
     }
     
     public ArrayList<Cliente> buscarClienteCPFeNome(Cliente cliente) throws SQLException{
-        String sql = "SELECT * FROM cliente WHERE nome LIKE ? and cpf LIKE ?";
+        String sql = "SELECT id_cliente, nome_cliente, cpf, telefone, cep FROM view_cliente WHERE nome_cliente LIKE ? and cpf LIKE ?";
 
         // Conexao com o bd
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -137,15 +137,20 @@ public class ClienteDAO {
 
         // Iterando sobre os resultados
         while (resultSet.next()) {
-            int id = resultSet.getInt("id_cliente");
-            String nome = resultSet.getString("nome");
+            int id_cliente = resultSet.getInt("id_cliente");
+            String nome = resultSet.getString("nome_cliente");
             String cpf = resultSet.getString("cpf");
             String telefone = resultSet.getString("telefone");
-            String observacao = resultSet.getString("observacao");
-            int idEndereco = resultSet.getInt("fk_id_endereco");
+            String cep = resultSet.getString("cep");
             
-            Cliente clienteEncontrado = new Cliente(id, nome, cpf, telefone, observacao);
-            clienteEncontrado.setId_endereco(idEndereco);
+            Cliente clienteEncontrado = new Cliente();
+
+            clienteEncontrado.setId(id_cliente);
+            clienteEncontrado.setNome(nome);
+            clienteEncontrado.setCpf(cpf);
+            clienteEncontrado.setTelefone(telefone);
+            clienteEncontrado.setCep(cep);
+            
             clientes.add(clienteEncontrado);
         }
         statement.close();

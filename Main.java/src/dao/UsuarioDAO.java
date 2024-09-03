@@ -191,7 +191,7 @@ public class UsuarioDAO {
     //Leitura de todos os usuarios
     public ArrayList<Usuario> readUsuario() throws SQLException {
 
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT id_usuario, nome_usuario, cpf, telefone, admin FROM view_usuario";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
@@ -203,7 +203,7 @@ public class UsuarioDAO {
         while (resultSet.next()) {
 
             id = resultSet.getInt("id_usuario");
-            nome = resultSet.getString("nome");
+            nome = resultSet.getString("nome_usuario");
             cpf = resultSet.getString("cpf");
             telefone = resultSet.getString("telefone");
             admin = resultSet.getBoolean("admin");
@@ -217,7 +217,7 @@ public class UsuarioDAO {
     }
 
     public ArrayList<Usuario> buscarUsuarioNOMEeCPF(Usuario usuario) throws SQLException {
-        String sql = "SELECT * FROM usuario WHERE nome LIKE ? and cpf LIKE ?";
+        String sql = "SELECT id_usuario, nome_usuario, cpf, telefone, admin FROM view_usuario WHERE nome_usuario LIKE ? and cpf LIKE ?";
 
         // Conexao com o bd
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -233,7 +233,7 @@ public class UsuarioDAO {
         // Iterando sobre os resultados
         while (resultSet.next()) {
             int idUsuario = resultSet.getInt("id_usuario");
-            String nomeUsuario = resultSet.getString("nome");
+            String nomeUsuario = resultSet.getString("nome_usuario");
             String cpfUsuario = resultSet.getString("cpf");
             String telefoneUsuario = resultSet.getString("telefone");
             boolean adminUsuario = resultSet.getBoolean("admin");

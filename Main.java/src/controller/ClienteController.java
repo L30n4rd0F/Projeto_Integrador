@@ -94,12 +94,6 @@ public class ClienteController extends EnderecoController {
         
         //loop para preencher as linhas com os dados encontrados na função readCliente
         for(Cliente cliente : clienteDao.readCliente()){
-            //Se o cliente tem um id_endereço maior que 0 significa que ele possui um endereço cadastrado
-            if(cliente.getId_endereco()>0){
-                //Realiza a conexao e a busca pelo cep do logradouro com o id do endereco.
-                EnderecoDAO enderecoDao = new EnderecoDAO(conexao);
-                cliente.setCep(enderecoDao.selectCEPPorIdEndereco(cliente.getId_endereco()));
-            }
             //Adiciona os dados em cada linha e coluna na tabela
             modelo.addRow(new Object[]{
                 cliente.getId(),

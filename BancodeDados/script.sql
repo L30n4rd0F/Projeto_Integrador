@@ -39,7 +39,7 @@ CREATE TABLE Endereco(
     complemento VARCHAR(100),
     fk_id_logradouro INT NOT NULL,
     CONSTRAINT PK_ID_ENDERECO PRIMARY KEY (id_endereco),
-    CONSTRAINT FK_ID_LOGRADOURO FOREIGN KEY (fk_id_logradouro) REFERENCES Logradouro(id_logradouro)
+    CONSTRAINT FK_ID_LOGRADOURO FOREIGN KEY (fk_id_logradouro) REFERENCES Logradouro(id_logradouro) ON DELETE CASCADE
 );
 
 CREATE TABLE Usuario(
@@ -52,6 +52,8 @@ CREATE TABLE Usuario(
     observacao TEXT,
     fk_id_endereco INT,
     CONSTRAINT PK_ID_USUARIO PRIMARY KEY (id_usuario),
+	CONSTRAINT CK_TELEFONE_USUARIO CHECK (LENGTH(telefone) >= 15),
+	CONSTRAINT UQ_CPF_USUARIO UNIQUE (cpf),
     CONSTRAINT FK_ID_ENDERECO FOREIGN KEY (fk_id_endereco) REFERENCES Endereco(id_endereco)
 );
 
@@ -63,6 +65,8 @@ CREATE TABLE Cliente(
     observacao TEXT,
     fk_id_endereco INT,
     CONSTRAINT PK_ID_CLIENTE PRIMARY KEY (id_cliente),
+	CONSTRAINT UQ_CPF_CLIENTE UNIQUE (cpf),
+	CONSTRAINT CK_TELEFONE_CLIENTE CHECK (LENGTH(telefone) >= 15),
     CONSTRAINT FK_ID_ENDERECO FOREIGN KEY (fk_id_endereco) REFERENCES Endereco(id_endereco)
 );
 
@@ -130,7 +134,7 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
 INSERT INTO Produto (nome, descricao, preco, unidade, quantidade, fk_nome_categoria) 
-VALUES (nome, descricao, preco, unidade, quantidade, fk_nome_categoria)
+VALUES (nome, descricao, preco, unidade, quantidade, fk_nome_categoria);
 END $$;
 
 CREATE PROCEDURE UpdateProduto (nome VARCHAR(50), descricao VARCHAR(50), preco NUMERIC(10,2), unidade VARCHAR(20), quantidade INT, fk_nome_categoria VARCHAR(20), idProduto INT)
@@ -138,5 +142,25 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
 UPDATE produto SET nome = nome, descricao = descricao, preco = preco, unidade = unidade, quantidade = quantidade, fk_nome_categoria = fk_nome_categoria
-WHERE id_produto = idProduto
+WHERE id_produto = idProduto;
 END $$;
+
+--CRIAÇÃO DE VIEW
+CREATE VIEW view_usuario
+AS
+SELECT U.id_usuario, U.nome AS nome_usuario, U.cpf, U.telefone, U."admin", CID.nome	AS nome_cidade, LGD.cep, LGD.nome AS nome_logradouro, BAI.nome AS nome_bairro
+FROM usuario AS U
+LEFT JOIN endereco AS E ON U.fk_id_endereco = E.id_endereco
+LEFT JOIN logradouro AS LGD ON E.fk_id_logradouro = LGD.id_logradouro
+LEFT JOIN bairro AS BAI ON LGD.fk_id_bairro = BAI.id_bairro
+LEFT JOIN cidade AS CID ON LGD.fk_id_cidade = CID.id_cidade;
+
+
+CREATE VIEW view_cliente
+AS
+SELECT CLI.id_cliente, CLI.nome AS nome_cliente, CLI.cpf, CLI.telefone, CID.nome AS nome_cidade, LGD.cep, LGD.nome AS nome_logradouro, BAI.nome AS nome_bairro
+FROM cliente AS CLI
+LEFT JOIN endereco AS E ON CLI.fk_id_endereco = E.id_endereco
+LEFT JOIN logradouro AS LGD ON E.fk_id_logradouro = LGD.id_logradouro
+LEFT JOIN bairro AS BAI ON LGD.fk_id_bairro = BAI.id_bairro
+LEFT JOIN cidade AS CID ON LGD.fk_id_cidade = CID.id_cidade;
