@@ -11,7 +11,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Cliente;
+import model.Compra;
 import model.Endereco;
+import model.Historico;
 import view.AtualizarClienteView;
 import view.CadastroClienteView;
 import view.ClientePane;
@@ -569,5 +571,48 @@ public class ClienteController extends EnderecoController {
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o BD!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }    
+    }
+
+    @SuppressWarnings("unchecked")
+    public DefaultTableModel readTabelaHistoricoDeComprasCliente(JTable tabela, int id_cliente) throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel(); //Pega o modelo da tabela 
+        modelo.setNumRows(0); //Seta o numero de linhas como 0, isso evita a tabela repetir informções quando atualizada
+        tabela.setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+
+        //loop para preencher as linhas com os dados encontrados na função readCliente
+        for(Historico historico : clienteDao.readHistoricoPorIdCliente(id_cliente)){
+            modelo.addRow(new Object[]{
+                historico.getId_historico(),
+                historico.getPrecoTotal(),
+                historico.getMetodo_pagamento()
+            });
+            }
+        return modelo;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public DefaultTableModel readTabelaComprasPorIdHistorico(JTable tabela, int id_historico) throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel(); //Pega o modelo da tabela 
+        modelo.setNumRows(0); //Seta o numero de linhas como 0, isso evita a tabela repetir informções quando atualizada
+        tabela.setRowSorter(new TableRowSorter(modelo)); //Classifica as linha da tabela 
+
+        //Realiza a conexão
+        Connection conexao = new Conexao().getConnection();
+        ClienteDAO clienteDao = new ClienteDAO(conexao);
+        
+        for(Compra compra : clienteDao.readCompraPorIdHistorico(id_historico)){
+            modelo.addRow(new Object[]{
+                compra.getId_compra(),
+                compra.getNome_produto(),
+                compra.getUnidade(),
+                compra.getPreco(),
+                compra.getQuantidade()
+            });
+            }
+        return modelo;
+    }
 }

@@ -60,6 +60,7 @@ public class ClientePane extends javax.swing.JPanel {
         BotaoLimparCamposCliente = new javax.swing.JButton();
         BotaoAtualizarCliente1 = new javax.swing.JButton();
         BotaoRemoverCliente = new javax.swing.JButton();
+        BotaoVerHistoricoCliente = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -149,6 +150,13 @@ public class ClientePane extends javax.swing.JPanel {
             }
         });
 
+        BotaoVerHistoricoCliente.setText("Histórico de compras");
+        BotaoVerHistoricoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoVerHistoricoClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +187,9 @@ public class ClientePane extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(BotaoAtualizarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BotaoVerHistoricoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
@@ -203,7 +213,8 @@ public class ClientePane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoAtualizarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BotaoRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoVerHistoricoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(95, 95, 95))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -292,6 +303,20 @@ public class ClientePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TabelaClienteMouseClicked
 
+    private void BotaoVerHistoricoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVerHistoricoClienteActionPerformed
+        
+        if(getTabelaCliente().getSelectedRow()!=-1){
+            HistoricoClienteView viewHistoricoCliente = new HistoricoClienteView();
+            viewHistoricoCliente.setController(this.controller);
+            viewHistoricoCliente.setId_cliente((int) getTabelaCliente().getValueAt(getTabelaCliente().getSelectedRow(), 0));
+            viewHistoricoCliente.readTabelaHistorico();
+            viewHistoricoCliente.setLocationRelativeTo(null);
+            viewHistoricoCliente.setVisible(true);
+        }else{
+           JOptionPane.showMessageDialog(null, "Selecione um cliente primeiro!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BotaoVerHistoricoClienteActionPerformed
+
     public JTextField getCampoPesquisaCPF() {
         return CampoPesquisaCPF;
     }
@@ -332,6 +357,7 @@ public class ClientePane extends javax.swing.JPanel {
     private javax.swing.JButton BotaoCadastrarCliente;
     private javax.swing.JButton BotaoLimparCamposCliente;
     private javax.swing.JButton BotaoRemoverCliente;
+    private javax.swing.JButton BotaoVerHistoricoCliente;
     private javax.swing.JTextField CampoPesquisaCPF;
     private javax.swing.JTextField CampoPesquisaId;
     private javax.swing.JTextField CampoPesquisaNome;

@@ -17,6 +17,11 @@ public class Historico {
     private String time;
     private String metodo_pagamento;
 
+    public Historico(int id_historico, float precoTotal) {
+        this.id_historico = id_historico;
+        this.precoTotal = precoTotal;
+    }
+    
     public Historico(float precoTotal, int fk_id_usuario, int fk_id_cliente) {
         this.data = new Date(); // Cria a data atual
         this.tempo = new Timestamp(System.currentTimeMillis()); // Cria o timestamp atual

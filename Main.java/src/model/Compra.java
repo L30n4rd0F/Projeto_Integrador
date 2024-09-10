@@ -10,6 +10,14 @@ public class Compra {
     private String nome_produto;
     private int quantidade;
 
+    public Compra(int id_compra, float preco, String unidade, String nome_produto, int quantidade) {
+        this.id_compra = id_compra;
+        this.preco = preco;
+        this.unidade = unidade;
+        this.nome_produto = nome_produto;
+        this.quantidade = quantidade;
+    }
+    
     public Compra(int id_compra, float preco, String unidade, int fk_id_historico, int fk_id_produto) {
         this.id_compra = id_compra;
         this.preco = preco;

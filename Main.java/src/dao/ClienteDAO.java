@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Cliente;
+import model.Compra;
+import model.Historico;
 
 public class ClienteDAO {
 
@@ -207,6 +209,55 @@ public class ClienteDAO {
         statement.setInt(1, id);
         statement.execute();
         statement.close();
+    }
+    
+    public ArrayList<Historico> readHistoricoPorIdCliente(int id_cliente) throws SQLException{
+        String sql = "SELECT * FROM listarComprasPorIdCliente(?)";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_cliente);
+        
+        ResultSet resultSet = statement.executeQuery();
+        
+        ArrayList<Historico> historicos = new ArrayList<>();
+
+        while(resultSet.next()){
+            int id_compra = resultSet.getInt("id_compra");
+            float preco = resultSet.getFloat("total_compra");
+            String metodo_pagamento = resultSet.getString("pagamento");
+            
+            Historico historicoComDados = new Historico(id_compra, preco);
+            historicoComDados.setMetodo_pagamento(metodo_pagamento);
+
+            historicos.add(historicoComDados);
+        }
+        statement.close();
+        return historicos;
+    }
+    
+    public ArrayList<Compra> readCompraPorIdHistorico(int id_historico) throws SQLException{
+        String sql = "SELECT * FROM listarProdutosCompradosPorIdHistorico(?)";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_historico);
+        
+        ResultSet resultSet = statement.executeQuery();
+        
+        ArrayList<Compra> compras = new ArrayList<>();
+        
+        while(resultSet.next()){
+            int id_item = resultSet.getInt("id_itemCompra");
+            String nome = resultSet.getString("nome");
+            float preco = resultSet.getFloat("preco_total");
+            String unidade = resultSet.getString("unidade");
+            int quantidade = resultSet.getInt("qtd");
+            
+            Compra compra = new Compra(id_item, preco, unidade, nome, quantidade);
+            
+            compras.add(compra);
+        }
+        
+        return compras;
     }
 
 }

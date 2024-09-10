@@ -103,7 +103,7 @@ CREATE TABLE Historico(
 CREATE TABLE Compra(
     id_compra SERIAL,
     preco NUMERIC(10,2) NOT NULL,
-    unidade VARCHAR(10) NOT NULL,
+    unidade VARCHAR(20) NOT NULL,
     quantidade INT NOT NULL,
     fk_id_historico INT NOT NULL,
     fk_id_produto INT NOT NULL,
@@ -137,11 +137,11 @@ INSERT INTO Produto (nome, descricao, preco, unidade, quantidade, fk_nome_catego
 VALUES (nome, descricao, preco, unidade, quantidade, fk_nome_categoria);
 END $$;
 
-CREATE PROCEDURE UpdateProduto (nome VARCHAR(50), descricao VARCHAR(50), preco NUMERIC(10,2), unidade VARCHAR(20), quantidade INT, fk_nome_categoria VARCHAR(20), idProduto INT)
+CREATE PROCEDURE UpdateProduto (nome_produto VARCHAR(50), descricao_produto VARCHAR(50), preco_produto NUMERIC(10,2), unidade_produto VARCHAR(20), quantidade_produto INT, nome_categoria VARCHAR(20), idProduto INT)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-UPDATE produto SET nome = nome, descricao = descricao, preco = preco, unidade = unidade, quantidade = quantidade, fk_nome_categoria = fk_nome_categoria
+UPDATE produto SET nome = nome_produto, descricao = descricao_produto, preco = preco_produto, unidade = unidade_produto, quantidade = quantidade_produto, fk_nome_categoria = nome_categoria
 WHERE id_produto = idProduto;
 END $$;
 
@@ -155,7 +155,6 @@ LEFT JOIN logradouro AS LGD ON E.fk_id_logradouro = LGD.id_logradouro
 LEFT JOIN bairro AS BAI ON LGD.fk_id_bairro = BAI.id_bairro
 LEFT JOIN cidade AS CID ON LGD.fk_id_cidade = CID.id_cidade;
 
-
 CREATE VIEW view_cliente
 AS
 SELECT CLI.id_cliente, CLI.nome AS nome_cliente, CLI.cpf, CLI.telefone, CID.nome AS nome_cidade, LGD.cep, LGD.nome AS nome_logradouro, BAI.nome AS nome_bairro
@@ -164,3 +163,36 @@ LEFT JOIN endereco AS E ON CLI.fk_id_endereco = E.id_endereco
 LEFT JOIN logradouro AS LGD ON E.fk_id_logradouro = LGD.id_logradouro
 LEFT JOIN bairro AS BAI ON LGD.fk_id_bairro = BAI.id_bairro
 LEFT JOIN cidade AS CID ON LGD.fk_id_cidade = CID.id_cidade;
+
+--CRIAÇÃO DE FUNCTION
+CREATE FUNCTION listarComprasPorIdCliente(id_cliente int) 
+RETURNS TABLE (
+	id_compra INT,
+	total_compra numeric(10,2)
+)
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT id_historico AS id_compra, preco_total AS total_compra 
+	FROM historico 
+	WHERE fk_id_cliente = id_cliente;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION listarProdutosCompradosPorIdHistorico(id_historico INT)
+RETURNS TABLE (
+	id_itemCompra INT,
+	nome VARCHAR(50),
+	preco_total NUMERIC(10,2),
+    unidade VARCHAR(25),
+    qtd INT
+)
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT COM.id_compra AS id_itemCompra, PROD.nome AS nome, COM.preco AS preco_total, COM.unidade AS unidade, COM.quantidade AS qtd
+	FROM compra AS COM
+	INNER JOIN produto AS PROD ON fk_id_produto = id_produto
+	WHERE fk_id_historico = id_historico;
+END;
+$$ LANGUAGE plpgsql;

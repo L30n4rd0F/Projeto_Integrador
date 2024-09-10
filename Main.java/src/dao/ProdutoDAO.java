@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -158,16 +159,16 @@ public class ProdutoDAO {
 
     public void cadastrarProduto(String nomeProduto, String nomeCategoria, int quantidade, String unidade, float preco, String descricao) throws SQLException {
         String sql = "CALL InserirProduto (?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.prepareCall(sql);
 
         statement.setString(1, nomeProduto);
         statement.setString(2, descricao);
-        statement.setFloat(3, preco);
+        statement.setBigDecimal(3, BigDecimal.valueOf(preco));
         statement.setString(4, unidade);
         statement.setInt(5, quantidade);
         statement.setString(6, nomeCategoria);
 
-        statement.executeUpdate();
+        statement.execute();
         statement.close();
     }
 
@@ -218,7 +219,7 @@ public class ProdutoDAO {
 
         statement.setString(1, nomeProduto);
         statement.setString(2, descricao);
-        statement.setFloat(3, preco);
+        statement.setBigDecimal(3, BigDecimal.valueOf(preco));
         statement.setString(4, unidade);
         statement.setInt(5, quantidade);
         statement.setString(6, nomeCategoria);
