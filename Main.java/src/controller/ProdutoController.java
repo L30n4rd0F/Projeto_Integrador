@@ -336,10 +336,7 @@ public class ProdutoController {
 
                     CompraDAO compraDAO = new CompraDAO();
                     compraDAO.adicionarCarrinhoCompra(produtoSelecionado.getPreco(), produtoSelecionado.getUnidade(), quantidade, id_historico, produtoSelecionado.getId_produto());
-
-                    ProdutoDAO produtoDAO = new ProdutoDAO();
-                    // Diminui a quantidade de produtos vendidos do estoque
-                    produtoDAO.diminuirQuantidade(quantidade, produtoSelecionado.getNome());
+                    
                 }
                 limparCarrinho();
             } else {

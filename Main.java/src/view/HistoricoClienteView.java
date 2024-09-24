@@ -49,7 +49,7 @@ public class HistoricoClienteView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_Compra", "Preço", "Método de pagamento"
+                "ID_Compra", "Preço Total", "Método de pagamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {

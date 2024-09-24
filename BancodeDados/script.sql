@@ -168,12 +168,13 @@ LEFT JOIN cidade AS CID ON LGD.fk_id_cidade = CID.id_cidade;
 CREATE FUNCTION listarComprasPorIdCliente(id_cliente int) 
 RETURNS TABLE (
 	id_compra INT,
-	total_compra numeric(10,2)
+	total_compra numeric(10,2),
+	pagamento VARCHAR(25)
 )
 AS $$
 BEGIN
 	RETURN QUERY
-	SELECT id_historico AS id_compra, preco_total AS total_compra 
+	SELECT id_historico AS id_compra, preco_total AS total_compra, metodo_pagamento AS pagamento 
 	FROM historico 
 	WHERE fk_id_cliente = id_cliente;
 END;
@@ -190,9 +191,28 @@ RETURNS TABLE (
 AS $$
 BEGIN
 	RETURN QUERY
-	SELECT COM.id_compra AS id_itemCompra, PROD.nome AS nome, COM.preco AS preco_total, COM.unidade AS unidade, COM.quantidade AS qtd
+	SELECT COM.id_compra AS id_itemCompra, PROD.nome AS nome, (COM.preco*COM.quantidade) AS preco_total, COM.unidade AS unidade, COM.quantidade AS qtd
 	FROM compra AS COM
 	INNER JOIN produto AS PROD ON fk_id_produto = id_produto
 	WHERE fk_id_historico = id_historico;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE FUNCTION diminuirQuantidadeProdutoNoEstoque()
+RETURNS TRIGGER 
+AS $$
+BEGIN
+	UPDATE produto 
+	SET quantidade = (quantidade - NEW.quantidade)
+	WHERE id_produto = NEW.fk_id_produto;
+	
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+--CRIAÇÃO DE TRIGGER
+CREATE TRIGGER atualizarProdutoEstoqueAposInserirItemNoCarrinho 
+AFTER INSERT ON compra
+FOR EACH ROW
+EXECUTE FUNCTION diminuirQuantidadeProdutoNoEstoque();
+

@@ -33,7 +33,7 @@ public class CompraDAO {
     public ArrayList<Compra> readCompra(int id_historico) throws SQLException {
         String sql = "SELECT p.nome, c.preco, c.quantidade, c.unidade " +
          "FROM compra c " +
-         "JOIN produtos p ON c.fk_id_produto = p.id_produto " + 
+         "JOIN produto p ON c.fk_id_produto = p.id_produto " + 
          "WHERE c.fk_id_historico = ?"; 
              
         PreparedStatement statement = connection.prepareStatement(sql);
