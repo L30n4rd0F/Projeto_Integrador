@@ -216,3 +216,15 @@ AFTER INSERT ON compra
 FOR EACH ROW
 EXECUTE FUNCTION diminuirQuantidadeProdutoNoEstoque();
 
+--CRIAÇÃO DE RULE
+CREATE RULE cpf_invalido_cliente AS
+ON INSERT TO cliente
+WHERE LENGTH(NEW.cpf) != 14
+DO INSTEAD NOTHING
+
+CREATE RULE cpf_invalido_usuario AS
+ON INSERT TO usuario
+WHERE LENGTH(NEW.cpf) != 14
+DO INSTEAD NOTHING
+
+
