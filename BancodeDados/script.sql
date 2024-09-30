@@ -221,12 +221,12 @@ EXECUTE FUNCTION diminuirQuantidadeProdutoNoEstoque();
 CREATE RULE cpf_invalido_cliente AS
 ON INSERT TO cliente
 WHERE LENGTH(NEW.cpf) != 14
-DO INSTEAD NOTHING
+DO INSTEAD NOTHING;
 
 CREATE RULE cpf_invalido_usuario AS
 ON INSERT TO usuario
 WHERE LENGTH(NEW.cpf) != 14
-DO INSTEAD NOTHING
+DO INSTEAD NOTHING;
 
 CREATE RULE produto_invalido AS
 ON INSERT TO produto
