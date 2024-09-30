@@ -54,7 +54,8 @@ CREATE TABLE Usuario(
     CONSTRAINT PK_ID_USUARIO PRIMARY KEY (id_usuario),
 	CONSTRAINT CK_TELEFONE_USUARIO CHECK (LENGTH(telefone) >= 15),
 	CONSTRAINT UQ_CPF_USUARIO UNIQUE (cpf),
-    CONSTRAINT FK_ID_ENDERECO FOREIGN KEY (fk_id_endereco) REFERENCES Endereco(id_endereco)
+    CONSTRAINT FK_ID_ENDERECO FOREIGN KEY (fk_id_endereco) REFERENCES Endereco(id_endereco),
+    CONSTRAINT CK_SENHA CHECK (LENGTH(senha) > 3)
 );
 
 CREATE TABLE Cliente(
@@ -112,7 +113,7 @@ CREATE TABLE Compra(
     CONSTRAINT FK_ID_PRODUTO FOREIGN KEY (fk_id_produto) REFERENCES Produto(id_produto)
 );
 
-INSERT INTO Usuario (nome, cpf, senha, telefone, admin) VALUES('adm','000.000.000-00','123','(00) 00000-0000', true);
+INSERT INTO Usuario (nome, cpf, senha, telefone, admin) VALUES('adm','000.000.000-00','1234','(00) 00000-0000', true);
 
 --CRIAÇÃO DE PROCEDURE
 CREATE PROCEDURE InserirCliente (nome VARCHAR(50), cpf VARCHAR(14), telefone VARCHAR(20), observacao TEXT)
