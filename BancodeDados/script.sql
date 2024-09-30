@@ -230,5 +230,5 @@ DO INSTEAD NOTHING
 
 CREATE RULE produto_invalido AS
 ON INSERT TO produto
-WHERE NEW.preco < 0
+WHERE NEW.preco <= 0
 DO INSTEAD NOTHING;
